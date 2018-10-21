@@ -22,7 +22,7 @@
 
 # Compiled Static libraries
 *.lai
-*.la
+*.la	
 *.a
 *.lib
 
@@ -30,3 +30,24 @@
 *.exe
 *.out
 *.app
+/build
+/bin
+/install
+/deploy
+
+# Qt cache
+CMakeLists.txt.user
+CMakeLists.txt.user.*
+
+# IDE project files
+*.sublime-project
+*.sublime-workspace
+
+# Local config windows
+_configure.bat
+_open-project.bat
+_start-cmake-gui.bat
+_start-cmd.bat
+
+# Local config unix
+.localconfig
