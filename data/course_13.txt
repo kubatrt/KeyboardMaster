@@ -1,0 +1,5 @@
+;'; ;'; ;'; ;'; ;"; ;"; ;"; 'l' 'l' 'l' 'k' 'k' 'k' 'j' 'j' 'j' "l" "l" "l" "k"
+"k" "k" "j" "j" "j" 'kruk' 'król' 'lala' 'klik' 'kraj' 'lak' 'mak' "klan" "jak"
+"flak" "kijek" "loki" "koki" "paka" "plik" "Klan" "Kruki" "Kleks" "Potop" "Wesele"
+"Elektra" "Solaris" "Titanic" "Dziady" "Hamlet" "Astronauci" "Zemsta" "Armagedon"
+"Archiwum X" "Teacher", "Szczury", "Makbet", "Pan Tadeusz", "Mistrz Klawiatury".

@@ -1,0 +1,3 @@
+To jest tekst testowy.
+Testownia do testowania testu.
+Tasowanie testu takiego tekstu.
