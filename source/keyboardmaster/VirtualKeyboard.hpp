@@ -2,8 +2,8 @@
 
 #include <map>
 #include <SFML/Graphics.hpp>
-#include "../FrameworkLib/IGameComponent.hpp"
-#include "../FrameworkLib/ResourceManager/ResourceHolder.hpp"
+#include "frameworkLib/IGameComponent.hpp"
+#include "frameworkLib/ResourceManager/ResourceHolder.hpp"
 #include "Misc.hpp"
 
 namespace km

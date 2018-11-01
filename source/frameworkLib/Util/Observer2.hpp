@@ -60,7 +60,7 @@ public:
     }
     void unregisterObserver(ObservedPtr object)
     {
-        list.erase(std::remove(list.begin(), list.end(), object), list.end());
+        //list.erase(std::remove(list.begin(), list.end(), object), list.end());
     }
     void notify(int value)
     {

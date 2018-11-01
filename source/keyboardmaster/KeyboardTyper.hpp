@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "Misc.hpp"
 #include "Dictionary.hpp"
-#include "../FrameworkLib/Utilities.hpp"
+#include "frameworkLib/Utilities.hpp"
 
 namespace km
 {

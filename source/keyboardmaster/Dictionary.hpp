@@ -7,7 +7,7 @@
 #include <map>
 #include <set>
 #include <SFML/System.hpp>
-#include "../FrameworkLib/Utilities.hpp"
+#include "frameworkLib/Utilities.hpp"
 #include "Misc.hpp"
 
 

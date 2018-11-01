@@ -1,10 +1,10 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "../FrameworkLib/Util/FPSCounter.hpp"
-#include "../FrameworkLib/StateBase.hpp"
-#include "../FrameworkLib/GameBase.hpp"
-#include "../FrameworkLib/Utilities.hpp"
+#include "frameworkLib/Util/FPSCounter.hpp"
+#include "frameworkLib/StateBase.hpp"
+#include "frameworkLib/GameBase.hpp"
+#include "frameworkLib/Utilities.hpp"
 
 namespace km
 {

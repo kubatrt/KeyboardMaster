@@ -1,7 +1,7 @@
 #include "WordsAttackGame.hpp"
 #include <memory>
-#include "../FrameworkLib/Util/Observer.hpp"
-#include "../FrameworkLib/Util/Random.hpp"
+#include "frameworkLib/Util/Observer.hpp"
+#include "frameworkLib/Util/Random.hpp"
 
 namespace km
 {

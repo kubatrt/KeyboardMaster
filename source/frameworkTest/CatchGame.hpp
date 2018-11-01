@@ -4,10 +4,10 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-#include "../FrameworkLib/Util/FPSCounter.hpp"
-#include "../FrameworkLib/StateBase.hpp"
-#include "../FrameworkLib/Utilities.hpp"
-#include "../FrameworkLib/GameBase.hpp"
+#include "frameworkLib/Util/FPSCounter.hpp"
+#include "frameworkLib/StateBase.hpp"
+#include "frameworkLib/Utilities.hpp"
+#include "frameworkLib/GameBase.hpp"
 
 namespace example
 {

@@ -13,9 +13,9 @@
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 
-#include "../FrameworkLib/StateBase.hpp"
-#include "../FrameworkLib/GameBase.hpp"
-#include "../FrameworkLib/Utilities.hpp"
+#include "frameworkLib/StateBase.hpp"
+#include "frameworkLib/GameBase.hpp"
+#include "frameworkLib/Utilities.hpp"
 #include "VirtualKeyboard.hpp"
 #include "Dictionary.hpp"
 #include "KeyboardTyper.hpp"

@@ -2,8 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include "Misc.hpp"
-#include "../FrameworkLib/Utilities.hpp"
-#include "../FrameworkLib/ResourceManager/ResourceHolder.hpp"
+#include "frameworkLib/Utilities.hpp"
+#include "frameworkLib/ResourceManager/ResourceHolder.hpp"
 
 namespace km
 {

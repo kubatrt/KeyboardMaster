@@ -1,6 +1,6 @@
 #include <algorithm>
 #include "GameSate.hpp"
-#include "../FrameworkLib/ResourceManager/ResourceHolder.hpp"
+#include "frameworkLib/ResourceManager/ResourceHolder.hpp"
 
 namespace example
 {

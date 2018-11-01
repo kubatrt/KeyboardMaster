@@ -8,8 +8,8 @@
 #include "GalleryGame.hpp"
 #include "WordsAttackGame.hpp"
 #include "WritingGame.hpp"
-#include "../FrameworkLib/GUI/Button.hpp"
-#include "../FrameworkLib/GUI/Textbox.hpp"
+#include "frameworkLib/GUI/Button.hpp"
+#include "frameworkLib/GUI/Textbox.hpp"
 
 
 namespace km

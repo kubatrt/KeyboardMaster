@@ -2,10 +2,10 @@
 #include <string>
 #include <memory>
 #include "CourseMenu.hpp"
-#include "../FrameworkLib/GUI/Button.hpp"
-#include "../FrameworkLib/GUI/Textbox.hpp"
-#include "../FrameworkLib/Util/Files.hpp"
-#include "../FrameworkLib/Utilities.hpp"
+#include "frameworkLib/GUI/Button.hpp"
+#include "frameworkLib/GUI/Textbox.hpp"
+#include "frameworkLib/Util/Files.hpp"
+#include "frameworkLib/Utilities.hpp"
 
 namespace example
 {

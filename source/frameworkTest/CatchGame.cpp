@@ -1,7 +1,7 @@
 #include "CatchGame.hpp"
 #include "MainMenu.hpp"
 #include "CourseMenu.hpp"
-#include "../FrameworkLib/ResourceManager/ResourceManager.hpp"
+#include "frameworkLib/ResourceManager/ResourceManager.hpp"
 
 namespace example
 {

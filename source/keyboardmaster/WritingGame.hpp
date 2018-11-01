@@ -1,8 +1,8 @@
 #pragma once
 
 #include <iostream>
-#include "../FrameworkLib/GameBase.hpp"
-#include "../FrameworkLib/StateBase.hpp"
+#include "frameworkLib/GameBase.hpp"
+#include "frameworkLib/StateBase.hpp"
 #include "VirtualKeyboard.hpp"
 #include "Dictionary.hpp"
 #include "KeyboardTyper.hpp"

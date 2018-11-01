@@ -1,6 +1,6 @@
 #include <algorithm>
 #include "Picture.hpp"
-#include "../FrameworkLib/Utilities.hpp"
+#include "frameworkLib/Utilities.hpp"
 
 namespace km
 {

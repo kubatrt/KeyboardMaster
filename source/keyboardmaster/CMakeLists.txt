@@ -8,7 +8,14 @@ project(km)
 file(GLOB_RECURSE SOURCES *.cpp)
 add_executable(km ${SOURCES})
 
-find_package(SFML REQUIRED graphics network audio window system)
-target_link_libraries(km ${SFML_LIBRARIES} frameworkLib)
+message("Including..." ${PROJECT_SOURCE_DIR})
+include_directories(${PROJECT_SOURCE_DIR})
+
+find_package(SFML 2 REQUIRED graphics network audio window system)
+if(SFML_FOUND)
+message(${SFML_INCLUDE_DIR})
+  include_directories(${SFML_INCLUDE_DIR})
+  target_link_libraries(km ${SFML_LIBRARIES} frameworkLib)
+endif()
 
 file(COPY ${CMAKE_SOURCE_DIR}/data DESTINATION ${CMAKE_BINARY_DIR})

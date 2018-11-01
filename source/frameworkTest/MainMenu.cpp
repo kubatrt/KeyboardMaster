@@ -1,8 +1,8 @@
 #include "MainMenu.hpp"
 #include "CourseMenu.hpp"
 #include "GameSate.hpp"
-#include "../FrameworkLib/GUI/Button.hpp"
-#include "../FrameworkLib/GUI/Textbox.hpp"
+#include "frameworkLib/GUI/Button.hpp"
+#include "frameworkLib/GUI/Textbox.hpp"
 
 #include <iostream>
 #include <string>

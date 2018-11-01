@@ -29,14 +29,18 @@ if(${CMAKE_CXX_COMPILER_ID} STREQUAL GNU)
 endif()
 
 # Includes
-if(BUILD_TESTING)
+if(BUILD_TESTS)
     #include(googletest-download)
 endif()
 
+message("TOP Including..." ${PROJECT_SOURCE_DIR}/source)
+include_directories(${PROJECT_SOURCE_DIR}/source)
 
-add_subdirectory(doc)
 add_subdirectory(source)
-if(BUILD_TESTING)
+if (GEN_DOCS)
+    add_subdirectory(doc)
+endif (GEN_DOCS)
+if(BUILD_TESTS)
     add_subdirectory(test)
 endif()
 

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../FrameworkLib/GameBase.hpp"
-#include "../FrameworkLib/StateBase.hpp"
+#include "frameworkLib/GameBase.hpp"
+#include "frameworkLib/StateBase.hpp"
 #include "WordBlock.hpp"
 #include "Dictionary.hpp"
 

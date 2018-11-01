@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../FrameworkLib/StateBase.hpp"
-#include "../FrameworkLib/GUI/StackMenu.hpp"
-#include "../FrameworkLib/GameBase.hpp"
+#include "frameworkLib/StateBase.hpp"
+#include "frameworkLib/GUI/StackMenu.hpp"
+#include "frameworkLib/GameBase.hpp"
 
 namespace example
 {

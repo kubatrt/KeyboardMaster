@@ -1,6 +1,6 @@
 #pragma once
 
-#include <SFML\System.hpp>
+#include <SFML/System.hpp>
 #include <functional>
 
 namespace km

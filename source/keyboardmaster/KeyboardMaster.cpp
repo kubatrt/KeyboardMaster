@@ -1,6 +1,6 @@
 #include "KeyboardMaster.hpp"
 #include "MainMenu.hpp"
-#include "../FrameworkLib/ResourceManager/ResourceManager.hpp"
+#include "frameworkLib/ResourceManager/ResourceManager.hpp"
 
 namespace km
 {

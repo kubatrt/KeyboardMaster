@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CourseGame.hpp"
-#include "../FrameworkLib/ResourceManager/ResourceHolder.hpp"
+#include "frameworkLib/ResourceManager/ResourceHolder.hpp"
 
 namespace km
 {

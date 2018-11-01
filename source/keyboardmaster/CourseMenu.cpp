@@ -1,8 +1,7 @@
 #include "CourseMenu.hpp"
 #include "MainMenu.hpp"
 #include "CourseGame.hpp"
-
-#include "../FrameworkLib/GUI/Button.hpp"
+#include "frameworkLib/GUI/Button.hpp"
 
 namespace km
 {
