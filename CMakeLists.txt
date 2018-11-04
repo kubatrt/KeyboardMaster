@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.10)
 project(keyboardmaster)
 
 # Options
-option(BUILD_TESTS "Build test executable" OFF)
+option(BUILD_TESTS "Build test executable" ON)
 option(GEN_DOCS "Generate documentation" OFF)
 option(ENABLE_COVERAGE "Enable code coverage" OFF)
 option(BUILD_SHARED_LIBS "Global flag to cause `add_library()` to create shared libraries if on." OFF)
