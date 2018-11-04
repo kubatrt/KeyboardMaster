@@ -1,7 +1,4 @@
-#include "gtest/gtest.h"
 #include "StateBaseMock.hpp"
-#include "../FrameworkLib/StateBase.hpp"
-
 
 using namespace framework;
 using namespace testing;

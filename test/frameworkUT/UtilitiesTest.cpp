@@ -1,9 +1,10 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
-#include "gtest\gtest.h"
-#include "frameworkLib\Utilities.hpp"
-#include "frameworkLib\Util\Maths.hpp"
+#include <gtest/gtest.h>
+#include <SFML/Graphics.hpp>
+#include "frameworkLib/Utilities.hpp"
+#include "frameworkLib/Util/Maths.hpp"
 
 using namespace testing;
 using namespace framework;
