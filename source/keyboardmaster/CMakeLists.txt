@@ -14,6 +14,4 @@ include_directories(${PROJECT_SOURCE_DIR})
 include_directories(${SFML_INCLUDE_DIR})
 target_link_libraries(km frameworkLib ${SFML_LIBRARIES})
 
-set(${CMAKE_BINARY_DIR} ${CMAKE_BINARY_DIR} PARENT_SCOPE)
-
-file(COPY ${PROJECT_DATA_DIR} DESTINATION ${CMAKE_BINARY_DIR}/bin)
+file(COPY ${PROJECT_DATA_DIR} DESTINATION ${PROJECT_ROOT_DIR}/bin)
