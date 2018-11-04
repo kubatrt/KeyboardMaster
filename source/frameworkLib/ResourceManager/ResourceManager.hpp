@@ -12,7 +12,7 @@ class ResourceManager
 {
 public:
     ResourceManager(const std::string& folder, const std::string& extention)
-        : folder_(resourceDirectory_ + folder + "\\")
+        : folder_(resourceDirectory_ + folder + "/")
         , extension_("." + extention)
     {
     }
@@ -34,11 +34,11 @@ public:
     void add(const std::string& name)
     {
         Resource res;
-        //if the resource fails to load, then it adds a default "fail" resource
+        // if the resource fails to load, then it adds a default "fail" resource
         if (!res.loadFromFile(getFullname(name)))
         {
             Resource fail;
-            fail.loadFromFile(folder_ + "_fail_" + ".ogg");
+            fail.loadFromFile(folder_ + "_fail_" + extension_);
             m_resources.insert(std::make_pair(name, fail));
         }
         else
@@ -53,7 +53,7 @@ private:
         return folder_ + name + extension_;
     }
 
-    const std::string resourceDirectory_ = "D:\\Workspace\\Projects\\Framework\\Debug\\res\\";
+    const std::string resourceDirectory_ = "data/";
     const std::string folder_;
     const std::string extension_;
 

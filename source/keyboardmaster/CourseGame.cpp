@@ -1,5 +1,3 @@
-#pragma once
-
 #include "CourseGame.hpp"
 #include "frameworkLib/ResourceManager/ResourceHolder.hpp"
 

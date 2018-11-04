@@ -40,8 +40,6 @@ public:
 
     void update(sf::Time deltaTime);
 
-    std::wstring debugInfo() {};
-
 private:
    // Dictionary dictionary_;
     sf::Clock timer_;

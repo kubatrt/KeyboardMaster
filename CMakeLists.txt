@@ -1,15 +1,31 @@
 cmake_minimum_required(VERSION 3.10)
 
-# options
+project(keyboardmaster)
+
+# Options
+option(BUILD_TESTS "Build test executable" OFF)
+option(GEN_DOCS "Generate documentation" OFF)
+option(ENABLE_COVERAGE "Enable code coverage" OFF)
 option(BUILD_SHARED_LIBS "Global flag to cause `add_library()` to create shared libraries if on." OFF)
 option(CMAKE_EXPORT_COMPILE_COMMANDS "Enable/Disable output of compile commands during generation." ON)
 
+
 set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/stage" CACHE STRING "Install path prefix, prepended onto install directories.")
 
+set(PROJECT_DATA_DIR ${PROJECT_SOURCE_DIR}/data)
 
-project(keyboardmaster)
+set(CMAKE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/source)
+set(CMAKE_BINARY_DIR ${PROJECT_SOURCE_DIR}/bin)
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/modules")
+
+#find_package(Boost REQUIRED)
+find_package(Git REQUIRED)
+find_package(SFML 2 REQUIRED graphics network audio window system)
 
 # set C++ standard
 set(CMAKE_CXX_STANDARD 17)
@@ -23,17 +39,23 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 set(CMAKE_C_VISIBILITY_PRESET hidden)
 
-
 if(${CMAKE_CXX_COMPILER_ID} STREQUAL GNU)
     add_compile_options(-Wl,-fuse-ld=gold)
 endif()
 
+# Build configuration, 'Debug' by default
+if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+    message(STATUS "Setting build type to 'Release' as no build type was specified")
+    set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Choose the build type (Debug/Release)" FORCE)
+endif (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+
 # Includes
 if(BUILD_TESTS)
-    #include(googletest-download)
+	include(CTest)
+    include(googletest-download)
 endif()
 
-message("TOP Including..." ${PROJECT_SOURCE_DIR}/source)
+#message("TOP Including..." ${PROJECT_SOURCE_DIR}/source)
 include_directories(${PROJECT_SOURCE_DIR}/source)
 
 add_subdirectory(source)

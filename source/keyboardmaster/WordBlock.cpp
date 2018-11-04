@@ -1,4 +1,4 @@
-#include "WordBlock.hpp";
+#include "WordBlock.hpp"
 
 namespace km
 {

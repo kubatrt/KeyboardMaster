@@ -1,18 +1,15 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
-#include <SFML\Graphics.hpp>
-
 #include "gtest\gtest.h"
-
-#include "..\FrameworkLib\Utilities.hpp"
-#include "..\FrameworkLib\Util\Maths.hpp"
+#include "frameworkLib\Utilities.hpp"
+#include "frameworkLib\Util\Maths.hpp"
 
 using namespace testing;
 using namespace framework;
 using namespace framework::charutils;
 
-TEST(CharUtils, Captitalize)
+TEST(CharaUtils, Captitalize)
 {
 	std::string exampleText = "warsaw";
 	Capitalize capitalize; 
@@ -66,11 +63,11 @@ TEST(MathTest, Collision2d)
 	EXPECT_TRUE(collision2d(p, rect));
 }
 
-
-int main(int argc, char **argv)
+/*int main(int argc, char **argv)
 {
     testing::InitGoogleTest(&argc, argv);
     auto ret = RUN_ALL_TESTS();
     std::cin.get();
     return ret;
-}
+}*/
+

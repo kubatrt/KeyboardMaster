@@ -8,7 +8,7 @@ namespace km
 
 WordsAttackGame::WordsAttackGame(fw::GameBase& game)
     : StateBase(game)
-    , dictionary_("D:/Workspace/Projects/Framework/Debug/data/words_01")
+    , dictionary_("data/words_01")
     , spawnInterval_(sf::seconds(1.f))
 {
     typingTextUI_.setCharacterSize(24);

@@ -6,7 +6,7 @@ namespace km
 {
 
 Picture::Picture(const sf::Texture& texture, uint width, uint height, uint rows, uint cols)
-    : dictionary_("D:/Workspace/Projects/Framework/Debug/data/words_01")  // data/words_01
+    : dictionary_("data/words_01")  // data/words_01
     , isComplete_(false)
 {
     std::cout << "PICTURE Width: " << width << " Height: " << height << std::endl;

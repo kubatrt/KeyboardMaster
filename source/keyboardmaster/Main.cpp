@@ -2,7 +2,7 @@
 
 using namespace km;
 
-int main(int argc, char* argv)
+int main(int argc, char** argv)
 {
     KeyboardMaster game;
     return game.run();

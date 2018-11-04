@@ -12,7 +12,6 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
-
 #include "frameworkLib/StateBase.hpp"
 #include "frameworkLib/GameBase.hpp"
 #include "frameworkLib/Utilities.hpp"
