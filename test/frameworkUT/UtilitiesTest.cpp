@@ -64,11 +64,3 @@ TEST(MathTest, Collision2d)
 	EXPECT_TRUE(collision2d(p, rect));
 }
 
-/*int main(int argc, char **argv)
-{
-    testing::InitGoogleTest(&argc, argv);
-    auto ret = RUN_ALL_TESTS();
-    std::cin.get();
-    return ret;
-}*/
-

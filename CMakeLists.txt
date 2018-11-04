@@ -9,15 +9,14 @@ option(ENABLE_COVERAGE "Enable code coverage" OFF)
 option(BUILD_SHARED_LIBS "Global flag to cause `add_library()` to create shared libraries if on." OFF)
 option(CMAKE_EXPORT_COMPILE_COMMANDS "Enable/Disable output of compile commands during generation." ON)
 
-
 set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/stage" CACHE STRING "Install path prefix, prepended onto install directories.")
 
 # Project cache variables
 set(PROJECT_ROOT_DIR ${PROJECT_SOURCE_DIR} CACHE INTERNAL "" FORCE)
 set(PROJECT_DATA_DIR ${PROJECT_SOURCE_DIR}/data CACHE INTERNAL "" FORCE)
-set(THIRD_PARTY_DIR ${PROJECT_ROOT_DIR}/3rdparty CACHE INTERNAL "" FORCE)
+set(THIRD_PARTY_DIR ${PROJECT_SOURCE_DIR}/3rdparty CACHE INTERNAL "" FORCE)
 
-set(CMAKE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/source)
+set(CMAKE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/source)	# not propagate
 set(CMAKE_BINARY_DIR ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
@@ -57,8 +56,6 @@ if(BUILD_TESTS)
     include(download/googletest)
 endif()
 
-#message("TOP Including..." ${PROJECT_SOURCE_DIR}/source)
-include_directories(${PROJECT_SOURCE_DIR}/source)
 
 add_subdirectory(source)
 if (GEN_DOCS)

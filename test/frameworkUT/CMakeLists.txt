@@ -1,7 +1,6 @@
-#project(frameworkUT)
 set(TEST_NAME frameworkUT)
 
-include_directories(${TEST_NAME} ${SFML_INCLUDE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/../../3rdparty)
+include_directories(${CMAKE_SOURCE_DIR}/source ${SFML_INCLUDE_DIR} ${THIRD_PARTY_DIR})
 
 file(GLOB_RECURSE SOURCES *.cpp)
 add_executable(${TEST_NAME} ${SOURCES})
