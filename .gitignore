@@ -51,3 +51,38 @@ _start-cmd.bat
 
 # Local config unix
 .localconfig
+
+# Others
+3rdparty/googletest-build/
+3rdparty/googletest-download/
+3rdparty/googletest-src/
+CMakeCache.txt
+CMakeFiles/
+CTestTestfile.cmake
+DartConfiguration.tcl
+Makefile
+cmake_install.cmake
+source/CMakeFiles/
+source/CTestTestfile.cmake
+source/Makefile
+source/cmake_install.cmake
+source/frameworkLib/CMakeFiles/
+source/frameworkLib/CTestTestfile.cmake
+source/frameworkLib/Makefile
+source/frameworkLib/cmake_install.cmake
+source/frameworkTest/CMakeFiles/
+source/frameworkTest/CTestTestfile.cmake
+source/frameworkTest/Makefile
+source/frameworkTest/cmake_install.cmake
+source/keyboardmaster/CMakeFiles/
+source/keyboardmaster/CTestTestfile.cmake
+source/keyboardmaster/Makefile
+source/keyboardmaster/cmake_install.cmake
+test/CMakeFiles/
+test/CTestTestfile.cmake
+test/Makefile
+test/cmake_install.cmake
+test/frameworkUT/CMakeFiles/
+test/frameworkUT/CTestTestfile.cmake
+test/frameworkUT/Makefile
+test/frameworkUT/cmake_install.cmake
