@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.9.2)
 
 project(keyboardmaster)
 
@@ -25,7 +25,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
 #find_package(Boost REQUIRED)
-find_package(Git REQUIRED)
+#find_package(Git REQUIRED)
 find_package(SFML 2 REQUIRED graphics network audio window system)
 
 # set C++ standard

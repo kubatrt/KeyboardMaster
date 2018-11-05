@@ -7,6 +7,7 @@ env:
         - COVERAGE=false
         - GEN_DOC=false
 
+sudo: true
 os: linux
 dist: trusty
 
@@ -21,6 +22,7 @@ addons:
         packages:
         - g++-8
         - clang-5.0
+        - cmake
 before_install:
     # Combine global build options with OS/compiler-dependent options
     - export CMAKE_OPTIONS=${CMAKE_OPTIONS}" "${ENV_CMAKE_OPTIONS}
@@ -35,3 +37,7 @@ before_script:
 
 script:
     - make
+    - ctest
+
+after_success:
+    - echo "Congratulations!"
