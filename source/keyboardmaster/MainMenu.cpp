@@ -47,10 +47,10 @@ MainMenu::MainMenu(fw::GameBase& game)
     b4->setFunction([&] ()
     {
         std::string articlesFiles[] = {
-            "D:\\Workspace\\Projects\\Framework\\Debug\\data\\art_01.txt",
-            "D:\\Workspace\\Projects\\Framework\\Debug\\data\\art_02.txt",
-            "D:\\Workspace\\Projects\\Framework\\Debug\\data\\art_03.txt",
-            "D:\\Workspace\\Projects\\Framework\\Debug\\data\\art_04.txt"
+            "data/art_01.txt",
+            "data/art_02.txt",
+            "data/art_03.txt",
+            "data/art_04.txt"
         };
         int pick = fw::RandomMachine::getRange(0, 3);
         game_.pushState<WritingGame>(game_, articlesFiles[pick]);
