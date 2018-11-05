@@ -12,7 +12,6 @@ os: linux
 dist: trusty
 compiler:
     - gcc
-    - clang
 addons:
     apt:
         sources:
