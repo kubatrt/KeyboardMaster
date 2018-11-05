@@ -23,7 +23,7 @@ addons:
         - gcovr
         - doxygen
 before_install:
-    - sudo apt -get install -y libsfml-dev
+    - sudo apt get install -y libsfml-dev
     # Combine global build options with OS/compiler-dependent options
     - export CMAKE_OPTIONS=${CMAKE_OPTIONS}" "${ENV_CMAKE_OPTIONS}
     - export CXX_FLAGS=${CXX_FLAGS}" "${ENV_CXX_FLAGS}
