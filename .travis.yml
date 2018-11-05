@@ -10,7 +10,6 @@ env:
 sudo: true
 os: linux
 dist: trusty
-
 compiler:
     - gcc
     - clang
@@ -32,12 +31,13 @@ install:
     - "[ $CXX = g++ ] && export CXX=g++-8 || true"
     - "[ $CXX = clang++ ] && export CXX=clang++-5 || true"
 
-before_script:
-    - cmake .
-
 script:
+    - mkdir -p bin
+    - cmake CMakeLists.txt
     - make
-    - ctest
+    - ./bin/frameworkUT
+    - ./bin/keyboardmasterUT
+
 
 after_success:
     - echo "Congratulations!"
