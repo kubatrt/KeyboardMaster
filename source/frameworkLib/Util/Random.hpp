@@ -6,8 +6,8 @@
 namespace framework
 {
 
-// new
-template <typename TEngine = std::mt19937>
+// new Random generator helper class
+template <typename Engine = std::mt19937>
 class Random
 {
     template<typename T>
@@ -16,8 +16,8 @@ class Random
 
     public:
         Random(int seed = std::time(nullptr))
-        :   m_prng  (seed)
-        { }
+        	: m_prng(seed)
+        {}
 
         int getIntInRange(int low, int high)
         {
@@ -43,7 +43,7 @@ class Random
         }
 
     private:
-        TEngine m_prng;
+        Engine m_prng;
 };
 
 }

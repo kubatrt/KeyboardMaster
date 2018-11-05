@@ -7,6 +7,7 @@
 namespace framework
 {
 
+// Resource manager class
 template<typename Resource>
 class ResourceManager
 {

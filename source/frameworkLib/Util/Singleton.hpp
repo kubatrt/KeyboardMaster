@@ -1,6 +1,6 @@
 #pragma once
 
-namespace KM
+namespace framework
 {
 
 template <typename T>
@@ -16,7 +16,7 @@ protected:
 	Singleton() 
 	{
 		instance = new T; 
-		/*instance = static_cast<T*>(this);*/ 
+		/*instance = static_cast<T*>(this);*/ 	// doesn't work?
 	}
 	virtual ~Singleton() {}
 

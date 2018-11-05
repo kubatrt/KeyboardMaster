@@ -61,13 +61,22 @@ public:
     };
 
     // In-state access
-    const sf::RenderWindow& getWindow() const { return window_; };
-    void close() { window_.close(); };
+    const sf::RenderWindow& getWindow() const
+    {
+    	return window_;
+    };
+
+    void close()
+    {
+    	window_.close();
+    }
+
     void create()
     {
         auto style = isFullscreen_ ? sf::Style::Fullscreen : sf::Style::Default;
         window_.create({windowWidth_, windowHeight_}, windowTitle_, style);
     }
+
     void toggleFullscreen()
     {
         isFullscreen_ = !isFullscreen_;
@@ -100,7 +109,7 @@ protected:
     sf::RenderWindow window_;
 
 private:
-    std::vector<std::unique_ptr<StateBase>> states_;
+    std::vector<StateBasePtr> states_;
     bool popState_;
     bool isFullscreen_;
     std::string windowTitle_;
