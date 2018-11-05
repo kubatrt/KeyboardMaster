@@ -17,10 +17,8 @@ addons:
     apt:
         sources:
         - ubuntu-toolchain-r-test
-        - llvm-toolchain-trusty-5.0
         packages:
         - g++-8
-        - clang-5.0
         - cmake
 before_install:
     # Combine global build options with OS/compiler-dependent options
@@ -29,7 +27,6 @@ before_install:
 
 install:
     - "[ $CXX = g++ ] && export CXX=g++-8 || true"
-    - "[ $CXX = clang++ ] && export CXX=clang++-5 || true"
 
 script:
     - mkdir -p bin
