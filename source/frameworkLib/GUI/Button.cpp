@@ -14,11 +14,6 @@ sf::Color normal{ 52, 150, 220 };
 sf::Color clicked{ 52, 190, 220 };
 }
 
-namespace
-{
-}
-
-
 Button::Button(ButtonSize s)
 {
     button_.setFillColor(buttonColor::normal);

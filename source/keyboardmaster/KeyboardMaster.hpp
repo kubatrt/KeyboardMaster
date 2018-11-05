@@ -18,6 +18,7 @@ public:
     void update(sf::Time deltaTime) override;
     void draw(sf::RenderTarget& renderer) override;
     void handleEvents() override;
+
 private:
     //fw::FPSCounter fpsCounter_;
 };

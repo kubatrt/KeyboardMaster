@@ -18,7 +18,6 @@ enum class ButtonSize
     Thin
 };
 
-
 class Button : public Widget
 {
     public:
@@ -27,7 +26,6 @@ class Button : public Widget
         void setFunction(Callback func);
         void setText(const std::string& str);
         void setTexture(const sf::Texture& tex);
-
         void handleEvent(sf::Event e, const sf::RenderWindow& window) override;
         void draw(sf::RenderTarget& renderer) override;
         void setPosition(const sf::Vector2f& pos) override;
@@ -38,7 +36,6 @@ class Button : public Widget
 
         sf::Vector2f position_;
         Rectangle selection_;
-
         Text text_;
         Rectangle button_;
         Callback callback_ = nullptr;

@@ -16,7 +16,7 @@ protected:
 	Singleton() 
 	{
 		instance = new T; 
-		/*instance = static_cast<T*>(this);*/ 	// doesn't work?
+		/*instance = static_cast<T*>(this);*/ 	// TODO: doesn't work?
 	}
 	virtual ~Singleton() {}
 

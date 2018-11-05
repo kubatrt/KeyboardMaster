@@ -9,11 +9,11 @@
 namespace km
 {
 
-constexpr float ROW_1ST = 4;
-constexpr float ROW_2ND = 55;
-constexpr float ROW_3RD = 107;
-constexpr float ROW_4TH = 159;
-constexpr float ROW_5TH = 210;
+constexpr float ROW_1ST = 4.f;
+constexpr float ROW_2ND = 55.f;
+constexpr float ROW_3RD = 107.f;
+constexpr float ROW_4TH = 159.f;
+constexpr float ROW_5TH = 210.f;
 constexpr float OUT_OF_RANGE = 2000.0f;
 
 // Represents VirtualKeyboard game object
@@ -71,7 +71,7 @@ public:
         maskSprite_.setColor(sf::Color(255, 255, 255, 100));
     }
 
-    void highlightLetter(int letterCode)
+    void highlightLetter(KeyCodeType letterCode)
     {
         auto search = maskPositions_.find(letterCode);
         if (search != maskPositions_.end())

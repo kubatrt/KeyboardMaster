@@ -2,9 +2,29 @@
 
 #include <random>
 #include <ctime>
+#include <chrono>
 
 namespace framework
 {
+
+struct RandomMachine
+{
+    template<class T>
+    static T getRange(T min, T max)
+    {
+        std::random_device rd;
+        std::default_random_engine re(rd()); //std::mt19937
+
+        // use epoch time as seed for random generator
+        long int seed = static_cast<long int>(
+        std::chrono::duration_cast<std::chrono::nanoseconds>(
+            std::chrono::high_resolution_clock::now().time_since_epoch()).count());
+        re.seed(seed);
+        std::uniform_int_distribution<T> unif_dist_wordlength(min, max);
+
+        return unif_dist_wordlength(re);
+    }
+};
 
 // new Random generator helper class
 template <typename Engine = std::mt19937>

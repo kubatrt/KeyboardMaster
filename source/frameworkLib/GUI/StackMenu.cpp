@@ -13,6 +13,7 @@ namespace
 //constexpr float defaultY = 95.f;
 constexpr float defaultWidth = 300.f;
 constexpr float defaultHeight = 25.f;
+const sf::Color fillColor{ 127, 127, 127};
 //constexpr float offset = 25.f;
 }
 
@@ -22,7 +23,7 @@ StackMenu::StackMenu(const sf::Vector2f& position, float offset)
     , baseSize_(defaultWidth, defaultHeight)
     , offset_(offset)
 {
-    background_.setFillColor({127, 127, 127});
+    background_.setFillColor(fillColor);
     background_.setPosition(basePosition_.x - baseSize_.x / 2.f, basePosition_.y - offset_);
     background_.setSize(baseSize_);
     std::wcout << "StackMenu CTOR " << basePosition_.x << ", " << basePosition_.y << std::endl;

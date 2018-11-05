@@ -1,30 +1,5 @@
 #include "StateBaseMock.hpp"
-
-using namespace framework;
-using namespace testing;
-
-class StateBaseFixture : public Test
-{
-public:
-	StateBaseFixture()
-		//: game_()
-	{
-
-	}
-
-	void SetUp()
-	{
-
-	}
-
-	void TearDown()
-	{
-
-	}
-
-private:
-	//Game game_;
-};
+#include "StateBaseFixture.hpp"
 
 
 TEST_F(StateBaseFixture, shallCreateInstance)
