@@ -19,6 +19,10 @@ addons:
         packages:
         - g++-8
         - cmake
+        - libsfml-dev
+        - valgrind
+        - gcovr
+        - doxygen
 before_install:
     # Combine global build options with OS/compiler-dependent options
     - export CMAKE_OPTIONS=${CMAKE_OPTIONS}" "${ENV_CMAKE_OPTIONS}
@@ -27,13 +31,13 @@ before_install:
 install:
     - "[ $CXX = g++ ] && export CXX=g++-8 || true"
 
-script:
+before_script:
     - mkdir -p bin
+script:
     - cmake CMakeLists.txt
     - make
     - ./bin/frameworkUT
     - ./bin/keyboardmasterUT
-
 
 after_success:
     - echo "Congratulations!"
