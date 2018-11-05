@@ -1,7 +1,6 @@
 #include <iostream>
 #include "StackMenu.hpp"
-
-#include "../ResourceManager/ResourceHolder.hpp"
+#include "ResourceManager/ResourceHolder.hpp"
 
 namespace framework
 {

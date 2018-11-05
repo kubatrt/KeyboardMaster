@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "Button.hpp"
 
 
@@ -10,8 +8,8 @@ namespace gui
 
 namespace buttonColor
 {
-sf::Color normal{ 52, 150, 220 };
-sf::Color clicked{ 52, 190, 220 };
+const sf::Color normal{ 52, 150, 220 };
+const sf::Color clicked{ 52, 190, 220 };
 }
 
 Button::Button(ButtonSize s)
@@ -31,7 +29,6 @@ Button::Button(ButtonSize s)
             button_.setSize({128, 64});
             break;
     }
-
 }
 
 void Button::setFunction(Callback func)

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <functional>
-
 #include "Widget.hpp"
 
 namespace framework
