@@ -1,4 +1,15 @@
 language: cpp
+
+env:
+    global:
+        - LINUX_DIST=trusty
+        - BUILD_TESTS=true
+        - COVERAGE=false
+        - GEN_DOC=false
+
+os: linux
+dist: trusty
+
 compiler:
     - gcc
     - clang
@@ -6,13 +17,21 @@ addons:
     apt:
         sources:
         - ubuntu-toolchain-r-test
-        - llvm-toolchain-precise-3.8
+        - llvm-toolchain-trusty-5.0
         packages:
-        - g++-6
-        - clang-3.8
+        - g++-8
+        - clang-5.0
+before_install:
+    # Combine global build options with OS/compiler-dependent options
+    - export CMAKE_OPTIONS=${CMAKE_OPTIONS}" "${ENV_CMAKE_OPTIONS}
+    - export CXX_FLAGS=${CXX_FLAGS}" "${ENV_CXX_FLAGS}
+
 install:
-- "[ $CXX = g++ ] && export CXX=g++-6 || true"
-- "[ $CXX = clang++ ] && export CXX=clang++-3.8 || true"
+    - "[ $CXX = g++ ] && export CXX=g++-8 || true"
+    - "[ $CXX = clang++ ] && export CXX=clang++-5 || true"
+
+before_script:
+    - cmake .
+
 script:
-  - make
-  - make test
+    - make
