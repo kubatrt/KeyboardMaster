@@ -26,7 +26,9 @@ list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
 #find_package(Boost REQUIRED)
 find_package(Git REQUIRED)
-find_package(SFML 2 REQUIRED graphics network audio window system)
+find_package(SFML 2.5 COMPONENTS graphics network audio window system REQUIRED)
+
+set(SFML_STATIC_LIBRARIES TRUE)
 
 # set C++ standard
 set(CMAKE_CXX_STANDARD 17)

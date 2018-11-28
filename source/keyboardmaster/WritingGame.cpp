@@ -9,7 +9,7 @@ constexpr int fontSize = 16;
 constexpr int textLineVerticalOffset = 2;
 }
 
-WritingGame::WritingGame(fw::GameBase& game, std::string dictionaryFile)
+WritingGame::WritingGame(fw::GameBase& game, std::string dictionaryFile) // @suppress("Class members should be properly initialized")
     : StateBase(game)
     , dictionary_(dictionaryFile)
     , kb_()
