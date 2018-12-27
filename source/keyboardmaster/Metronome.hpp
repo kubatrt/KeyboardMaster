@@ -3,6 +3,7 @@
 #include <iostream>
 #include <SFML/Audio.hpp>
 #include <SFML/System.hpp>
+#include "frameworkLib/Utilities.hpp"
 
 /* Metronome TODO: finish this....
     BPM - beats per minute
@@ -13,23 +14,20 @@ class Metronome
 {
 public:
     Metronome(unsigned int bpm)
-    : bpm_(bpm)
-    , isPlaying_(false)
+		: bpm_(bpm)
+		, isPlaying_(false)
+		, tick_(0)
     {
-    
     }
 
-    void setBpm(unsigned int bpm) 
-    { 
-        bpm_ = bpm;
-        interval_ = sf::seconds(60.f) / sf::seconds(bpm_);
-    }
-    unsigned int getBpm() const { return bpm_; }
+    void setBPM(unsigned int bpm) { bpm_ = bpm; }
+    unsigned int getBPM() const { return bpm_; }
 
     void start() 
     {
         timer_.restart();
         isPlaying_ = true;
+        tick_ = 0;
     }
 
     void stop() 
@@ -43,32 +41,34 @@ public:
         if(!isPlaying_)
             return;
 
-        sf::Time elapsedTime_ = timer_.getElapsedTime();
-
-        std::cout << elapsedTime_.asSeconds() << std::endl;
-       
-        if (elapsedTime_.asSeconds() >= interval_)
+        elapsedTime_ = timer_.getElapsedTime();
+        sf::Time interval = sf::seconds(60.f) / sf::seconds(bpm_);
+        if (elapsedTime_ >= interval)
         {
             elapsedTime_ = sf::Time::Zero;
-            playAudio();
+            playSound();
         }
 
     }
 
 private:
-    void updateInterval() 
-    {
-        //interval_ = sf::seconds(60) / bpm_;
-    }
-    void playAudio() 
-    {
 
+    void playSound()
+    {
+    	tick_++;
+    	if(tick_ % 4)
+    	{
+
+    	}
+    	else
+    	{
+
+    	}
     };
 
     sf::Clock timer_;
-    unsigned int bpm_;
-    float interval_;
-    bool isPlaying_;
     sf::Time elapsedTime_;
-
+    unsigned int bpm_;
+    unsigned int tick_;
+    bool isPlaying_;
 };

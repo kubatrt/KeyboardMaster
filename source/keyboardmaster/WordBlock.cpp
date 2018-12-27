@@ -8,10 +8,10 @@ namespace
 float SpawnHorizontalPositions[5] = { 0.f, 200.f, 400.f, 600.f, 800.f };
 }
 
-WordBlock::WordBlock(int spawnX, std::wstring word, sf::Vector2f velocity)
+WordBlock::WordBlock(int x, std::wstring word, sf::Vector2f velocity)
     : word_(word)
     , velocity_(velocity)
-    , alive_(true)
+    , isAlive_(true)
 {
     log_info("WordBlock CTOR wordblock:" << word);
 
@@ -21,9 +21,9 @@ WordBlock::WordBlock(int spawnX, std::wstring word, sf::Vector2f velocity)
     wordText_.setFillColor(sf::Color::White);
     wordText_.setStyle(sf::Text::Bold);
 
-    wordText_.setPosition(static_cast<float>(spawnX), 0.f);
+    wordText_.setPosition(static_cast<float>(x), 0.f);
 
-    shape_.setPosition(static_cast<float>(spawnX), 0.f);
+    shape_.setPosition(static_cast<float>(x), 0.f);
     shape_.setFillColor(sf::Color::Blue); // TODO: random, depend on length
     shape_.setSize(sf::Vector2f(static_cast<float>(word.length() * CHAR_WIDTH), static_cast<float>(CHAR_HEIGHT)));
 }
@@ -31,7 +31,7 @@ WordBlock::WordBlock(int spawnX, std::wstring word, sf::Vector2f velocity)
 WordBlock::WordBlock(const WordBlock& wb)
 	: word_(wb.word_)
 	, velocity_(wb.velocity_)
-	, alive_(wb.alive_)
+	, isAlive_(wb.isAlive_)
 {
     log_info("WordBlock CPYCTOR: " << word_);
 }
@@ -39,27 +39,6 @@ WordBlock::WordBlock(const WordBlock& wb)
 WordBlock::~WordBlock()
 {
     log_info("WordBlock DTOR:" << word_);
-}
-
-
-std::wstring WordBlock::getWord() const 
-{ 
-    return word_;
-}
-
-void WordBlock::setAlive(bool alive) 
-{ 
-    alive_ = alive;
-}
-
-bool WordBlock::isAlive() const 
-{ 
-    return alive_;
-}
-
-size_t WordBlock::getWordLength() const
-{
-    return word_.length();
 }
 
 void WordBlock::update(sf::Time deltaTime)

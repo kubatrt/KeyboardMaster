@@ -6,8 +6,16 @@ namespace km
 
 KeyboardTyper::KeyboardTyper()
 	: wordsPerMinute_(0.f)
+	, keysPerMinute_(0.f)
 	, wordsTyped_(0)
-//    : dictionary_("C:\\")
+	, lastTypedLetter_(L' ')
+	, lastTypedWord_(L"")
+	, correctWords_(0)
+	, backspaces_(0)
+	, correctLetters_(0)
+	, omittedLetters_(0)
+	, mistakeLetters_(0)
+	, typedKeys_(0)
 {
     timer_.restart();
 } 
@@ -81,17 +89,14 @@ void KeyboardTyper::wordEntered(std::wstring word, bool correct)
 void KeyboardTyper::update(sf::Time deltaTime)
 {
     sf::Time elapsed = timer_.getElapsedTime();
-    //keysPerMinute_ = 60.f / elapsed.asSeconds() * typedKeys_;
-    if(typedKeys_ > 0)
-        keysPerMinute_ = typedKeys_ / elapsed.asSeconds() * 60.f;
     keysPerMinute_ = (typedKeys_ > 0) ? typedKeys_ / elapsed.asSeconds() * 60.f : 0;
-    if (wordsPerMinute_ > 0)
-        wordsPerMinute_ = wordsPerMinute_ / elapsed.asSeconds() * 60.f;
+    wordsPerMinute_ = (wordsPerMinute_ > 0) ? wordsPerMinute_ / elapsed.asSeconds() * 60.f : 0;
 }
 
 float KeyboardTyper::correctnessPercentage(uint lettersCount)
 {
     return (mistakeLetters_ == 0 && omittedLetters_ == 0) ? 100.f
-    : 100.f - (static_cast<float>((mistakeLetters_ + omittedLetters_)) / lettersCount * 100.f);
+    		: 100.f - (static_cast<float>((mistakeLetters_ + omittedLetters_)) / lettersCount * 100.f);
 }
+
 }

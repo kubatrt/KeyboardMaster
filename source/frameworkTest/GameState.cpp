@@ -39,6 +39,7 @@ void GameState::handleEvents(sf::Event e)
             std::cout << "quit" << std::endl;
             game_.popState();
         }
+        break;
     default:
         break;
     }
