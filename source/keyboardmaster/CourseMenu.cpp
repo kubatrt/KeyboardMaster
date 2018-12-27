@@ -6,6 +6,8 @@
 namespace km
 {
 
+// TODO: generate buttons
+
 CourseMenu::CourseMenu(fw::GameBase& game)
     : StateBase(game)
     , menuLeft_({ game.getWindow().getSize().x / 2.f - 200.f, 50.f })

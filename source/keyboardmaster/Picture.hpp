@@ -10,33 +10,33 @@
 namespace km
 {
 
+// Represents picture object made up from smaller pieces
 class Picture
 {
 public:
     Picture(uint width, uint height, uint rows, uint cols);
     ~Picture() = default;
 
-    void init();
-
-    bool getVisible() const { return visible_; }
-    void setVisible(bool visible) { visible_ = visible; }
-
+    void initialize();
+    void wordTyped(std::wstring word);
     void update(sf::Time deltaTime);
     void draw(sf::RenderTarget& renderer);
 
-    void typedWord(std::wstring word);
-    bool isComplete();
+    bool getVisible() const { return visible_; }
+    void setVisible(bool visible) { visible_ = visible; }
     uint elementsCount() const { return elements_.size(); }
+    bool isComplete();
 
     // TODO:
     // corectness()
     // totalTime()
 
 private:
-    bool visible_ = false;
+    Dictionary dictionary_;
     sf::Texture texture_;
     sf::Sprite sprite_;
 
+    bool visible_ = false;
     uint typedWords_ = 0;
     uint elementsInRow_;
     uint elementsInCol_;
@@ -46,7 +46,7 @@ private:
     uint activeIndex_;
     std::vector<int> indexesLeft;
 
-    Dictionary dictionary_;
+
 
     std::vector<std::shared_ptr<PictureElement>> elements_;	// <- SHARED_PTR ???
 };

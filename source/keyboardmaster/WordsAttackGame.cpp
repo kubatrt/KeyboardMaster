@@ -56,7 +56,7 @@ void WordsAttackGame::spawnWordBlock()
 
     int spawnHorizontalPos = game_.getWindow().getSize().x / 2;
     int spawnHorizontalRanomPos = spawnPoints[fw::RandomMachine::getRange(0,3)];
-
+    // TODO: Check twice shared_ptr
     wordBlocks_.push_back( std::make_shared<WordBlock>(spawnHorizontalRanomPos, word, velocity));
 }
 
@@ -82,7 +82,7 @@ void WordsAttackGame::handleEvents(sf::Event e)
             }
             else
             {
-                // send to wordblock
+                // send 'word' to wordblock
                 enterWord(typedWord_);
                 typedWord_.clear();
             }
@@ -161,14 +161,18 @@ void WordsAttackGame::update(sf::Time deltaTime)
 
 void WordsAttackGame::draw(sf::RenderTarget& renderer)
 {
-    for (auto &wb : wordBlocks_)
-    {
-        wb->draw(renderer);
-    }
     if(gameOver)
+    {
         renderer.draw(gameOverTextUI_);
-    
-    renderer.draw(typingTextUI_);
+    }
+    else
+    {
+        for (auto &wb : wordBlocks_)
+        {
+            wb->draw(renderer);
+        }
+        renderer.draw(typingTextUI_);
+    }
     renderer.draw(scoreTextUI_);
     renderer.draw(livesTextUI_);
     renderer.draw(horizontalLineUI_);

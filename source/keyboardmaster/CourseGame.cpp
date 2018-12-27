@@ -214,7 +214,7 @@ void CourseGame::textEnteredEvent(wchar_t typedLetter)
         }
     }
 
-    // HACK
+    // FIXME: HACK
     if (currentLine_ >= dictionary_.getLines().size())
     {
         std::wcerr << "HACK" << std::endl;
@@ -254,6 +254,7 @@ void CourseGame::update(sf::Time deltaTime)
     vkb_.update(deltaTime);
     kb_.update(deltaTime);
 
+    // debug string
     std::wstringstream wss;
     wss << L"Time: " << timer_.getElapsedTime().asSeconds()
         << L"\nLetter: " << currentletterInLine_ << L" Line: " << currentLine_

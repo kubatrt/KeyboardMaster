@@ -59,7 +59,7 @@ private:
 
     const std::string folder_;
     const std::string extension_;
-    std::unordered_map<std::string, Resource> resources_;	// resources held as normal object?
+    std::unordered_map<std::string, Resource> resources_;	// resources held as usual objects? Pointer not necessery, hence everything is on heap.
 };
 
 }

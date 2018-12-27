@@ -5,9 +5,11 @@
 namespace km
 {
 
+constexpr uint WindowWidth = 1024;
+constexpr uint WindowHeight = 768;
 
 KeyboardMaster::KeyboardMaster()
-    : fw::GameBase({ 1024, 768 }, "KeyboardMaster")
+    : fw::GameBase({ WindowWidth , WindowHeight }, "KeyboardMaster")
 {
     window_.setFramerateLimit(60);
     pushState<MainMenu>(*this);

@@ -32,10 +32,10 @@ public:
 
 private:
 //  wchar_t nextLetter_;
-    std::wstring word_;
-    sf::Vector2f velocity_;
     sf::RectangleShape shape_;
     sf::Text wordText_;
+    sf::Vector2f velocity_;
+    std::wstring word_;
     bool alive_;
 };
 

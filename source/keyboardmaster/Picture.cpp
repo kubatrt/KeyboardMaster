@@ -10,7 +10,7 @@ Picture::Picture(uint width, uint height, uint rows, uint cols)
 {
     std::cout << "Picture CTOR w: " << width << " h: " << height << std::endl;
 
-    texture_ = framework::ResourceHolder::get().textures.get("obraz_1");	// FIXME: const
+    texture_ = framework::ResourceHolder::get().textures.get("obraz_1");	// FIXME: move out from the inside Picture class?
     sprite_.setTexture(texture_);
     sprite_.setPosition(sf::Vector2f(0, 0));
 
@@ -30,7 +30,7 @@ Picture::Picture(uint width, uint height, uint rows, uint cols)
             std::wcout << "Random word: " << word << std::endl;
             int picElemPositionX = x * picElemWidth;
             int picElemPositionY = y * picElemHeight;
-
+            // TODO: Check here shared_ptr, can be unique_ptr?
             auto picElem = std::make_shared<PictureElement>(texture_, sf::IntRect(x * picElemWidth, y * picElemHeight, picElemWidth, picElemHeight),
                   index, word, sf::Vector2f(static_cast<float>(picElemPositionX), static_cast<float>(picElemPositionY)));
             elements_.push_back(picElem);
@@ -39,11 +39,10 @@ Picture::Picture(uint width, uint height, uint rows, uint cols)
             index++;
         }
     }
-
-    init();
+    initialize();
 }
 
-void Picture::init()
+void Picture::initialize()
 {
     activeIndex_ = 0;
     elements_.at(activeIndex_)->setActive();
@@ -51,7 +50,7 @@ void Picture::init()
     std::wcout << "Initialized" << std::endl;
 }
 
-void Picture::typedWord(std::wstring typedWord)
+void Picture::wordTyped(std::wstring typedWord)
 {
     typedWords_++;
     std::wcout << "Index: " << activeIndex_ << std::endl;

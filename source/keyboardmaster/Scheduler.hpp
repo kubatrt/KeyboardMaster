@@ -6,6 +6,7 @@
 namespace km
 {
 
+// Simple event scheduler, TODO: WIP
 class Scheduler
 {
 public:

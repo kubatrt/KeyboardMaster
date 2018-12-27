@@ -5,9 +5,8 @@ namespace km
 
 namespace
 {
-    float SpawnHorizontalPositions[5] = { 0.f, 200.f, 400.f, 600.f, 800.f };
+float SpawnHorizontalPositions[5] = { 0.f, 200.f, 400.f, 600.f, 800.f };
 }
-
 
 WordBlock::WordBlock(int spawnX, std::wstring word, sf::Vector2f velocity)
     : word_(word)
@@ -29,7 +28,10 @@ WordBlock::WordBlock(int spawnX, std::wstring word, sf::Vector2f velocity)
     shape_.setSize(sf::Vector2f(static_cast<float>(word.length() * CHAR_WIDTH), static_cast<float>(CHAR_HEIGHT)));
 }
 
-WordBlock::WordBlock(const WordBlock& wordBlock)
+WordBlock::WordBlock(const WordBlock& wb)
+	: word_(wb.word_)
+	, velocity_(wb.velocity_)
+	, alive_(wb.alive_)
 {
     log_info("WordBlock CPYCTOR: " << word_);
 }
@@ -54,7 +56,6 @@ bool WordBlock::isAlive() const
 { 
     return alive_;
 }
-
 
 size_t WordBlock::getWordLength() const
 {

@@ -14,7 +14,7 @@
 namespace km
 {
 
-// Class responsible for loading words from file, UTF-8
+// Class responsible for loading words from file in UTF-8 format
 class Dictionary
 {
 public:
@@ -26,7 +26,6 @@ public:
     Dictionary&& operator=(Dictionary&&) = delete;
 
     void loadFromFile(FilePath filePath);
-
     std::wstring getRandomWord();
     std::wstring getRandomWord(int length);
 

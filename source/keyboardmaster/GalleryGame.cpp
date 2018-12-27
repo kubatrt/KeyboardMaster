@@ -58,7 +58,7 @@ void GalleryGame::enterWord()
 {
     std::wcout << "Entered word: " << typedWord_ << std::endl;
     typedWords_++;
-    picture_.typedWord(typedWord_);
+    picture_.wordTyped(typedWord_);
     typedWord_.clear();
 }
 

@@ -4,7 +4,7 @@
 #include <SFML/Audio.hpp>
 #include <SFML/System.hpp>
 
-/* Metronome TODO
+/* Metronome TODO: finish this....
     BPM - beats per minute
     80 beats per 60 seconds
     interval = 60 / 80 = 0,75 s
