@@ -34,6 +34,7 @@ void KeyboardTyper::backspace()
     backspaces_++;
 }
 */
+
 uint KeyboardTyper::getBackspaces() const
 {
     return backspaces_;

@@ -9,6 +9,7 @@
 namespace framework
 {
 
+// Global resource holder
 class ResourceHolder
 {
     public:
