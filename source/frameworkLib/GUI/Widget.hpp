@@ -36,6 +36,7 @@ public:
         childrens_.push_back(widget);
     }
 
+    // FIXME: Quick hack selection
     static unsigned int selectionIdndexCounter;
     static unsigned int currentSelectionIndex;
 
@@ -55,8 +56,12 @@ protected:
         bool isClicked(sf::Event, const sf::RenderWindow& window);
     };
 
-    std::vector<Widget*> childrens_;
+    // if Index of all components want to be used, there needs to be some class above managing it, or unique ID (+1)
+    // some aggregating GUI class where all gui components will be placed
     unsigned int selectionIndex_;
+
+    std::vector<Widget*> childrens_;
+
     bool isSelected_;
     bool isActive_;
 };

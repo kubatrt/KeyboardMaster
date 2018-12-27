@@ -62,15 +62,16 @@ private:
 };
 
 
-class ILetterTyped
+struct ILetterTyped
 {
 public:
+	virtual ILetterTyped();
     virtual void typedLetter(const wchar_t letter) = 0;
 };
 
-class IWordTyped
+struct IWordTyped
 {
-public:
+	virtual IWordTyped();
     virtual void typedWord(const std::wstring word) = 0;
 };
 

@@ -30,7 +30,7 @@ struct Animation
 namespace experimental
 {
 
-// TODO
+// TODO: finish the animation
 class Animation
 {
     public:

@@ -26,9 +26,9 @@ public:
     GameBase(GameBase&&) = delete;
     GameBase&& operator=(GameBase&&) = delete;
 
-    // TOP interface
-    // This should be defined elsewhere, outside this class. I can call it in some state public method run()
-    virtual int run() final
+    // TOP interface. This should be defined elsewhere, outside this class. I can call in any state it's public method run()
+    // Main game loop
+    int run()
     {
         sf::Clock timer;
         auto lastTime = sf::Time::Zero;
@@ -48,7 +48,7 @@ public:
         return 0;
     }
 
-    // State management
+    // In-state access, State management: get access within states implementation
     template<typename T, typename... Args>
     void pushState(Args&&... args)
     {
@@ -60,7 +60,6 @@ public:
         popState_ = true;
     };
 
-    // In-state access
     const sf::RenderWindow& getWindow() const
     {
     	return window_;
@@ -92,11 +91,12 @@ protected:
 
     StateBase& getCurrentState()
     {
-        // Atleast one state required - or throw exception? or can be null? use pointer instead!
+        // At least one state required - what if there is no any? throw exception? or can be null? use pointer instead!
         assert(states_.size()); // give up with assertions... ~Mayers
         return *states_.back(); // return reference
     };
 
+    // Removing last state from the stack means exit from application
     void tryPop()
     {
         if (popState_)

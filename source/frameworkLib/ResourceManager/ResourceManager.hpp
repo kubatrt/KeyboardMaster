@@ -7,13 +7,15 @@
 namespace framework
 {
 
+constexpr std::string ResourcesDirectory = "data/";
+
 // Resource manager class
 template<typename Resource>
 class ResourceManager
 {
 public:
     ResourceManager(const std::string& folder, const std::string& extention)
-        : folder_(resourceDirectory_ + folder + "/")
+        : folder_(ResourcesDirectory + folder + "/")
         , extension_("." + extention)
     {
     }
@@ -24,27 +26,28 @@ public:
         {
             add(name);
         }
-        return m_resources.at(name);
+        return resources_.at(name);
     }
 
     bool exists(const std::string& name) const
     {
-        return m_resources.find(name) != m_resources.end();
+        return resources_.find(name) != resources_.end();
     }
 
     void add(const std::string& name)
     {
         Resource res;
-        // if the resource fails to load, then it adds a default "fail" resource
+
         if (!res.loadFromFile(getFullname(name)))
         {
+        	// if the resource fail to load, then default "fail" resource is added
             Resource fail;
             fail.loadFromFile(folder_ + "_fail_" + extension_);
-            m_resources.insert(std::make_pair(name, fail));
+            resources_.insert(std::make_pair(name, fail));
         }
         else
         {
-           m_resources.insert(std::make_pair(name, res));
+           resources_.insert(std::make_pair(name, res));
         }
     }
 
@@ -54,11 +57,9 @@ private:
         return folder_ + name + extension_;
     }
 
-    const std::string resourceDirectory_ = "data/";
     const std::string folder_;
     const std::string extension_;
-
-    std::unordered_map<std::string, Resource> m_resources;
+    std::unordered_map<std::string, Resource> resources_;	// resources held as normal object?
 };
 
 }

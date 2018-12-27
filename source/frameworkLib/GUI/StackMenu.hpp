@@ -10,7 +10,7 @@ namespace framework
 namespace gui
 {
 
-
+// TODO: extract widget container class
 class StackMenu : public Widget
 {
     public:
@@ -28,13 +28,15 @@ class StackMenu : public Widget
 
     protected:
         void initWidget(Widget& w);
-        void alignSize();
 
-        std::vector<std::unique_ptr<Widget>> widgets_;
+        std::vector<std::unique_ptr<Widget>> widgets_;	// owner of Widgets
         sf::RectangleShape background_;
         sf::Vector2f basePosition_;
         sf::Vector2f baseSize_;
         float offset_;
+
+private:
+	void resize(const Widget& widget);
 };
 
 }
