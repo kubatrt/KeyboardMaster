@@ -64,14 +64,13 @@ private:
 
 struct ILetterTyped
 {
-public:
-	virtual ILetterTyped();
+	virtual ~ILetterTyped() {};
     virtual void typedLetter(const wchar_t letter) = 0;
 };
 
 struct IWordTyped
 {
-	virtual IWordTyped();
+	virtual ~IWordTyped() {};
     virtual void typedWord(const std::wstring word) = 0;
 };
 

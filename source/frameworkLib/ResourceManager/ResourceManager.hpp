@@ -7,7 +7,7 @@
 namespace framework
 {
 
-constexpr std::string ResourcesDirectory = "data/";
+const std::string ResourcesDirectory = "data/";
 
 // Resource manager class
 template<typename Resource>
