@@ -16,7 +16,6 @@ constexpr int textLineVerticalOffset = 2;
 
 CourseGame::SoundPlayer::SoundPlayer()
 {
-    // framework::ResourceHolder::get().audio.get
     sounds_["keytype"] = fw::ResourceHolder::get().sounds.get("keytype");
     sounds_["mistake"] = fw::ResourceHolder::get().sounds.get("mistake");
     sounds_["newline"] = fw::ResourceHolder::get().sounds.get("newline");

@@ -7,7 +7,7 @@ namespace framework
 
 struct IGameComponent
 {
-	virtual ~IGameComponent() {};
+	virtual ~IGameComponent() = default;
 	virtual void update(sf::Time deltaTime) = 0;
     virtual void draw(sf::RenderTarget& renderer) = 0;
 };

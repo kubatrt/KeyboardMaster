@@ -19,12 +19,12 @@ public:
     void update(sf::Time deltaTime) override;
     void draw(sf::RenderTarget& renderer) override;
 
-    void textEnteredEvent();
+    void textEnteredEvent(wchar_t typedLetter);
     void enterWord();
 
 private:
     Picture picture_;
-    wchar_t typedLetter_;
+    //wchar_t typedLetter_;
     std::wstring typedWord_;
     uint typedWords_= 0;
     bool gameOver_ = false;

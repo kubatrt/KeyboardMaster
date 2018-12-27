@@ -4,6 +4,7 @@
 #include <cassert>
 #include <SFML/Graphics.hpp>
 #include "StateBase.hpp"
+#include "IGameComponent.hpp"
 
 namespace framework
 {
@@ -110,6 +111,8 @@ protected:
 
 private:
     std::vector<StateBasePtr> states_;
+    //std::vector<IGameComponent> components_;
+
     bool popState_;
     bool isFullscreen_;
     std::string windowTitle_;

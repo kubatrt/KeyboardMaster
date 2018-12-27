@@ -1,12 +1,12 @@
 #include "MainMenu.hpp"
 #include "CourseMenu.hpp"
-#include "GameSate.hpp"
 #include "frameworkLib/GUI/Button.hpp"
 #include "frameworkLib/GUI/Textbox.hpp"
 
 #include <iostream>
 #include <string>
 #include <memory>
+#include "GameState.hpp"
 
 namespace example
 {

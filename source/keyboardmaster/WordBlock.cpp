@@ -5,7 +5,7 @@ namespace km
 
 namespace
 {
-    static float spawnHorizontalPositions[5] = { 0.f, 200.f, 400.f, 600.f, 800.f };
+    float SpawnHorizontalPositions[5] = { 0.f, 200.f, 400.f, 600.f, 800.f };
 }
 
 
@@ -14,7 +14,7 @@ WordBlock::WordBlock(int spawnX, std::wstring word, sf::Vector2f velocity)
     , velocity_(velocity)
     , alive_(true)
 {
-    log_info("CTOR wordblock:" << word);
+    log_info("WordBlock CTOR wordblock:" << word);
 
     wordText_.setFont(framework::ResourceHolder::get().fonts.get("arial"));
     wordText_.setString(word);
@@ -22,9 +22,7 @@ WordBlock::WordBlock(int spawnX, std::wstring word, sf::Vector2f velocity)
     wordText_.setFillColor(sf::Color::White);
     wordText_.setStyle(sf::Text::Bold);
 
-    
-    int spawnHorizontalPos = spawnX;
-    wordText_.setPosition(static_cast<float>(spawnHorizontalPos), 0.f);
+    wordText_.setPosition(static_cast<float>(spawnX), 0.f);
 
     shape_.setPosition(static_cast<float>(spawnX), 0.f);
     shape_.setFillColor(sf::Color::Blue); // TODO: random, depend on length
@@ -33,12 +31,12 @@ WordBlock::WordBlock(int spawnX, std::wstring word, sf::Vector2f velocity)
 
 WordBlock::WordBlock(const WordBlock& wordBlock)
 {
-    log_info("CCTOR constructor: " << word_);
+    log_info("WordBlock CPYCTOR: " << word_);
 }
 
 WordBlock::~WordBlock()
 {
-    log_info("DTOR wordblock:" << word_);
+    log_info("WordBlock DTOR:" << word_);
 }
 
 

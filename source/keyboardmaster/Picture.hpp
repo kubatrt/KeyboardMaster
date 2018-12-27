@@ -13,7 +13,7 @@ namespace km
 class Picture
 {
 public:
-    Picture(const sf::Texture& texture, uint width, uint height, uint rows, uint cols);
+    Picture(uint width, uint height, uint rows, uint cols);
     ~Picture() = default;
 
     void init();
@@ -42,13 +42,13 @@ private:
     uint elementsInCol_;
     uint elementsTotal_;
 
-    bool isComplete_;
+    //bool isComplete_;
     uint activeIndex_;
     std::vector<int> indexesLeft;
 
     Dictionary dictionary_;
 
-    std::vector<std::shared_ptr<PictureElement>> elements_;
+    std::vector<std::shared_ptr<PictureElement>> elements_;	// <- SHARED_PTR ???
 };
 
 }

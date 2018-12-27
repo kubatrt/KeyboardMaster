@@ -14,13 +14,14 @@ namespace km
 
 class Picture;
 
-class PictureElement// : public Rectangle
+// Represent one piece of picture
+class PictureElement
 {
 public:
     size_t getWordLength() { return word_.length(); }
 
-PictureElement(sf::Texture& texture, sf::IntRect textureRect, int index, std::wstring word, 
-    sf::Vector2f pos )
+PictureElement(sf::Texture& texture, sf::IntRect textureSectionRect,
+		int index, std::wstring word, sf::Vector2f pos )
     : missed_(false)
     , revealed_(false)
     , active_(false)
@@ -34,20 +35,19 @@ PictureElement(sf::Texture& texture, sf::IntRect textureRect, int index, std::ws
     constexpr int charHeight = 24;
 
     sprite_.setTexture(texture);
-    sprite_.setTextureRect(textureRect);
+    sprite_.setTextureRect(textureSectionRect);
     sprite_.setPosition(pos);
 
-    //sf::Font font;
-    wordText_.setFont(framework::ResourceHolder::get().fonts.get("arial")); 
-    // fw::ResourceHolder::get().fonts.get("arial")
+    wordText_.setFont(framework::ResourceHolder::get().fonts.get("arial"));
+    wordText_.setPosition(sf::Vector2f(
+    						pos.x + sprite_.getTextureRect().width / 2.f ,
+							pos.y + sprite_.getTextureRect().height/ 2.f));
     wordText_.setString(word);
     wordText_.setCharacterSize(charFontSize);
     //wordText_.setColor(sf::Color::White);
     wordText_.setStyle(sf::Text::Bold);
     wordText_.setOrigin(0, 0);
 
-    wordText_.setPosition(sf::Vector2f( pos.x + sprite_.getTextureRect().width / 2.f ,
-        pos.y + sprite_.getTextureRect().height/ 2.f));
     //timer_.restart();
     
     //shape.setSize(sf::Vector2f(word.length() * charWidth, charHeight));
@@ -55,14 +55,16 @@ PictureElement(sf::Texture& texture, sf::IntRect textureRect, int index, std::ws
     log_info("PictureElement:" << word_);
 }
 
-PictureElement(const PictureElement& pictureElement)
+PictureElement(const PictureElement& pe)
+	: sprite_(pe.sprite_)
+	, word_(pe.word_)
+	, nextLetter_(pe.nextLetter_)
+	, index_(pe.index_)
+	, active_(pe.active_)
+	, missed_(pe.missed_)
+	, revealed_(pe.revealed_)
 {
-    this->sprite_ = pictureElement.sprite_;
-    this->index_ = pictureElement.index_;
-    this->word_ = pictureElement.word_;
-    this->nextLetter_= pictureElement.nextLetter_;
-
-    log_info("PictureElement CPY: " << word_.c_str());
+    log_info("PictureElement CPYCTOR: " << word_.c_str());
 }
 
 ~PictureElement()
@@ -122,11 +124,12 @@ private:
     wchar_t nextLetter_;
     //Scheduler scheduler_;
 
-    bool active_;
-    bool revealed_;
-    bool missed_;
+    bool active_;	// is it current active element? Can by only one at time
+    bool revealed_;	// is picture revealed as a whole?
+    bool missed_;	// is it was missed?
     int index_;
-    float lifeTime = 3.f;
+
+    float lifeTime = 3.f;	// how long it will stay uncovered? TODO: not here
 };
 
-}	// KM
+}

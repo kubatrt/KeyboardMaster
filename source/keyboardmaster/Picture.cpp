@@ -5,15 +5,12 @@
 namespace km
 {
 
-Picture::Picture(const sf::Texture& texture, uint width, uint height, uint rows, uint cols)
-    : dictionary_("data/words_01")  // data/words_01
-    , isComplete_(false)
+Picture::Picture(uint width, uint height, uint rows, uint cols)
+    : dictionary_("data/words_01")  // FIXME:
 {
-    std::cout << "PICTURE Width: " << width << " Height: " << height << std::endl;
+    std::cout << "Picture CTOR w: " << width << " h: " << height << std::endl;
 
-    texture_ = texture;
-    // res/textures/obraz_1.png
-    //texture_.loadFromFile("D:/Workspace/Projects/Framework/Debug/res/textures/obraz_1.png");
+    texture_ = framework::ResourceHolder::get().textures.get("obraz_1");	// FIXME: const
     sprite_.setTexture(texture_);
     sprite_.setPosition(sf::Vector2f(0, 0));
 
@@ -24,7 +21,7 @@ Picture::Picture(const sf::Texture& texture, uint width, uint height, uint rows,
     int picElemWidth = texture_.getSize().x / elementsInRow_;
     int picElemHeight = texture_.getSize().y / elementsInCol_;
 
-    int index = 0;
+    uint index = 0;
     for (uint y = 0; y < elementsInCol_; ++y)
     {
         for (uint x = 0; x < elementsInRow_; ++x)
@@ -44,6 +41,14 @@ Picture::Picture(const sf::Texture& texture, uint width, uint height, uint rows,
     }
 
     init();
+}
+
+void Picture::init()
+{
+    activeIndex_ = 0;
+    elements_.at(activeIndex_)->setActive();
+    indexesLeft.erase(std::remove(indexesLeft.begin(), indexesLeft.end(), activeIndex_));
+    std::wcout << "Initialized" << std::endl;
 }
 
 void Picture::typedWord(std::wstring typedWord)
@@ -82,14 +87,7 @@ bool Picture::isComplete()
     return revealed == elementsCount();
 }
 
-void Picture::init()
-{
-    activeIndex_ = 0;
-    elements_.at(activeIndex_)->setActive();
-    indexesLeft.erase(std::remove(indexesLeft.begin(), indexesLeft.end(), activeIndex_));
-    
-    std::wcout << "Init" << std::endl;
-}
+
 
 void Picture::update(sf::Time deltaTime)
 {

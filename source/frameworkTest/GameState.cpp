@@ -1,5 +1,6 @@
+#include "GameState.hpp"
+
 #include <algorithm>
-#include "GameSate.hpp"
 #include "frameworkLib/ResourceManager/ResourceHolder.hpp"
 
 namespace example

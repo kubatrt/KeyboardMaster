@@ -64,17 +64,17 @@ private:
 
 struct ILetterTyped
 {
-	virtual ~ILetterTyped() {};
+	virtual ~ILetterTyped() = default;
     virtual void typedLetter(const wchar_t letter) = 0;
 };
 
 struct IWordTyped
 {
-	virtual ~IWordTyped() {};
+	virtual ~IWordTyped() = default;
     virtual void typedWord(const std::wstring word) = 0;
 };
 
-// Check intersection with two shapes
+// Collision: check intersection with two rectangle shapes
 template<typename T1, typename T2>
 bool isIntersecting(T1& a, T2& b)
 {

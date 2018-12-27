@@ -9,6 +9,7 @@ namespace framework
 
 class GameBase;
 
+
 class StateBase
 {
 public:

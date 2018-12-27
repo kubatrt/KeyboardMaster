@@ -4,15 +4,10 @@
 namespace km
 {
 
-GalleryGame::GalleryGame(fw::GameBase& game, sf::Vector2u division)
+GalleryGame::GalleryGame(fw::GameBase& game, sf::Vector2u partition)
     : StateBase(game)
-    , picture_(
-        framework::ResourceHolder::get().textures.get("obraz_1"),
-        game.getWindow().getSize().x, 
-        game.getWindow().getSize().y, 
-        division.x, 
-        division.y)
-    //, dictionary_("data/words_01")
+    , picture_(game.getWindow().getSize().x, game.getWindow().getSize().y, partition.x, partition.y)
+	, gameOver_(false)
 {
     gameOverTextUI_.setCharacterSize(48);
     gameOverTextUI_.setFillColor(sf::Color::Magenta);
@@ -28,32 +23,33 @@ void GalleryGame::handleEvents(sf::Event e)
     {
     case sf::Event::KeyPressed:
         if (e.key.code == sf::Keyboard::Escape)
+        {
             game_.popState();
-        else if (e.key.code == sf::Keyboard::F12)
-            game_.toggleFullscreen();
+        }
         else if (e.key.code == sf::Keyboard::Return)
-            if(gameOver_)
-                game_.popState();
+        {
+        	if(gameOver_)
+        		game_.popState();
+        }
         break;
 
     case sf::Event::TextEntered:
-        typedLetter_ = static_cast<wchar_t>(e.text.unicode);
-        textEnteredEvent();
+        textEnteredEvent(static_cast<wchar_t>(e.text.unicode));
         break;
     default:
         break;
     }
 }
 
-void GalleryGame::textEnteredEvent()
+void GalleryGame::textEnteredEvent(wchar_t typedLetter)
 {
-    if (static_cast<int>(typedLetter_) == KeyCode::Enter)
+    if (static_cast<int>(typedLetter) == KeyCode::Enter)
     {
         enterWord();
     }
     else
     {
-        typedWord_ += typedLetter_;
+        typedWord_ += typedLetter;
     }
 }
 

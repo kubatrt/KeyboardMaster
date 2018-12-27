@@ -23,6 +23,7 @@ public:
     sf::RectangleShape getShape() const { return shape_; }
     void setAlive(bool alive);
     bool isAlive() const;
+
     std::wstring getWord() const;
     size_t getWordLength() const ;
 
@@ -30,9 +31,8 @@ public:
     void draw(sf::RenderTarget& renderer);
 
 private:
-//    wchar_t nextLetter_;
+//  wchar_t nextLetter_;
     std::wstring word_;
-
     sf::Vector2f velocity_;
     sf::RectangleShape shape_;
     sf::Text wordText_;

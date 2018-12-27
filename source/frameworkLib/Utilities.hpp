@@ -20,7 +20,7 @@
 
 // FIXME: DEPRACTED
 #define log_info(msg) if(DEBUG_LEVEL  > 0) std::wcerr << msg << std::endl;
-#define log_debug(msg) if(DEBUG_LEVEL > 1)std::wcerr << "(DEBUG): " << msg " ::" << __FILE__ << ":" << __LINE__ << std::endl;
+#define log_debug(msg) if(DEBUG_LEVEL > 1) std::wcerr << "(DEBUG): " << msg " ::" << __FILE__ << ":" << __LINE__ << std::endl;
 
 typedef unsigned int uint;
 using WChar = wchar_t;
@@ -99,10 +99,9 @@ struct RemoveSpaces
 	}
 };
 
-}   // charutils
+} // charutils
 
 
-// print Vector2f
 template <typename T>
 void printVec(std::ostream& out, T vec)
 {
