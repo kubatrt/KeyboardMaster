@@ -9,19 +9,20 @@
 #include <algorithm>
 #include <functional>
 
-#include "Util/NonCopyable.hpp"
-#include "Util/NonMoveable.hpp"
+//#include "Util/NonCopyable.hpp"
+//#include "Util/NonMoveable.hpp"
 #include "Util/Maths.hpp"
 #include "Util/Random.hpp"
 #include "Util/Files.hpp"
 
 // Debug level: 0 - off, 1 - info,  2 - debug
-#define DEBUG_LEVEL 0   
+#define LOG_LEVEL 0
 
 // FIXME: DEPRACTED
-#define log_info(msg) if(DEBUG_LEVEL  > 0) std::wcerr << msg << std::endl;
-#define log_debug(msg) if(DEBUG_LEVEL > 1) std::wcerr << "(DEBUG): " << msg " ::" << __FILE__ << ":" << __LINE__ << std::endl;
+#define log_info(msg) if(LOG_LEVEL  > 0) std::wcerr << " (INFO): " << msg << std::endl;
+#define log_debug(msg) if(LOG_LEVEL > 1) std::wcerr <<" (DEBUG): " << msg " ::" << __FILE__ << ":" << __LINE__ << std::endl;
 
+// Typedefs
 typedef unsigned int uint;
 using WChar = wchar_t;
 using WStr = std::wstring;

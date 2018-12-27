@@ -9,6 +9,8 @@
 namespace framework
 {
 
+// Base class for implementing the game. Runs main game loop, window handling and state management.
+// Implementation of game logic should be written using StateBase class. At least one state required.
 class GameBase
 {
 public:
@@ -23,11 +25,12 @@ public:
     }
     virtual ~GameBase() = default;
     GameBase(const GameBase&) = delete;
-    const GameBase& operator=(const GameBase&) = delete;
     GameBase(GameBase&&) = delete;
+    GameBase& operator=(const GameBase&) = delete;
     GameBase&& operator=(GameBase&&) = delete;
 
-    // TOP interface. This should be defined elsewhere, outside this class. I can call in any state it's public method run()
+    // TOP interface. This should be defined elsewhere, outside this class. I can call in any state the public method run().
+    // Solution: introduce the interface IGame which clearly define public functionality
     // Main game loop
     int run()
     {
@@ -49,7 +52,7 @@ public:
         return 0;
     }
 
-    // In-state access, State management: get access within states implementation
+    // State management
     template<typename T, typename... Args>
     void pushState(Args&&... args)
     {
@@ -66,15 +69,20 @@ public:
     	return window_;
     };
 
+    void create()
+    {
+        auto style = isFullscreen_ ? sf::Style::Fullscreen : sf::Style::Default;
+        window_.create({windowWidth_, windowHeight_}, windowTitle_, style);
+    }
+
     void close()
     {
     	window_.close();
     }
 
-    void create()
+    void quit()
     {
-        auto style = isFullscreen_ ? sf::Style::Fullscreen : sf::Style::Default;
-        window_.create({windowWidth_, windowHeight_}, windowTitle_, style);
+    	states_.clear();
     }
 
     void toggleFullscreen()
@@ -85,19 +93,19 @@ public:
     }
 
 protected:
-    // These methods define an interface, should not be called within a state
+    // These methods define an interface of Game class, implementation will go there.
     virtual void update(sf::Time deltaTime) = 0;
     virtual void draw(sf::RenderTarget& renderer) = 0;
     virtual void handleEvents() = 0;
 
     StateBase& getCurrentState()
     {
-        // At least one state required - what if there is no any? throw exception? or can be null? use pointer instead!
+        // At least one state required - what if there is no any? throw exception? or can be null? maybe use pointer instead!
         assert(states_.size()); // give up with assertions... ~Mayers
-        return *states_.back(); // return reference
+        return *states_.back();
     };
 
-    // Removing last state from the stack means exit from application
+    // Removing last state from the stack means quit from the application
     void tryPop()
     {
         if (popState_)

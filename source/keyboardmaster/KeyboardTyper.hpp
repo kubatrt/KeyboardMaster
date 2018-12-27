@@ -9,16 +9,19 @@
 namespace km
 {
 
-// TODO What exatly this class should do?
-//  - counting mistakes
-//  - collecting typed words
-//  - calculating stats
-
-class KeyboardTyper : public framework::NonCopyable
+// TODO: What exatly this class should do?
+// - counting mistakes
+// - collecting typed words
+// - calculating game stats
+class KeyboardTyper
 {
 public:
     KeyboardTyper();
-    ~KeyboardTyper();
+    ~KeyboardTyper() = default;
+    KeyboardTyper(const KeyboardTyper&) = delete;
+    KeyboardTyper(KeyboardTyper&&) = delete;
+    KeyboardTyper& operator=(const KeyboardTyper&) = delete;
+    KeyboardTyper& operator=(KeyboardTyper&&) = delete;
 
     float getKPM() const { return keysPerMinute_; }
     float getKPW() const { return wordsPerMinute_; }
@@ -41,7 +44,7 @@ public:
     void update(sf::Time deltaTime);
 
 private:
-   // Dictionary dictionary_;
+    // Dictionary dictionary_;
     sf::Clock timer_;
     std::wstring typingText_;
     std::vector<std::wstring> typedWords_;
@@ -57,8 +60,8 @@ private:
     uint omittedLetters_;
     uint mistakeLetters_;
 
-    unsigned int typedKeys_;    // every key typed
-    unsigned int wordsTyped_;
+    uint typedKeys_;    	// every key typed
+    uint wordsTyped_;		// typed words counter
     float keysPerMinute_;
     float wordsPerMinute_;
 };

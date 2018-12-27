@@ -5,15 +5,12 @@ namespace km
 {
 
 KeyboardTyper::KeyboardTyper()
+	: wordsPerMinute_(0.f)
+	, wordsTyped_(0)
 //    : dictionary_("C:\\")
 {
     timer_.restart();
 } 
-
-KeyboardTyper::~KeyboardTyper()
-{
-
-}
 
 
 void KeyboardTyper::omit(uint lettersNumber)

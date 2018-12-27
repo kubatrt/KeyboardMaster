@@ -4,26 +4,25 @@
 #include <SFML/Audio.hpp>
 
 #include "ResourceManager.hpp"
-#include "../Util/NonCopyable.hpp"
-#include "../Util/NonMoveable.hpp"
 
 
 namespace framework
 {
 
-class ResourceHolder : public NonCopyable, public NonMovable
+class ResourceHolder
 {
     public:
+		~ResourceHolder() = default;
+		ResourceHolder(const ResourceHolder&) = delete;
+		ResourceHolder(ResourceHolder&&) = delete;
+		ResourceHolder& operator=(const ResourceHolder&) = delete;
+		ResourceHolder& operator=(ResourceHolder&&) = delete;
+
         static ResourceHolder& get();
 
         ResourceManager<sf::Font>           fonts;
         ResourceManager<sf::Texture>        textures;
         ResourceManager<sf::SoundBuffer>    sounds;
-
-        // TODO
-        // soundBuffer
-        // Music
-        // Shader
 
     private:
         ResourceHolder();

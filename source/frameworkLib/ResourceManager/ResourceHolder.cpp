@@ -14,7 +14,6 @@ ResourceHolder::ResourceHolder()
     , textures("textures", "png")
     , sounds("audio", "wav")
 {
-
 }
 
 }
