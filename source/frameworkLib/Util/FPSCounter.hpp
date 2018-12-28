@@ -6,21 +6,23 @@
 namespace framework
 {
 
-class FPSCounter : IGameComponent
+// Basic game component usage example.
+class FPSCounter : public IGameComponent
 {
-    public:
-        FPSCounter();
+public:
+	FPSCounter();
+	~FPSCounter() = default;
 
-        void update(sf::Time deltaTime) override;
-        void draw(sf::RenderTarget& renderer) override;
+	void update(sf::Time deltaTime) override;
+	void draw(sf::RenderTarget& renderer) override;
 
-    private:
-        sf::Text textUI_;
+private:
+	sf::Clock delayTimer_;
+	sf::Clock fpsTimer_;
+	float fps_ = 0.f;
+	unsigned int frameCount_ = 0;
 
-        sf::Clock delayTimer_;
-        sf::Clock fpsTimer_;
-        float fps_ = 0;
-        int frameCount_ = 0;
+	sf::Text textUI_;
 };
 
 }

@@ -30,7 +30,7 @@ void FPSCounter::update(sf::Time deltaTime)
 
 void FPSCounter::draw(sf::RenderTarget& renderer)
 {
-    textUI_.setString("FPS: " + std::to_string((int)fps_));
+    textUI_.setString(std::to_string((int)fps_));
     renderer.draw(textUI_);
 }
 

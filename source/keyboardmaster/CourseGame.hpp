@@ -12,6 +12,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
+
 #include "frameworkLib/StateBase.hpp"
 #include "frameworkLib/GameBase.hpp"
 #include "frameworkLib/Utilities.hpp"
@@ -19,6 +20,7 @@
 #include "Dictionary.hpp"
 #include "KeyboardTyper.hpp"
 #include "Misc.hpp"
+#include "SoundPlayer.hpp"
 
 namespace km
 {
@@ -29,7 +31,7 @@ namespace fw = framework;
 class CourseGame : public fw::StateBase
 {
 public:
-    CourseGame(fw::GameBase& game, std::string filePath);
+    CourseGame(fw::GameBase& game, std::string dictionaryFilePath);
     ~CourseGame();
 
     void handleEvents(sf::Event e) override;
@@ -40,20 +42,9 @@ private:
     void textEnteredEvent(wchar_t typedLetter);
 
     void newLine();
+    void prepareTextFields();
     //uint inpenultimateLineNumber(); // index
     //uint currentLineLength();
-    void prepareTextFields();
-
-    // TODO: move elsewhere
-    struct SoundPlayer
-    {
-        SoundPlayer();
-        void play(const std::string sound);
-
-    private:
-        std::map<std::string, sf::SoundBuffer> sounds_;
-        sf::Sound sound_;
-    };
 
     sf::Font mainFont_;
     sf::Sprite backgroundSpriteUI_;
@@ -66,11 +57,10 @@ private:
     //std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 
     sf::Clock timer_;
-    bool gameOver_ = false;
-    SoundPlayer soundPlayer_;
     Dictionary dictionary_;
     VirtualKeyboard vkb_;
     KeyboardTyper kb_;
+    bool gameOver_ = false;
 
     wchar_t nextLetter_;
     std::wstring typingTextLine_;

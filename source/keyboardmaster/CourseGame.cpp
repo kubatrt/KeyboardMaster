@@ -1,5 +1,4 @@
 #include "CourseGame.hpp"
-#include "frameworkLib/ResourceManager/ResourceHolder.hpp"
 
 namespace km
 {
@@ -14,29 +13,13 @@ constexpr int fontSize = 18;
 constexpr int textLineVerticalOffset = 2;
 }
 
-CourseGame::SoundPlayer::SoundPlayer()
-{
-    sounds_["keytype"] = fw::ResourceHolder::get().sounds.get("keytype");
-    sounds_["mistake"] = fw::ResourceHolder::get().sounds.get("mistake");
-    sounds_["newline"] = fw::ResourceHolder::get().sounds.get("newline");
-    sounds_["bell"] = fw::ResourceHolder::get().sounds.get("bell");
-}
 
-void CourseGame::SoundPlayer::play(const std::string sound)
-{
-    if (sounds_.count(sound))
-    {
-        sound_.setBuffer(sounds_[sound]);
-        sound_.play();
-    }
-
-}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-CourseGame::CourseGame(fw::GameBase& game, std::string filePath)
+CourseGame::CourseGame(fw::GameBase& game, std::string dictionaryFilePath)
     : StateBase(game)
-    , dictionary_(filePath)
+    , dictionary_(dictionaryFilePath)
     , vkb_(game.getWindow().getSize())
     , kb_()
     , gameOver_(false)
@@ -60,14 +43,15 @@ CourseGame::CourseGame(fw::GameBase& game, std::string filePath)
     debugTextUI_.setPosition(780, 500);
 
     prepareTextFields();
+
     nextLetter_ = dictionary_.getLines()[currentLine_][0];
     vkb_.highlightLetter(static_cast<int>(nextLetter_));
 }
 
 CourseGame::~CourseGame()
 {
-    std::wcout << L"Program finished after " << timer_.getElapsedTime().asSeconds() << std::endl;
-    std::wcout << L"KPM: " << kb_.getKPM() << ", KPW: " << kb_.getKPW() << std::endl;
+    LOG_INFO(L"CourseGame DTOR. Finish after: " << timer_.getElapsedTime().asSeconds())
+    LOG_INFO(L"Keys per minute KPM: " << kb_.getKPM() << ", words per minute (WPM): " << kb_.getWPM())
 }
 
 void CourseGame::prepareTextFields()
@@ -102,7 +86,7 @@ void CourseGame::newLine()
     typingTextLine_.clear();
     currentLine_++;
     currentletterInLine_ = 0;
-    soundPlayer_.play("newline");
+    fw::SoundPlayer::get().play("newline");
 }
 
 void CourseGame::handleEvents(sf::Event event)
@@ -167,7 +151,7 @@ void CourseGame::textEnteredEvent(wchar_t typedLetter)
             int omittedLetters = dictionary_.getLines()[currentLine_].size() - currentletterInLine_;
             kb_.omit(omittedLetters);
             newLine();
-            soundPlayer_.play("newline");
+            fw::SoundPlayer::get().play("newline");
             std::wcout << "NEWLINE OMIT" << std::endl;
         }
         else
@@ -183,11 +167,11 @@ void CourseGame::textEnteredEvent(wchar_t typedLetter)
         {
             if (typedLetter == nextLetter_)
             {
-                soundPlayer_.play("keytype");
+            	fw::SoundPlayer::get().play("keytype");
             }
             else
             {
-                soundPlayer_.play("mistake");
+            	fw::SoundPlayer::get().play("mistake");
             }
 
             typingTextLine_.push_back(typedLetter);
@@ -206,7 +190,7 @@ void CourseGame::textEnteredEvent(wchar_t typedLetter)
             }
             else
             {
-                soundPlayer_.play("mistake");
+            	fw::SoundPlayer::get().play("mistake");
                 newLine();
                 // that was last letter, go to new line this means that was last letter in 
                 // last line in course and it's incorrect, but dont count mistake
@@ -214,10 +198,10 @@ void CourseGame::textEnteredEvent(wchar_t typedLetter)
         }
     }
 
-    // FIXME: HACK
+    // FIXME: HACK!
     if (currentLine_ >= dictionary_.getLines().size())
     {
-        std::wcerr << "HACK" << std::endl;
+        LOG_INFO("HACK!")
         currentLine_ = dictionary_.getLines().size() - 1;
     }
         
@@ -254,7 +238,7 @@ void CourseGame::update(sf::Time deltaTime)
     vkb_.update(deltaTime);
     kb_.update(deltaTime);
 
-    // debug string
+    // Debug string
     std::wstringstream wss;
     wss << L"Time: " << timer_.getElapsedTime().asSeconds()
         << L"\nLetter: " << currentletterInLine_ << L" Line: " << currentLine_

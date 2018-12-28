@@ -9,7 +9,7 @@
 namespace km
 {
 
-// TODO: What exatly this class should do?
+// TODO: What exatly this class should do? Gather input form player
 // - counting mistakes
 // - collecting typed words
 // - calculating game stats
@@ -24,8 +24,9 @@ public:
     KeyboardTyper& operator=(KeyboardTyper&&) = delete;
 
     float getKPM() const { return keysPerMinute_; }
-    float getKPW() const { return wordsPerMinute_; }
+    float getWPM() const { return wordsPerMinute_; }
     
+
     float correctnessPercentage(uint lettersCount);
 
     void textEnteredEvent(wchar_t letter, bool correct, uint letterPositionInLine);

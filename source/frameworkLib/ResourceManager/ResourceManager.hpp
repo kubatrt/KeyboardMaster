@@ -10,6 +10,7 @@ namespace framework
 const std::string ResourcesDirectory = "data/";
 
 // Resource manager class
+// TODO: get rid of extensions
 template<typename Resource>
 class ResourceManager
 {
@@ -40,7 +41,7 @@ public:
 
         if (!res.loadFromFile(getFullname(name)))
         {
-        	// if the resource fail to load, then default "fail" resource is added
+        	// If the resource fail to load, then default "fail" resource is added
             Resource fail;
             fail.loadFromFile(folder_ + "_fail_" + extension_);
             resources_.insert(std::make_pair(name, fail));

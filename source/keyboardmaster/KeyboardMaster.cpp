@@ -13,22 +13,17 @@ KeyboardMaster::KeyboardMaster()
 {
     window_.setFramerateLimit(60);
     pushState<MainMenu>(*this);
+    addComponent<fw::FPSCounter>();
 }
 
 void KeyboardMaster::update(sf::Time deltaTime)
 {
     getCurrentState().update(deltaTime);
-    //fpsCounter_.update(deltaTime);
 }
 
 void KeyboardMaster::draw(sf::RenderTarget& renderer)
 {
-    window_.clear();
-
     getCurrentState().draw(window_);
-    //fpsCounter_.draw(window_);
-
-    window_.display();
 }
 
 void KeyboardMaster::handleEvents()

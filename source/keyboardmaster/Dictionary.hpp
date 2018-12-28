@@ -14,6 +14,8 @@
 namespace km
 {
 
+namespace fw = framework;
+
 // Class responsible for loading words from file in UTF-8 format
 class Dictionary
 {

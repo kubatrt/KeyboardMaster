@@ -5,7 +5,6 @@
 #include <locale>
 #include <codecvt>
 #include <vector>
-#include <string>
 #include "Files.hpp"
 
 
@@ -33,7 +32,7 @@ std::string loadTextFromFile(const std::string& filePath, bool throws)
     return oss.str();
 }
 
-// System independent, universal utf8 text file loading
+// System independent, universal loading utf8 text file
 std::wstring loadTextFromUtf8File(const std::string& filePath, bool throws)
 {
     std::wifstream wif(filePath.c_str());
@@ -58,4 +57,4 @@ std::wstring loadTextFromUtf8File(const std::string& filePath, bool throws)
     return wss.str();
 }
 
-}   // framework
+}

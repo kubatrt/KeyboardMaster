@@ -7,15 +7,15 @@ template <typename T>
 class Singleton
 {
 private:
-	Singleton(Singleton const&) {}
-	Singleton& operator=(Singleton const&) {}
+	Singleton(Singleton const&) = delete;
+	Singleton& operator=(Singleton const&) = delete;
 
 protected:
-	static T* instance;
+	static T* instance_;
 
-	Singleton() 
+	Singleton()
 	{
-		instance = new T; 
+		instance_ = new T;
 		/*instance = static_cast<T*>(this);*/ 	// TODO: doesn't work?
 	}
 	virtual ~Singleton() {}
@@ -26,24 +26,25 @@ public:
 
 };
 
+
 template<typename T>
-typename T* Singleton<T>::instance = nullptr;
+typename T* Singleton<T>::instance_ = nullptr;
 
 template<typename T>
 T* Singleton<T>::getInstance()
 {
-	if (instance == nullptr)
+	if (instance_ == nullptr)
 	{
-		Singleton<T>::instance = new T();
+		Singleton<T>::instance_ = new T();
 	}
-	return instance;
+	return instance_;
 }
 
 template<typename T>
 void Singleton<T>::destroy()
 {
-	delete Singleton<T>::instance;
-	Singleton<T>::instance = nullptr;
+	delete Singleton<T>::instance_;
+	Singleton<T>::instance_ = nullptr;
 }
 
 }

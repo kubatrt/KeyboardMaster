@@ -5,8 +5,8 @@ namespace km
 
 namespace
 {
-constexpr int fontSize = 16;
-constexpr int textLineVerticalOffset = 2;
+constexpr int FONT_SIZE {16};
+constexpr int TEXT_LINE_VERTICAL_OFFSET {2};
 }
 
 WritingGame::WritingGame(fw::GameBase& game, std::string dictionaryFile) // @suppress("Class members should be properly initialized")
@@ -23,27 +23,27 @@ WritingGame::WritingGame(fw::GameBase& game, std::string dictionaryFile) // @sup
     debugTextUI_.setStyle(sf::Text::Bold);
     debugTextUI_.setPosition(780, 500);
     
-    // create lines of text for this course
+    // Create lines of text for this course
     for (uint i = 0; i < dictionary_.getLines().size(); ++i)
     {
         sf::Text textField;
         textField.setFont(mainFont_);
         textField.setString(dictionary_.getLines()[i]);   // must be 'L'
-        textField.setCharacterSize(fontSize);
+        textField.setCharacterSize(FONT_SIZE);
         textField.setFillColor(sf::Color::White);
         textField.setStyle(sf::Text::Bold);
-        textField.setPosition(4.f, static_cast<float>(i * (fontSize * 2.f) + textLineVerticalOffset));
+        textField.setPosition(4.f, static_cast<float>(i * (FONT_SIZE * 2.f) + TEXT_LINE_VERTICAL_OFFSET));
         courseTextUI_.push_back(textField);
     }
-    // same for user input text, but empty
+    // Do the same for user input text, but empty
     for (uint i = 0; i < dictionary_.getLines().size(); ++i)
     {
         sf::Text textField;
         textField.setFont(mainFont_);
-        textField.setCharacterSize(fontSize);
+        textField.setCharacterSize(FONT_SIZE);
         textField.setFillColor(sf::Color::Cyan);
         textField.setStyle(sf::Text::Bold);
-        textField.setPosition(4.f, static_cast<float>(i * (fontSize * 2.f) + textLineVerticalOffset + fontSize));
+        textField.setPosition(4.f, static_cast<float>(i * (FONT_SIZE * 2.f) + TEXT_LINE_VERTICAL_OFFSET + FONT_SIZE));
         courseInputTextUI_.push_back(textField);
     }
 
@@ -155,6 +155,7 @@ void WritingGame::update(sf::Time deltaTime)
 void WritingGame::draw(sf::RenderTarget& renderer)
 {
     renderer.draw(debugTextUI_);
+
     for (sf::Text text : courseTextUI_)
         renderer.draw(text);
 

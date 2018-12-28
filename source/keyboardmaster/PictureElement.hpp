@@ -30,9 +30,9 @@ PictureElement(sf::Texture& texture, sf::IntRect textureSectionRect,
     , nextLetter_(word.front())
     //, scheduler_(sf::seconds(3.f), []() {  })
 {
-    constexpr int charFontSize = 22;
-    constexpr int charWidth = 14;
-    constexpr int charHeight = 24;
+    const int charFontSize {22};
+    const int charWidth {14};
+    const int charHeight {24};
 
     sprite_.setTexture(texture);
     sprite_.setTextureRect(textureSectionRect);
@@ -52,7 +52,7 @@ PictureElement(sf::Texture& texture, sf::IntRect textureSectionRect,
     
     //shape.setSize(sf::Vector2f(word.length() * charWidth, charHeight));
 
-    log_info("PictureElement:" << word_);
+    LOG_INFO("PictureElement:" << word_);
 }
 
 PictureElement(const PictureElement& pe)
@@ -64,12 +64,12 @@ PictureElement(const PictureElement& pe)
 	, missed_(pe.missed_)
 	, revealed_(pe.revealed_)
 {
-    log_info("PictureElement CPYCTOR: " << word_.c_str());
+    LOG_INFO("PictureElement CPYCTOR: " << word_.c_str());
 }
 
 ~PictureElement()
 {
-    log_info("PictureElement DTOR:" << word_.c_str());
+    LOG_INFO("PictureElement DTOR:" << word_.c_str());
 }
 
 int getIndex() const { return index_; }

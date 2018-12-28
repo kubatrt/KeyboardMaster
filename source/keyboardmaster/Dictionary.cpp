@@ -1,5 +1,5 @@
 #include "Dictionary.hpp"
-
+#include "frameworkLib/Utilities.hpp"
 
 namespace km
 {
@@ -18,15 +18,13 @@ Dictionary::Dictionary(FilePath filePath)
 {
     loadFromFile(filePath);
 
-    std::wcerr << "DICTIONARY - " << filePath.c_str() << std::endl
-         << "letters count: " << lettersCount_ << std::endl
-         << "longest word: " << longestWord_ << std::endl
-         << "shortest word: " << shortestWord_ << std::endl;
+    LOG_INFO("DICTIONARY CTOR: " << filePath.c_str() << std::endl << "letters count: " << lettersCount_ << std::endl
+         << "longest word: " << longestWord_ << std::endl << "shortest word: " << shortestWord_)
 }
 
 void Dictionary::loadFromFile(FilePath filePath)
 {
-    textFromFile_ = framework::loadTextFromUtf8File(filePath);
+    textFromFile_ = fw::loadTextFromUtf8File(filePath);
     textFromFile_ = textFromFile_.substr(1, textFromFile_.size() - 1); // fix for first letter
 
     prepareWords();
@@ -66,7 +64,7 @@ std::wstring Dictionary::debugAllWordsString()
 
 std::wstring Dictionary::getRandomWord()
 {
-    return wordsAll_.at( framework::RandomMachine::getRange<size_t>(0, wordsAll_.size() - 1) );
+    return wordsAll_.at( fw::RandomMachine::getRange<size_t>(0, wordsAll_.size() - 1) );
 }
 
 std::wstring Dictionary::getRandomWord(int length)
@@ -74,7 +72,7 @@ std::wstring Dictionary::getRandomWord(int length)
     if(length == getLongestWord())
         length--;
     return wordsByLength_[length].at(
-            framework::RandomMachine::getRange<size_t>(0, wordsByLength_[length].size() - 1));
+            fw::RandomMachine::getRange<size_t>(0, wordsByLength_[length].size() - 1));
     
 }
 
@@ -126,7 +124,6 @@ void Dictionary::prepareWords()
         words_.insert(buffer);
     }
 
-    // just all words
     for(auto word : words_)
     {
         wordsAll_.push_back(word);

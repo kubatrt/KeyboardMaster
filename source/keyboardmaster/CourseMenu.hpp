@@ -13,6 +13,7 @@ class CourseMenu : public fw::StateBase
 {
 public:
     CourseMenu(fw::GameBase& game);
+    ~CourseMenu() = default;
 
     void handleEvents(sf::Event e) override;
     void update(sf::Time deltaTime) override;

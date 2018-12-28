@@ -39,7 +39,6 @@ private:
     int maxWordsInGame = 10;
     int wordsInGame = 0;
     
-
     sf::Clock spawnClock_;
     sf::Time spawnInterval_;
 

@@ -11,6 +11,7 @@ namespace framework
 
 // Base class for implementing the game. Runs main game loop, window handling and state management.
 // Implementation of game logic should be written using StateBase class. At least one state required.
+// Components applies to whole game <currently>
 class GameBase
 {
 public:
@@ -43,8 +44,13 @@ public:
             auto elapsed = time - lastTime;
             lastTime = time;
 
+            // Update game logic
             update(elapsed);
+            for(auto& c : components_) { c->update(elapsed); }
+            window_.clear();
             draw(window_);
+            for(auto& c : components_) { c->draw(window_); }
+            window_.display();
             handleEvents();
 
             tryPop();
@@ -52,11 +58,17 @@ public:
         return 0;
     }
 
+    template<typename T, typename... Args>
+    void addComponent(Args&&... args)
+    {
+    	components_.emplace_back(std::make_unique<T>(std::forward<Args>(args)...));
+    }
+
     // State management
     template<typename T, typename... Args>
     void pushState(Args&&... args)
     {
-        states_.push_back(std::make_unique<T>(std::forward<Args>(args)...));
+        states_.emplace_back(std::make_unique<T>(std::forward<Args>(args)...));
     };
 
     void popState()
@@ -93,7 +105,7 @@ public:
     }
 
 protected:
-    // These methods define an interface of Game class, implementation will go there.
+    // These methods defines an interface of Games classes, implementation will go there.
     virtual void update(sf::Time deltaTime) = 0;
     virtual void draw(sf::RenderTarget& renderer) = 0;
     virtual void handleEvents() = 0;
@@ -105,7 +117,7 @@ protected:
         return *states_.back();
     };
 
-    // Removing last state from the stack means quit from the application
+    // Removing last state from the stack means QUIT
     void tryPop()
     {
         if (popState_)
@@ -119,7 +131,7 @@ protected:
 
 private:
     std::vector<StateBasePtr> states_;
-    //std::vector<IGameComponent> components_;
+    std::vector<GameComponentPtr> components_;
 
     bool popState_;
     bool isFullscreen_;

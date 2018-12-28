@@ -13,7 +13,7 @@ WordBlock::WordBlock(int x, std::wstring word, sf::Vector2f velocity)
     , velocity_(velocity)
     , isAlive_(true)
 {
-    log_info("WordBlock CTOR wordblock:" << word);
+    LOG_INFO("WordBlock CTOR wordblock:" << word);
 
     wordText_.setFont(framework::ResourceHolder::get().fonts.get("arial"));
     wordText_.setString(word);
@@ -33,12 +33,12 @@ WordBlock::WordBlock(const WordBlock& wb)
 	, velocity_(wb.velocity_)
 	, isAlive_(wb.isAlive_)
 {
-    log_info("WordBlock CPYCTOR: " << word_);
+    LOG_INFO("WordBlock CPYCTOR: " << word_);
 }
 
 WordBlock::~WordBlock()
 {
-    log_info("WordBlock DTOR:" << word_);
+    LOG_INFO("WordBlock DTOR:" << word_);
 }
 
 void WordBlock::update(sf::Time deltaTime)
