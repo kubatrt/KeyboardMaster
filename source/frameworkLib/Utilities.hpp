@@ -14,6 +14,8 @@
 #include "Util/Files.hpp"
 #include "Util/Logger.hpp"
 
+
+// Global type definitions
 typedef unsigned int uint;
 
 using WChar = wchar_t;
@@ -25,6 +27,7 @@ namespace framework
 {
 
 std::vector<std::string> getLinesFromText(const std::string& text);
+
 
 namespace charutils
 {
@@ -92,16 +95,17 @@ struct RemoveSpaces
 	}
 };
 
-} // charutils
+}
 
 
+// Print SFML Vector2 structure
 template <typename T>
 void printVec(std::ostream& out, T vec)
 {
-	out << "[" << vec.x << ", " << vec.y << "]";
+	out << "Vector2 [" << vec.x << ", " << vec.y << "]";
 }
 
-// print variadic argument pack
+// Print variadic argument pack
 template <typename... Args>
 void printVA(std::ostream& out, Args&&... args)
 {
