@@ -24,6 +24,7 @@ void GalleryGame::handleEvents(sf::Event e)
     case sf::Event::KeyPressed:
         if (e.key.code == sf::Keyboard::Escape)
         {
+        	// TODO: are you sure?
             game_.popState();
         }
         else if (e.key.code == sf::Keyboard::Return)

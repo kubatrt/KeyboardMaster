@@ -29,11 +29,11 @@ public:
 
     void loadFromFile(FilePath filePath);
     std::wstring getRandomWord();
-    std::wstring getRandomWord(int length);
+    std::wstring getRandomWord(int length);	// should throw exception if length is to large, or specify available range in interface
 
     const std::wstring getText() const { return textFromFile_; }
     const std::vector<std::wstring> getLines() const { return lines_; }
-    const std::set<std::wstring> getWords() const { return words_; }
+    const std::set<std::wstring> getSetOfWords() const { return words_; }
     uint getLettersCount() const { return lettersCount_; }
     uint getWordsCount() const { return wordsCount_; }
     uint getLongestWord() const { return longestWord_; }

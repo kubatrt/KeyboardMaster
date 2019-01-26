@@ -3,13 +3,15 @@
 namespace framework
 {
 
+constexpr float TOGGLE_KEY_TIME {0.2f};
+
 ToggleKey::ToggleKey(sf::Keyboard::Key key)
 :   m_key (key)
 { }
 
 bool ToggleKey::isKeyPressed()
 {
-    if (delayTimer_.getElapsedTime().asSeconds() > 0.2)
+    if (delayTimer_.getElapsedTime().asSeconds() > TOGGLE_KEY_TIME)
     {
         if (sf::Keyboard::isKeyPressed(m_key))
         {

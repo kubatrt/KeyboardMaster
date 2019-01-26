@@ -54,7 +54,7 @@ protected:
 	std::vector<ObservedPtr> list;
 
 public:
-    void registerObserver(ObservedPtr object)
+    void registerObserver(ObservedPtr& object)
     {
         //list.push_back( std::move(object));
     }

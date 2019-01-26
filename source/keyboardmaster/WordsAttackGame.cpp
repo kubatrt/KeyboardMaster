@@ -71,10 +71,10 @@ void WordsAttackGame::handleEvents(sf::Event e)
             game_.toggleFullscreen();
         break;
 
-        case sf::Event::TextEntered:
+    case sf::Event::TextEntered:
         typedLetter_ = static_cast<wchar_t>(e.text.unicode);
 
-        if (static_cast<int>(typedLetter_) == KeyCode::Enter)
+        if (static_cast<int>(typedLetter_) == KeyCode::Enter) // PUSH ENTER
         {
             if(gameOver)
             {

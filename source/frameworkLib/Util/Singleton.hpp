@@ -18,7 +18,7 @@ protected:
 		instance_ = new T;
 		/*instance = static_cast<T*>(this);*/ 	// TODO: doesn't work?
 	}
-	virtual ~Singleton() {}
+	virtual ~Singleton() { if(instance_) delete instance_; }
 
 public:
 	static T* getInstance();
