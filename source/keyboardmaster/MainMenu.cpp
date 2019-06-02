@@ -10,7 +10,7 @@
 #include "WritingGame.hpp"
 #include "frameworkLib/GUI/Button.hpp"
 #include "frameworkLib/GUI/Textbox.hpp"
-
+#include "frameworkLib/ResourceManager/ResourceHolder.hpp"
 
 namespace km
 {
@@ -18,7 +18,11 @@ namespace km
 MainMenu::MainMenu(fw::GameBase& game)
     : StateBase(game)
     , menu_({ game.getWindow().getSize().x / 2.f, 90.f })
+	, metronome_(80)
 {
+	std::cout << "MainMenu" << std::endl;
+
+
     auto b = std::make_unique<fw::gui::Button>();
     b->setText("Go to course");
     b->setFunction([&] ()
@@ -41,7 +45,6 @@ MainMenu::MainMenu(fw::GameBase& game)
     });
 
 
-
     auto b4 = std::make_unique<fw::gui::Button>();
     b4->setText("Writing");
     b4->setFunction([&] ()
@@ -60,7 +63,7 @@ MainMenu::MainMenu(fw::GameBase& game)
     bquit->setText("Quit");
     bquit->setFunction([&] ()
     {
-        game_.close();
+        game_.closeWindow();
     });
 
     menu_.addWidget(std::move(b));
@@ -78,9 +81,11 @@ void MainMenu::handleEvents(sf::Event e)
     {
     case sf::Event::KeyPressed:
         if (e.key.code == sf::Keyboard::Escape)
-            game_.close();
+            game_.closeWindow();
         else if (e.key.code == sf::Keyboard::F12)
             game_.toggleFullscreen();
+        else if (e.key.code == sf::Keyboard::F1)
+            metronome_.toggle();
         break;
     default:
         break;
@@ -89,7 +94,7 @@ void MainMenu::handleEvents(sf::Event e)
 
 void MainMenu::update(sf::Time deltaTime)
 {
-
+	metronome_.update(deltaTime);
 }
 
 void MainMenu::draw(sf::RenderTarget& renderer)

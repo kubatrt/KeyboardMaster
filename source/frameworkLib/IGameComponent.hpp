@@ -6,6 +6,11 @@
 namespace framework
 {
 
+// Interface for components
+// Components can be added in to two places
+// NOT TRUE?
+// - GameBase - application level, persist through all game states
+// - StateBase - persist during active state
 struct IGameComponent
 {
 	virtual ~IGameComponent() = default;

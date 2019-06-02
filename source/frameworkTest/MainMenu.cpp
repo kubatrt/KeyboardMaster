@@ -39,7 +39,7 @@ MainMenu::MainMenu(fw::GameBase& game)
     bquit->setText("Quit");
     bquit->setFunction([&] ()
     {
-        game_.close();
+        game_.closeWindow();
     });
 
     testMenu_.addWidget(std::move(b));
@@ -56,7 +56,7 @@ void MainMenu::handleEvents(sf::Event e)
     {
     case sf::Event::KeyPressed:
         if (e.key.code == sf::Keyboard::Escape)
-            game_.close();
+            game_.closeWindow();
         else if (e.key.code == sf::Keyboard::F12)
             game_.toggleFullscreen();
         break;

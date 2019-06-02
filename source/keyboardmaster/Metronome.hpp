@@ -25,6 +25,8 @@ public:
 
     void setBPM(unsigned int bpm) { bpm_ = bpm; }
     unsigned int getBPM() const { return bpm_; }
+
+    void toggle();
     void start();
     void stop();
     void update(sf::Time deltaTime);

@@ -6,7 +6,7 @@
 #include <memory>
 #include <algorithm>
 
-// Implementation:
+// Implementation from
 // https://juanchopanzacpp.wordpress.com/2013/02/24/simple-observer-pattern-implementation-c11/
 
 namespace framework
@@ -22,21 +22,21 @@ enum class TextEvent
 class Observer
 {
 public:
-	virtual Observer();
+	virtual ~Observer();
     virtual void notif() = 0;
 };
 
-using ObserverObj = std::weak_ptr<Observer>;
+using ObserverObjPtr = std::weak_ptr<Observer>;
 
 class Subject
 {
 public:
-    void addObserver(const TextEvent& event, ObserverObj observer)
+    void addObserver(const TextEvent& event, ObserverObjPtr observer)
     {
         observers_[event].push_back(observer);
     }
 
-    void removeObserver(const TextEvent& event, ObserverObj observer)
+    void removeObserver(const TextEvent& event, ObserverObjPtr observer)
     {
         //std::remove(observers_[event].begin(),  observers_[event].end(), observer), observers_.end();
     }
@@ -53,7 +53,7 @@ public:
  }
 
 private:
-    std::map<TextEvent, std::vector< ObserverObj> > observers_;
+    std::map<TextEvent, std::vector< ObserverObjPtr> > observers_;
 };
 
 } // framework

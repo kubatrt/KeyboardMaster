@@ -4,6 +4,7 @@
 #include "frameworkLib/StateBase.hpp"
 #include "frameworkLib/GUI/StackMenu.hpp"
 #include "frameworkLib/Util/Animation.hpp"
+#include "Metronome.hpp"
 
 namespace km
 {
@@ -21,7 +22,8 @@ public:
 
 private:
     fw::gui::StackMenu menu_;
-    //fw::Animation animation_;
+    Metronome metronome_;	// TODO: test metronome
+    //fw::Animation animation_; TODO: test animation
 };
 
 }

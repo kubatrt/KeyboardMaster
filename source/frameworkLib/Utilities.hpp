@@ -17,8 +17,7 @@
 
 
 // Global type definitions
-typedef unsigned int uint;
-
+using uint = unsigned int;
 using WChar = wchar_t;
 using WStr = std::wstring;
 using FilePath = std::string;
@@ -27,8 +26,10 @@ using FilePath = std::string;
 namespace framework
 {
 
+// Return vector of strings with each line separately
 std::vector<std::string> getLinesFromText(const std::string& text);
 
+// does it work?
 template <typename T>
 T middlePoint(const T& a, const T& b)
 {
@@ -38,6 +39,7 @@ T middlePoint(const T& a, const T& b)
 	return middle;
 }
 
+// does it work?
 template <typename T>
 T mirrorPoint(const T& point)
 {

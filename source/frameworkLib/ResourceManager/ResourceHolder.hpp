@@ -10,6 +10,9 @@ namespace framework
 {
 
 // Global resource holder
+// Example usage:
+//	font_ = fw::ResourceHolder::get().fonts.get("CourierNew");
+//
 class ResourceHolder
 {
     public:
