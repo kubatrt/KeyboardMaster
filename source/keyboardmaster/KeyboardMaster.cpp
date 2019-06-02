@@ -14,8 +14,9 @@ KeyboardMaster::KeyboardMaster()
     : fw::GameBase({ WindowWidth , WindowHeight }, "KeyboardMaster")
 {
     window_.setFramerateLimit(60);
-    pushState<MainMenu>(*this);
     addComponent<fw::FPSCounter>();
+
+    pushState<MainMenu>(*this);	// Push 1st state: MainMenu
 }
 
 void KeyboardMaster::update(sf::Time deltaTime)

@@ -26,7 +26,7 @@ StackMenu::StackMenu(const sf::Vector2f& position, float offset)
     background_.setPosition(basePosition_.x - baseSize_.x / 2.f, basePosition_.y - offset_);
     background_.setSize(baseSize_);
 
-    std::wcout << "StackMenu CTOR at position" << basePosition_.x << ", " << basePosition_.y << std::endl;
+    std::wcout << "StackMenu CTOR at position " << basePosition_.x << ", " << basePosition_.y << std::endl;
 }
 
 StackMenu::StackMenu(StackMenu&& other)
@@ -42,6 +42,7 @@ StackMenu::StackMenu(StackMenu&& other)
 StackMenu& StackMenu::operator=(StackMenu&& other)
 {
     std::wcout << "StackMenu MOVE CTOR " << std::endl;
+
     widgets_  = std::move(other.widgets_);
     background_ = std::move(other.background_);
     basePosition_ = other.basePosition_;

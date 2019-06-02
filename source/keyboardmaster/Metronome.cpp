@@ -8,7 +8,7 @@ Metronome::Metronome(unsigned int bpm)
 	, isPlaying_(false)
 	, tick_(0)
 {
-	std::cout << "Metronome( " << bpm_ << " )" << std::endl;
+	std::wcout << "Metronome CTOR ( " << bpm_ << " )" << std::endl;
 }
 
 void Metronome::toggle()
@@ -43,23 +43,19 @@ void Metronome::update(sf::Time deltaTime)
 	sf::Time interval(sf::seconds(60.f / bpm_));
 	if (elapsedTime_ >= interval)
 	{
-		elapsedTime_ = sf::Time::Zero;
-		playSound();
+		elapsedTime_ = timer_.restart();
+		tick_++;
+		if(tick_ % TickSeparator_)
+		{
+			SoundPlayer::get().play("metro_beat");
+		}
+		else
+		{
+			SoundPlayer::get().play("metro_bar");
+			tick_ = 0;
+		}
 	}
 
-}
-
-void Metronome::playSound()
-{
-	tick_++;
-	if(tick_ % tickSeparator_ )
-	{
-		ResourceHolder
-	}
-	else
-	{
-
-	}
 }
 
 }

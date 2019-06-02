@@ -5,16 +5,18 @@
 #include <SFML/Audio.hpp>
 #include "frameworkLib/ResourceManager/ResourceHolder.hpp"
 
-namespace framework
+
+namespace km
 {
 
+namespace fw = framework;
 
 class SoundPlayer
 {
 public:
 	~SoundPlayer() = default;
-	SoundPlayer(const ResourceHolder&) = delete;
-	SoundPlayer(ResourceHolder&&) = delete;
+	SoundPlayer(const fw::ResourceHolder&) = delete;
+	SoundPlayer(fw::ResourceHolder&&) = delete;
 	SoundPlayer& operator=(const SoundPlayer&) = delete;
 	SoundPlayer& operator=(SoundPlayer&&) = delete;
 
@@ -38,12 +40,12 @@ public:
 private:
 	SoundPlayer()
 	{
-	    sounds_["keytype"] 		= ResourceHolder::get().sounds.get("keytype");
-	    sounds_["mistake"] 		= ResourceHolder::get().sounds.get("mistake");
-	    sounds_["newline"] 		= ResourceHolder::get().sounds.get("newline");
-	    sounds_["bell"] 		= ResourceHolder::get().sounds.get("bell");
-	    sounds_["metro_bar"] 	= ResourceHolder::get().sounds.get("metro_bar");
-	    sounds_["metro_beat"] 	= ResourceHolder::get().sounds.get("metro_beat");
+	    sounds_["keytype"] 		= fw::ResourceHolder::get().sounds.get("keytype");
+	    sounds_["mistake"] 		= fw::ResourceHolder::get().sounds.get("mistake");
+	    sounds_["newline"] 		= fw::ResourceHolder::get().sounds.get("newline");
+	    sounds_["bell"] 		= fw::ResourceHolder::get().sounds.get("bell");
+	    sounds_["metro_bar"] 	= fw::ResourceHolder::get().sounds.get("metro_bar");
+	    sounds_["metro_beat"] 	= fw::ResourceHolder::get().sounds.get("metro_beat");
 	}
 
 	std::map<std::string, sf::SoundBuffer> sounds_;

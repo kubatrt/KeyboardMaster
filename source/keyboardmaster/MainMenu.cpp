@@ -23,31 +23,31 @@ MainMenu::MainMenu(fw::GameBase& game)
 	std::cout << "MainMenu" << std::endl;
 
 
-    auto b = std::make_unique<fw::gui::Button>();
-    b->setText("Go to course");
-    b->setFunction([&] ()
+    auto buttonCourse = std::make_unique<fw::gui::Button>();
+    buttonCourse->setText("Go to course");
+    buttonCourse->setFunction([&] ()
     {
         game_.pushState<CourseMenu>(game_);
     });
 
-    auto b2 = std::make_unique<fw::gui::Button>();
-    b2->setText("Words attack!");
-    b2->setFunction([&] ()
+    auto buttonWordsAttack = std::make_unique<fw::gui::Button>();
+    buttonWordsAttack->setText("Words attack!");
+    buttonWordsAttack->setFunction([&] ()
     {
         game_.pushState<WordsAttackGame>(game_);
     });
 
-    auto b3 = std::make_unique<fw::gui::Button>();
-    b3->setText("Gallery");
-    b3->setFunction([&] ()
+    auto buttonGallery = std::make_unique<fw::gui::Button>();
+    buttonGallery->setText("Gallery");
+    buttonGallery->setFunction([&] ()
     {
         game_.pushState<GalleryGame>(game_, sf::Vector2u{5, 4});
     });
 
 
-    auto b4 = std::make_unique<fw::gui::Button>();
-    b4->setText("Writing");
-    b4->setFunction([&] ()
+    auto buttonWriting = std::make_unique<fw::gui::Button>();
+    buttonWriting->setText("Writing");
+    buttonWriting->setFunction([&] ()
     {
         std::string articlesFiles[] = {
             "data/art_01.txt",
@@ -59,18 +59,18 @@ MainMenu::MainMenu(fw::GameBase& game)
         game_.pushState<WritingGame>(game_, articlesFiles[pick]);
     });
 
-    auto bquit = std::make_unique<fw::gui::Button>();
-    bquit->setText("Quit");
-    bquit->setFunction([&] ()
+    auto buttonQuit = std::make_unique<fw::gui::Button>();
+    buttonQuit->setText("Quit");
+    buttonQuit->setFunction([&] ()
     {
         game_.closeWindow();
     });
 
-    menu_.addWidget(std::move(b));
-    menu_.addWidget(std::move(b2));
-    menu_.addWidget(std::move(b3));
-    menu_.addWidget(std::move(b4));
-    menu_.addWidget(std::move(bquit));
+    menu_.addWidget(std::move(buttonCourse));
+    menu_.addWidget(std::move(buttonWordsAttack));
+    menu_.addWidget(std::move(buttonGallery));
+    menu_.addWidget(std::move(buttonWriting));
+    menu_.addWidget(std::move(buttonQuit));
 }
 
 void MainMenu::handleEvents(sf::Event e)
