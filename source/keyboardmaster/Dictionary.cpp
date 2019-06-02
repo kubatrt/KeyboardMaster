@@ -6,8 +6,8 @@ namespace km
 
 namespace
 {
-constexpr int DEFAULT_SHORTEST_WORD = 3;
-constexpr int DEFAULT_LONGEST_WORD = 8;
+constexpr unsigned DEFAULT_SHORTEST_WORD = 3;
+constexpr unsigned DEFAULT_LONGEST_WORD = 8;
 }
 
 Dictionary::Dictionary(FilePath filePath)
@@ -18,14 +18,17 @@ Dictionary::Dictionary(FilePath filePath)
 {
     loadFromFile(filePath);
 
-    LOG_INFO("DICTIONARY CTOR: " << filePath.c_str() << std::endl << "letters count: " << lettersCount_ << std::endl
-         << "longest word: " << longestWord_ << std::endl << "shortest word: " << shortestWord_)
+    LOG_INFO(
+    		"DICTIONARY CTOR: " << filePath.c_str() << std::endl
+			<< "letters count: " << lettersCount_ << std::endl
+			<< "longest word: " << longestWord_ << std::endl
+			<< "shortest word: " << shortestWord_)
 }
 
 void Dictionary::loadFromFile(FilePath filePath)
 {
     textFromFile_ = fw::loadTextFromUtf8File(filePath);
-    textFromFile_ = textFromFile_.substr(1, textFromFile_.size() - 1); // fix for first letter
+    textFromFile_ = textFromFile_.substr(1, textFromFile_.size() - 1); // my fix for the first letter
 
     prepareWords();
     prepareLines();

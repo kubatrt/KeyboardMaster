@@ -32,7 +32,7 @@ std::string loadTextFromFile(const std::string& filePath, bool throws)
     return oss.str();
 }
 
-// System independent, universal loading utf8 text file
+// System independent and universal utf8 text file loading function
 std::wstring loadTextFromUtf8File(const std::string& filePath, bool throws)
 {
     std::wifstream wif(filePath.c_str());

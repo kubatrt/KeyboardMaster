@@ -198,7 +198,7 @@ void CourseGame::textEnteredEvent(wchar_t typedLetter)
         }
     }
 
-    // FIXME: HACK!
+    // FIXME: HACK! currentLine_ = dictionary_.getLines().size() - 1
     if (currentLine_ >= dictionary_.getLines().size())
     {
         LOG_INFO("HACK!")

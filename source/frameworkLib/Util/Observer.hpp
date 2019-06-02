@@ -22,6 +22,7 @@ enum class TextEvent
 class Observer
 {
 public:
+	virtual Observer();
     virtual void notif() = 0;
 };
 

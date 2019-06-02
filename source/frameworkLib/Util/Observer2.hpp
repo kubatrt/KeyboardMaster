@@ -28,6 +28,7 @@ We have Shop class in our application serving the same purpose.
 class IObserver
 {
 public:
+	virtual ~IObserver();
 	virtual void notify() = 0;
 };
 

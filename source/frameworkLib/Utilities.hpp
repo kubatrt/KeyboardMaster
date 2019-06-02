@@ -8,6 +8,7 @@
 #include <sstream>
 #include <algorithm>
 #include <functional>
+#include <cmath>
 
 #include "Util/Maths.hpp"
 #include "Util/Random.hpp"
@@ -28,6 +29,20 @@ namespace framework
 
 std::vector<std::string> getLinesFromText(const std::string& text);
 
+template <typename T>
+T middlePoint(const T& a, const T& b)
+{
+	T middle;
+	middle.x = abs(a.x - b.x) / 2;
+	middle.y = abs(a.y - b.y) / 2;
+	return middle;
+}
+
+template <typename T>
+T mirrorPoint(const T& point)
+{
+	return T(-point.x, -point.y);
+}
 
 namespace charutils
 {
@@ -86,12 +101,14 @@ struct RemoveSpaces
 {
 	void operator()(std::string& str)
 	{
-		str.erase(std::remove_if(str.begin(), str.end(), std::bind(std::isspace<char>, _1, std::locale::classic())), str.end());
+		str.erase(std::remove_if(str.begin(), str.end(), std::bind(std::isspace<char>, _1,
+				std::locale::classic())), str.end());
 	}
 
 	void operator()(std::wstring& str)
 	{
-		str.erase(std::remove_if(str.begin(), str.end(), std::bind(std::isspace<wchar_t>, _1, std::locale::classic())), str.end());
+		str.erase(std::remove_if(str.begin(), str.end(), std::bind(std::isspace<wchar_t>, _1,
+				std::locale::classic())), str.end());
 	}
 };
 
@@ -102,7 +119,7 @@ struct RemoveSpaces
 template <typename T>
 void printVec(std::ostream& out, T vec)
 {
-	out << "Vector2 [" << vec.x << ", " << vec.y << "]";
+	out << "[" << vec.x << ", " << vec.y << "]";
 }
 
 // Print variadic argument pack

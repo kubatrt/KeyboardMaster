@@ -11,6 +11,32 @@ using namespace framework;
 using namespace framework::charutils;
 
 
+// TOOD: fs::Vector2 matcher
+
+
+TEST(Math, middlePoint)
+{
+	sf::Vector2i p1(2, 4);
+	sf::Vector2i p2(0, 0);
+	sf::Vector2i pm;
+
+	pm = framework::middlePoint(p1,p2);
+	EXPECT_EQ(pm.x, 1);
+	EXPECT_EQ(pm.y, 2);
+
+	pm = framework::middlePoint(p2,p1);
+	EXPECT_EQ(pm.x, 1);
+	EXPECT_EQ(pm.y, 2);
+}
+
+TEST(Math, mirrorPoint)
+{
+	sf::Vector2i p1(2,2);
+	sf::Vector2i p2 = framework::mirrorPoint(p1);
+	EXPECT_EQ(-2, p2.x);
+	EXPECT_EQ(-2, p2.y);
+}
+
 TEST(CharaUtils, Captitalize)
 {
 	std::string exampleText = "breslau";
