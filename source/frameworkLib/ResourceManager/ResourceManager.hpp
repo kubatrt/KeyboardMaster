@@ -2,7 +2,7 @@
 
 #include <unordered_map>
 #include <string>
-
+#include "../Util/Logger.hpp"
 
 namespace framework
 {
@@ -41,10 +41,11 @@ public:
 
         if (!res.loadFromFile(getFullname(name)))
         {
-        	// If the resource fail to load, then default "fail" resource is added
+        	// If the resource FAIL to load, then default "fail" resource is added
             Resource fail;
             fail.loadFromFile(folder_ + "_fail_" + extension_);
             resources_.insert(std::make_pair(name, fail));
+            LOG_INFO("FAIL to load resource: " << getFullname(name).c_str());
         }
         else
         {

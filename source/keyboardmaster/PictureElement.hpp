@@ -44,15 +44,13 @@ PictureElement(sf::Texture& texture, sf::IntRect textureSectionRect,
 							pos.y + sprite_.getTextureRect().height/ 2.f));
     wordText_.setString(word);
     wordText_.setCharacterSize(charFontSize);
-    //wordText_.setColor(sf::Color::White);
     wordText_.setStyle(sf::Text::Bold);
     wordText_.setOrigin(0, 0);
 
     //timer_.restart();
-    
     //shape.setSize(sf::Vector2f(word.length() * charWidth, charHeight));
 
-    LOG_INFO("PictureElement:" << word_);
+    LOG_DEBUG("PictureElement: " << index_ << " : " << word_);
 }
 
 PictureElement(const PictureElement& pe)
@@ -64,12 +62,12 @@ PictureElement(const PictureElement& pe)
 	, missed_(pe.missed_)
 	, revealed_(pe.revealed_)
 {
-    LOG_INFO("PictureElement CPYCTOR: " << word_.c_str());
+	LOG_CRITICAL("PictureElement CPYCTOR: " << word_.c_str());
 }
 
 ~PictureElement()
 {
-    LOG_INFO("PictureElement DTOR:" << word_.c_str());
+	LOG_CRITICAL("PictureElement DTOR:" << word_.c_str());
 }
 
 int getIndex() const { return index_; }
@@ -129,7 +127,7 @@ private:
     bool missed_;	// is it was missed?
     int index_;
 
-    float lifeTime = 3.f;	// how long it will stay uncovered? TODO: not here
+    //float lifeTime = 3.f;	// how long it will stay uncovered? TODO: not here
 };
 
 }

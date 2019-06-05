@@ -5,6 +5,8 @@
 namespace km
 {
 
+using AssetName = std::string;
+
 enum KeyCode : unsigned int
 {
     // UTF-8 unicode

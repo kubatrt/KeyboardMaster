@@ -41,7 +41,7 @@ MainMenu::MainMenu(fw::GameBase& game)
     buttonGallery->setText("Gallery");
     buttonGallery->setFunction([&] ()
     {
-        game_.pushState<GalleryGame>(game_, sf::Vector2u{5, 4});
+        game_.pushState<GalleryGame>(game_, sf::Vector2u{3, 2});
     });
 
 

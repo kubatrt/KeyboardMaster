@@ -12,7 +12,9 @@ namespace framework
 // Global resource holder
 // Example usage:
 //	font_ = fw::ResourceHolder::get().fonts.get("CourierNew");
-//
+//  texture_ = fw::ReosurceHolder::get().sounds.get("texture");
+//	sound = fw::ReosurceHolder::get().sounds.get("shoot");
+
 class ResourceHolder
 {
     public:

@@ -1,8 +1,9 @@
+#include "Misc.hpp"
 
 namespace km
 {
 
-const char* audioFiles[] = {
+AssetName audioFiles[] = {
 		"keytype",
 		"mistake",
 		"newline",
@@ -11,13 +12,13 @@ const char* audioFiles[] = {
 		"metro_beat"
 };
 
-const char* wordsFiles[] = {
+AssetName wordsFiles[] = {
 		"words01",
 		"words02",
 		"words03"
 };
 
-const char* pictureFiles[] = {
+AssetName pictureFiles[] = {
 		"picture01",
 		"picture02",
 		"picture03"

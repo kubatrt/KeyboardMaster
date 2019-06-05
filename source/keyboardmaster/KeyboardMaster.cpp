@@ -1,22 +1,30 @@
 #include "KeyboardMaster.hpp"
 #include "MainMenu.hpp"
 #include "frameworkLib/ResourceManager/ResourceManager.hpp"
-
+#include "frameworkLib/Utilities.hpp"
 
 
 namespace km
 {
 
+namespace
+{
 constexpr uint WindowWidth = 1024;
 constexpr uint WindowHeight = 768;
+constexpr char WindotTitle[] = "KeyboardMaster";
+constexpr uint FramerateLimit = 60;
+}
 
 KeyboardMaster::KeyboardMaster()
-    : fw::GameBase({ WindowWidth , WindowHeight }, "KeyboardMaster")
+    : fw::GameBase({ WindowWidth , WindowHeight }, WindotTitle)
 {
-    window_.setFramerateLimit(60);
+	LOG_DEBUG(WindotTitle << ": " << WindowWidth << "x" << WindowHeight);
+    window_.setFramerateLimit(FramerateLimit);
+
     addComponent<fw::FPSCounter>();
 
-    pushState<MainMenu>(*this);	// Push 1st state: MainMenu
+    // Start game from MainMenu
+    pushState<MainMenu>(*this);
 }
 
 void KeyboardMaster::update(sf::Time deltaTime)

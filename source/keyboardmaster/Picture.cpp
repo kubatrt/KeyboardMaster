@@ -5,14 +5,13 @@
 namespace km
 {
 
-Picture::Picture(uint width, uint height, uint rows, uint cols)	// FIXME: width, height not used
+// FIXME: width, height are not used
+Picture::Picture(uint width, uint height, uint rows, uint cols, AssetName picture)
     : dictionary_("data/words_01")
 {
-    std::cout << "Picture CTOR w: " << width << " h: " << height << std::endl;
-
     float pictureOffset = 4.f;
 
-    texture_ = framework::ResourceHolder::get().textures.get("obraz_1");	// FIXME: move out from the inside Picture class?
+    texture_ = framework::ResourceHolder::get().textures.get(picture);
     sprite_.setTexture(texture_);
     sprite_.setPosition(sf::Vector2f(pictureOffset, pictureOffset));
 
@@ -31,7 +30,7 @@ Picture::Picture(uint width, uint height, uint rows, uint cols)	// FIXME: width,
         for (uint x = 0; x < elementsInRow_; ++x)
         {
             std::wstring word = dictionary_.getRandomWord();
-            std::wcout << "Random word: " << word << std::endl;
+            //std::wcout << "Random word: " << word << std::endl;
             int picElemPositionX = x * picElemWidth + pictureOffset;
             int picElemPositionY = y * picElemHeight + pictureOffset;
             // TODO: Check here shared_ptr, can be unique_ptr?
@@ -44,21 +43,29 @@ Picture::Picture(uint width, uint height, uint rows, uint cols)	// FIXME: width,
         }
     }
 
+    LOG_DEBUG("Picture CTOR " << picture.c_str() << ": " << width << "x" << height);
+    LOG_DEBUG("Picture elements count: " << elements_.size());
+
     initialize();
 }
 
 void Picture::initialize()
 {
-    activeIndex_ = 0;
-    elements_.at(activeIndex_)->setActive();
+    activeIndex_ = 0;	// starting element
     indexesLeft.erase(std::remove(indexesLeft.begin(), indexesLeft.end(), activeIndex_));
-    std::wcout << "Initialized picture" << std::endl;
+    elements_.at(activeIndex_)->setActive();
+
+    LOG_DEBUG("indexesLeft count: " << indexesLeft.size());
+    for(auto index : indexesLeft)
+    {
+    	LOG_DEBUG("indexesLeft " << index);
+    }
 }
 
 void Picture::wordTyped(std::wstring typedWord)
 {
-    typedWords_++;
-    std::wcout << "Index: " << activeIndex_ << std::endl;
+    LOG_DEBUG("wordTyped, activeIndex_: " << activeIndex_);
+
     if (elements_.at(activeIndex_)->getWord() == typedWord)
     {
         elements_.at(activeIndex_)->reveal();
@@ -67,28 +74,24 @@ void Picture::wordTyped(std::wstring typedWord)
     {
         elements_.at(activeIndex_)->miss();
     }
-    
-    //if(indexesLeft.size() == 0)
-    //    isComplete_ = true;
 
-    if (activeIndex_ < elementsCount() - 1)
+    if (indexesLeft.size() > 0)
     {
-        activeIndex_++;
-        activeIndex_ =  indexesLeft.at(framework::RandomMachine::getRange<int>(0, indexesLeft.size() - 1));
+        activeIndex_ = indexesLeft.at(framework::RandomMachine::getRange<int>(0, indexesLeft.size() - 1));
         indexesLeft.erase(std::remove(indexesLeft.begin(), indexesLeft.end(), activeIndex_));
-
         elements_.at(activeIndex_)->setActive();
     }
-    std::wcout << "Index end: " << activeIndex_ << std::endl;
+
+    LOG_DEBUG("activeIndex_ new: " << activeIndex_ << " indexesLeft: " << indexesLeft.size());
 }
 
 
 
 bool Picture::isComplete()
 {
-    auto revealed = std::count_if(elements_.begin(), elements_.end(), 
+    auto revealedElements = std::count_if(elements_.begin(), elements_.end(), 
         [&](std::shared_ptr<PictureElement>& e){ return e->isRevealed(); });
-    return revealed == elementsCount();
+    return revealedElements == elementsCount();
 }
 
 

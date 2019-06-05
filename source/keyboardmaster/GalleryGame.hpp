@@ -2,6 +2,7 @@
 
 #include "frameworkLib/GameBase.hpp"
 #include "frameworkLib/StateBase.hpp"
+#include "frameworkLib/Utilities.hpp"
 #include "Picture.hpp"
 #include "Scheduler.hpp"
 
