@@ -5,14 +5,16 @@
 namespace km
 {
 
-Picture::Picture(uint width, uint height, uint rows, uint cols)
-    : dictionary_("data/words_01")  // FIXME:
+Picture::Picture(uint width, uint height, uint rows, uint cols)	// FIXME: width, height not used
+    : dictionary_("data/words_01")
 {
     std::cout << "Picture CTOR w: " << width << " h: " << height << std::endl;
 
+    float pictureOffset = 4.f;
+
     texture_ = framework::ResourceHolder::get().textures.get("obraz_1");	// FIXME: move out from the inside Picture class?
     sprite_.setTexture(texture_);
-    sprite_.setPosition(sf::Vector2f(0, 0));
+    sprite_.setPosition(sf::Vector2f(pictureOffset, pictureOffset));
 
     elementsInRow_ = rows;
     elementsInCol_ = cols;
@@ -20,6 +22,8 @@ Picture::Picture(uint width, uint height, uint rows, uint cols)
 
     int picElemWidth = texture_.getSize().x / elementsInRow_;
     int picElemHeight = texture_.getSize().y / elementsInCol_;
+    size_.x = static_cast<float>(texture_.getSize().x);
+    size_.y = static_cast<float>(texture_.getSize().y);
 
     uint index = 0;
     for (uint y = 0; y < elementsInCol_; ++y)
@@ -28,8 +32,8 @@ Picture::Picture(uint width, uint height, uint rows, uint cols)
         {
             std::wstring word = dictionary_.getRandomWord();
             std::wcout << "Random word: " << word << std::endl;
-            int picElemPositionX = x * picElemWidth;
-            int picElemPositionY = y * picElemHeight;
+            int picElemPositionX = x * picElemWidth + pictureOffset;
+            int picElemPositionY = y * picElemHeight + pictureOffset;
             // TODO: Check here shared_ptr, can be unique_ptr?
             auto picElem = std::make_shared<PictureElement>(texture_, sf::IntRect(x * picElemWidth, y * picElemHeight, picElemWidth, picElemHeight),
                   index, word, sf::Vector2f(static_cast<float>(picElemPositionX), static_cast<float>(picElemPositionY)));
@@ -39,6 +43,7 @@ Picture::Picture(uint width, uint height, uint rows, uint cols)
             index++;
         }
     }
+
     initialize();
 }
 
@@ -47,7 +52,7 @@ void Picture::initialize()
     activeIndex_ = 0;
     elements_.at(activeIndex_)->setActive();
     indexesLeft.erase(std::remove(indexesLeft.begin(), indexesLeft.end(), activeIndex_));
-    std::wcout << "Initialized" << std::endl;
+    std::wcout << "Initialized picture" << std::endl;
 }
 
 void Picture::wordTyped(std::wstring typedWord)
@@ -85,7 +90,6 @@ bool Picture::isComplete()
         [&](std::shared_ptr<PictureElement>& e){ return e->isRevealed(); });
     return revealed == elementsCount();
 }
-
 
 
 void Picture::update(sf::Time deltaTime)

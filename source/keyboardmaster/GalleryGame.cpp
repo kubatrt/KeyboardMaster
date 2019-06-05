@@ -13,6 +13,12 @@ GalleryGame::GalleryGame(fw::GameBase& game, sf::Vector2u partition)
     gameOverTextUI_.setFillColor(sf::Color::Magenta);
     gameOverTextUI_.setPosition({ game.getWindow().getSize().x / 2.f - 150.f, game.getWindow().getSize().y / 2.f - 50.f });
     gameOverTextUI_.setFont(fw::ResourceHolder::get().fonts.get("arial"));
+
+    borderRectangle_.setPosition(4.f, 4.f);
+    borderRectangle_.setSize(picture_.getSize());
+    borderRectangle_.setOutlineThickness(4.f);
+    borderRectangle_.setOutlineColor(sf::Color::Red);
+    borderRectangle_.setFillColor(sf::Color::Black);
 }
 
 void GalleryGame::handleEvents(sf::Event e)
@@ -80,7 +86,9 @@ void GalleryGame::update(sf::Time deltaTime)
 
 void GalleryGame::draw(sf::RenderTarget& renderer)
 {
+	renderer.draw(borderRectangle_);
     picture_.draw(renderer);
+
     if(gameOver_)
         renderer.draw(gameOverTextUI_);
 }

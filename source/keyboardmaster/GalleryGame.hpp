@@ -29,6 +29,7 @@ private:
     uint typedWords_= 0;
     bool gameOver_ = false;
 
+    sf::RectangleShape	borderRectangle_;
     sf::Text gameOverTextUI_;
 };
 
