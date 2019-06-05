@@ -31,7 +31,7 @@ Picture::Picture(uint rows, uint cols, AssetName picture)
         for (uint x = 0; x < elementsInRow_; ++x)
         {
             std::wstring word = dictionary_.getRandomWord();
-            //std::wcout << "Random word: " << word << std::endl;
+            LOG_CRITICAL("Random word: " << word);
             int picElemPositionX = x * picElemWidth + pictureOffset;
             int picElemPositionY = y * picElemHeight + pictureOffset;
             // TODO: Check here shared_ptr, can be unique_ptr?

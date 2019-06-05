@@ -120,7 +120,7 @@ void CourseGame::handleEvents(sf::Event event)
         }
         break;
     case sf::Event::TextEntered:
-            std::wcout << L"debug ASCII character typed: " << static_cast<int>(event.text.unicode) << std::endl;
+            LOG_DEBUG(L"debug ASCII character typed: " << static_cast<int>(event.text.unicode) );
             textEnteredEvent(static_cast<wchar_t>(event.text.unicode));
         break;
     default:
@@ -143,7 +143,7 @@ void CourseGame::textEnteredEvent(wchar_t typedLetter)
         {
             currentletterInLine_--;
             typingTextLine_.pop_back();
-            std::wcout << "BACKSPACE" << std::endl;
+            LOG_DEBUG("BACKSPACE");
         }
     }
     else if (static_cast<int>(typedLetter) == KeyCode::Enter)
@@ -154,11 +154,11 @@ void CourseGame::textEnteredEvent(wchar_t typedLetter)
             kb_.omit(omittedLetters);
             newLine();
             SoundPlayer::get().play("newline");
-            std::wcout << "NEWLINE OMIT" << std::endl;
+            LOG_DEBUG("NEWLINE OMIT");
         }
         else
         {
-            std::wcout << "(END 1) that was last line" << std::endl;
+            LOG_DEBUG("(END 1) that was last line");
             gameOver_ = true;
         }
     }
@@ -179,15 +179,15 @@ void CourseGame::textEnteredEvent(wchar_t typedLetter)
             typingTextLine_.push_back(typedLetter);
             currentletterInLine_++;
 
-            std::wcout << "typedLetter: " << static_cast<int>(typedLetter) << std::endl;
-            std::wcout << "nextLetter: " << static_cast<int>(nextLetter_) << std::endl;
+            LOG_INFO("typedLetter: " << static_cast<int>(typedLetter));
+            LOG_INFO("nextLetter: " << static_cast<int>(nextLetter_));
         }
         else
         {
             // and its last line
             if (currentLine_ == dictionary_.getLines().size() - 1)
             {
-                std::wcout << "(END 2) that was last letter in line" << std::endl;
+                LOG_INFO("(END 2) that was last letter in line");
                 gameOver_ = true;
             }
             else
@@ -203,7 +203,7 @@ void CourseGame::textEnteredEvent(wchar_t typedLetter)
     // FIXME: HACK! currentLine_ = dictionary_.getLines().size() - 1
     if (currentLine_ >= dictionary_.getLines().size())
     {
-        LOG_INFO("HACK!")
+        LOG_INFO("HACK!!!")
         currentLine_ = dictionary_.getLines().size() - 1;
     }
         

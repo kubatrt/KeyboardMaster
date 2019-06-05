@@ -43,7 +43,6 @@ public:
 	void update(int value)
 	{
 		this->value = value;
-		std::cout << "Values has changed: " << value << std::endl;
 	}
 };
 typedef std::unique_ptr<Observed>	ObservedPtr;

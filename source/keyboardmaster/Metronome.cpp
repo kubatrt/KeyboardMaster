@@ -8,7 +8,7 @@ Metronome::Metronome(unsigned int bpm)
 	, isPlaying_(false)
 	, tick_(0)
 {
-	std::wcout << "Metronome CTOR ( " << bpm_ << " )" << std::endl;
+	LOG_DEBUG("Metronome CTOR bpm: " << bpm_);
 }
 
 void Metronome::toggle()
@@ -21,7 +21,6 @@ void Metronome::toggle()
 
 void Metronome::start()
 {
-	std::cout << "start" << std::endl;
 	timer_.restart();
 	isPlaying_ = true;
 	tick_ = 0;
@@ -29,7 +28,6 @@ void Metronome::start()
 
 void Metronome::stop()
 {
-	std::cout << "stop" << std::endl;
 	elapsedTime_ = timer_.restart();
 	isPlaying_ = false;
 }

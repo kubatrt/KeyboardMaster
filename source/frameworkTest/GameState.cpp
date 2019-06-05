@@ -36,7 +36,7 @@ void GameState::handleEvents(sf::Event e)
     case sf::Event::KeyPressed:
         if (e.key.code == sf::Keyboard::Escape)
         {
-            std::cout << "quit" << std::endl;
+            LOG_DEBUG("Quit");
             game_.popState();
         }
         break;
@@ -101,7 +101,7 @@ void GameState::update(sf::Time deltaTime)
 
     if (player_.lives <= 0)
     {
-        std::cout << "Game score: " << player_.score << std::endl;
+        LOG_INFO("Game score: " << player_.score);
         game_.popState();
     }
 
