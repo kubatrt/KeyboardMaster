@@ -15,13 +15,17 @@
 namespace km
 {
 
+namespace
+{
+
+}
+
 MainMenu::MainMenu(fw::GameBase& game)
     : StateBase(game)
     , menu_({ game.getWindow().getSize().x / 2.f, 90.f })
 	, metronome_(80)
 {
-	std::cout << "MainMenu" << std::endl;
-
+	LOG_DEBUG("MainMenu");
 
     auto buttonCourse = std::make_unique<fw::gui::Button>();
     buttonCourse->setText("Go to course");
@@ -41,7 +45,7 @@ MainMenu::MainMenu(fw::GameBase& game)
     buttonGallery->setText("Gallery");
     buttonGallery->setFunction([&] ()
     {
-        game_.pushState<GalleryGame>(game_, sf::Vector2u{3, 2});
+        game_.pushState<GalleryGame>(game_, sf::Vector2u{3, 3});
     });
 
 

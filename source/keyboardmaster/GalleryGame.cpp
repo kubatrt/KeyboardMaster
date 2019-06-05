@@ -10,11 +10,11 @@ GalleryGame::GalleryGame(fw::GameBase& game, sf::Vector2u partition)
     			game.getWindow().getSize().y,
 				partition.x, partition.y,
 				"obraz_1")
-	, gameOver_(false)
+
 {
     gameOverTextUI_.setCharacterSize(48);
     gameOverTextUI_.setFillColor(sf::Color::Magenta);
-    gameOverTextUI_.setPosition({ game.getWindow().getSize().x / 2.f - 150.f, game.getWindow().getSize().y / 2.f - 50.f });
+    gameOverTextUI_.setPosition({ game.getWindow().getSize().x / 2.f - 250.f, game.getWindow().getSize().y / 2.f - 50.f });
     gameOverTextUI_.setFont(fw::ResourceHolder::get().fonts.get("arial"));
 
     borderRectangle_.setPosition(4.f, 4.f);
@@ -83,16 +83,16 @@ void GalleryGame::update(sf::Time deltaTime)
         gameOver_ = true;
         picture_.setVisible(true);
         std::stringstream ss; 
-        ss << "WIN Picture: " << std::to_string(typedWords_) << " / "
+        ss << "WIN! : " << std::to_string(picture_.reveleadElementsCount()) << " / "
             << std::to_string(picture_.elementsCount());
         gameOverTextUI_.setString(ss.str());
     }
     else if(typedWords_ >= picture_.elementsCount())
     {
     	gameOver_ = true;
-    	picture_.setVisible(true);
+    	//picture_.setVisible(true);
     	std::stringstream ss;
-		ss << "LOSE Picture: " << std::to_string(typedWords_) << " / "
+		ss << "LOST! : " << std::to_string(picture_.reveleadElementsCount()) << " / "
 			<< std::to_string(picture_.elementsCount());
 		gameOverTextUI_.setString(ss.str());
     }

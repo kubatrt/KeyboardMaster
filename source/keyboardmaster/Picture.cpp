@@ -85,13 +85,16 @@ void Picture::wordTyped(std::wstring typedWord)
     LOG_DEBUG("activeIndex_ new: " << activeIndex_ << " indexesLeft: " << indexesLeft.size());
 }
 
-
+uint Picture::reveleadElementsCount()
+{
+	uint revealedElements = std::count_if(elements_.begin(), elements_.end(),
+	        [&](std::shared_ptr<PictureElement>& e){ return e->isRevealed(); });
+	return revealedElements;
+}
 
 bool Picture::isComplete()
 {
-    auto revealedElements = std::count_if(elements_.begin(), elements_.end(), 
-        [&](std::shared_ptr<PictureElement>& e){ return e->isRevealed(); });
-    return revealedElements == elementsCount();
+    return reveleadElementsCount() == elementsCount();
 }
 
 

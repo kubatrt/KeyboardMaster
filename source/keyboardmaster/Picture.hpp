@@ -31,6 +31,7 @@ public:
     bool getVisible() const { return visible_; }
     void setVisible(bool visible) { visible_ = visible; }
     uint elementsCount() const { return elements_.size(); }
+    uint reveleadElementsCount();
     sf::Vector2f getSize() const { return size_; }
 
     // TODO: is needed?
