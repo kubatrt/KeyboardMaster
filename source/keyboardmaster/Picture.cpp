@@ -6,10 +6,11 @@ namespace km
 {
 
 // FIXME: width, height are not used
-Picture::Picture(uint width, uint height, uint rows, uint cols, AssetName picture)
+Picture::Picture(uint rows, uint cols, AssetName picture)
     : dictionary_("data/words_01")
 {
-    float pictureOffset = 4.f;
+    float pictureOffset = 0.f;
+    // Randomize image
 
     texture_ = framework::ResourceHolder::get().textures.get(picture);
     sprite_.setTexture(texture_);
@@ -43,7 +44,7 @@ Picture::Picture(uint width, uint height, uint rows, uint cols, AssetName pictur
         }
     }
 
-    LOG_DEBUG("Picture CTOR " << picture.c_str() << ": " << width << "x" << height);
+    LOG_DEBUG("Picture CTOR " << picture.c_str() << " " << rows << "x" << cols);
     LOG_DEBUG("Picture elements count: " << elements_.size());
 
     initialize();

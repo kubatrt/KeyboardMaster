@@ -11,12 +11,15 @@
 #include "frameworkLib/GUI/Button.hpp"
 #include "frameworkLib/GUI/Textbox.hpp"
 #include "frameworkLib/ResourceManager/ResourceHolder.hpp"
+#include "Assets.hpp"
 
 namespace km
 {
 
 namespace
 {
+constexpr uint GalleryGameRows = 3;
+constexpr uint GalleryGameColumns = 2;
 
 }
 
@@ -25,7 +28,7 @@ MainMenu::MainMenu(fw::GameBase& game)
     , menu_({ game.getWindow().getSize().x / 2.f, 90.f })
 	, metronome_(80)
 {
-	LOG_DEBUG("MainMenu");
+	LOG_DEBUG("MainMenu CTOR");
 
     auto buttonCourse = std::make_unique<fw::gui::Button>();
     buttonCourse->setText("Go to course");
@@ -45,7 +48,9 @@ MainMenu::MainMenu(fw::GameBase& game)
     buttonGallery->setText("Gallery");
     buttonGallery->setFunction([&] ()
     {
-        game_.pushState<GalleryGame>(game_, sf::Vector2u{3, 3});
+    	auto randomPicture = framework::RandomMachine::getRange<int>(0, pictureFilesCount - 1);
+        game_.pushState<GalleryGame>(game_, GalleryGameRows, GalleryGameColumns,
+        		pictureFiles[randomPicture]);
     });
 
 
@@ -53,14 +58,8 @@ MainMenu::MainMenu(fw::GameBase& game)
     buttonWriting->setText("Writing");
     buttonWriting->setFunction([&] ()
     {
-        std::string articlesFiles[] = {
-            "data/art_01.txt",
-            "data/art_02.txt",
-            "data/art_03.txt",
-            "data/art_04.txt"
-        };
-        int pick = fw::RandomMachine::getRange(0, 3);
-        game_.pushState<WritingGame>(game_, articlesFiles[pick]);
+        auto randomArticle = fw::RandomMachine::getRange<int>(0, articleFilesCount - 1);
+        game_.pushState<WritingGame>(game_, articleFiles[randomArticle]);
     });
 
     auto buttonQuit = std::make_unique<fw::gui::Button>();

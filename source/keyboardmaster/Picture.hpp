@@ -19,7 +19,7 @@ namespace fw = framework;
 class Picture
 {
 public:
-    Picture(uint width, uint height, uint rows, uint cols, AssetName picture);
+    Picture(uint rows, uint cols, AssetName picture);
     ~Picture() = default;
 
     void update(sf::Time deltaTime);
@@ -32,7 +32,7 @@ public:
     void setVisible(bool visible) { visible_ = visible; }
     uint elementsCount() const { return elements_.size(); }
     uint reveleadElementsCount();
-    sf::Vector2f getSize() const { return size_; }
+    sf::Vector2u getSize() const { return texture_.getSize(); }
 
     // TODO: is needed?
     // getCorectness()
@@ -44,7 +44,7 @@ private:
     Dictionary dictionary_;
     sf::Texture texture_;
     sf::Sprite sprite_;
-    sf::Vector2f size_;
+    sf::Vector2u size_;
 
     bool visible_ = false;
     //uint typedWords_ = 0;

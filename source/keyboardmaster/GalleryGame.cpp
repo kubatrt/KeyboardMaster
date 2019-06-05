@@ -4,12 +4,9 @@
 namespace km
 {
 
-GalleryGame::GalleryGame(fw::GameBase& game, sf::Vector2u partition)
+GalleryGame::GalleryGame(fw::GameBase& game, uint rows, uint cols, AssetName picture)
     : StateBase(game)
-    , picture_(	game.getWindow().getSize().x,
-    			game.getWindow().getSize().y,
-				partition.x, partition.y,
-				"obraz_1")
+    , picture_(rows, cols, picture)
 
 {
     gameOverTextUI_.setCharacterSize(48);
@@ -17,11 +14,11 @@ GalleryGame::GalleryGame(fw::GameBase& game, sf::Vector2u partition)
     gameOverTextUI_.setPosition({ game.getWindow().getSize().x / 2.f - 250.f, game.getWindow().getSize().y / 2.f - 50.f });
     gameOverTextUI_.setFont(fw::ResourceHolder::get().fonts.get("arial"));
 
-    borderRectangle_.setPosition(4.f, 4.f);
-    borderRectangle_.setSize(picture_.getSize());
-    borderRectangle_.setOutlineThickness(4.f);
+    borderRectangle_.setPosition(0.f, 0.f);
+    borderRectangle_.setSize( sf::Vector2f( picture_.getSize().x , picture_.getSize().y) );
+    borderRectangle_.setOutlineThickness(-4.f);
     borderRectangle_.setOutlineColor(sf::Color::Red);
-    borderRectangle_.setFillColor(sf::Color::Black);
+    borderRectangle_.setFillColor(sf::Color::Transparent);
 
 }
 
@@ -100,8 +97,8 @@ void GalleryGame::update(sf::Time deltaTime)
 
 void GalleryGame::draw(sf::RenderTarget& renderer)
 {
-	renderer.draw(borderRectangle_);
     picture_.draw(renderer);
+    renderer.draw(borderRectangle_);
 
     if(gameOver_)
         renderer.draw(gameOverTextUI_);
