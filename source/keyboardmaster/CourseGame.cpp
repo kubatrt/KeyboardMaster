@@ -46,11 +46,13 @@ CourseGame::CourseGame(fw::GameBase& game, std::string dictionaryFilePath)
 
     nextLetter_ = dictionary_.getLines()[currentLine_][0];
     vkb_.highlightLetter(static_cast<int>(nextLetter_));
+
+    LOG_DEBUG("CourseGame CTOR " << dictionaryFilePath.c_str());
 }
 
 CourseGame::~CourseGame()
 {
-    LOG_INFO(L"CourseGame DTOR. Finish after: " << timer_.getElapsedTime().asSeconds())
+	LOG_DEBUG(L"CourseGame DTOR. Finish after: " << timer_.getElapsedTime().asSeconds())
     LOG_INFO(L"Keys per minute KPM: " << kb_.getKPM() << ", words per minute (WPM): " << kb_.getWPM())
 }
 
