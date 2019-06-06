@@ -7,6 +7,7 @@
 #include "Dictionary.hpp"
 #include "KeyboardTyper.hpp"
 #include "Misc.hpp"
+#include "Metronome.hpp"
 
 namespace km
 {
@@ -30,6 +31,7 @@ private:
     sf::Font mainFont_;
     Dictionary dictionary_;
     KeyboardTyper kb_;
+    Metronome metronome_;
     bool gameOver_;
 
     sf::Sprite backgroundSpriteUI_;

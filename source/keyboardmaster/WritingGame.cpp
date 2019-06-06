@@ -13,6 +13,7 @@ WritingGame::WritingGame(fw::GameBase& game, std::string dictionaryFile) // @sup
     : StateBase(game)
     , dictionary_(dictionaryFile)
     , kb_()
+	, metronome_(80)
 {
     timer_.restart();
     mainFont_ = fw::ResourceHolder::get().fonts.get("CourierNew");
@@ -22,7 +23,7 @@ WritingGame::WritingGame(fw::GameBase& game, std::string dictionaryFile) // @sup
     debugTextUI_.setCharacterSize(16);
     debugTextUI_.setFillColor(sf::Color::Red);
     debugTextUI_.setStyle(sf::Text::Bold);
-    debugTextUI_.setPosition(780, 600);
+    debugTextUI_.setPosition(780, 640);
     
     // Create lines of text for this course
     for (uint i = 0; i < dictionary_.getLines().size(); ++i)
@@ -65,6 +66,10 @@ void WritingGame::handleEvents(sf::Event e)
         {
             game_.toggleFullscreen();
         }
+        else if (e.key.code == sf::Keyboard::F1)
+		{
+        	metronome_.toggle();
+		}
         else if (e.key.code == sf::Keyboard::Return)
         {
             if(gameOver_)
@@ -139,7 +144,7 @@ void WritingGame::textEnteredEvent(wchar_t typedLetter)
 
 void WritingGame::update(sf::Time deltaTime)
 {
-    
+    metronome_.update(deltaTime);
     kb_.update(deltaTime);
 
     std::wstringstream wss;

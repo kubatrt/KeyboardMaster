@@ -24,12 +24,14 @@ void Metronome::start()
 	timer_.restart();
 	isPlaying_ = true;
 	tick_ = 0;
+	LOG_DEBUG("Metronome start: " << bpm_);
 }
 
 void Metronome::stop()
 {
 	elapsedTime_ = timer_.restart();
 	isPlaying_ = false;
+	LOG_DEBUG("Metronome stop");
 }
 
 void Metronome::update(sf::Time deltaTime)
