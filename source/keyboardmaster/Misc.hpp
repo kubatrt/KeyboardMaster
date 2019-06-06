@@ -47,14 +47,36 @@ enum KeyCode : uint
     m = 109,
     comma = 44,
     dot = 46,
-    slash = 47
-	/*A = 65,
+    slash = 47,
+	A = 65, // A + 32 = a
 	B = 66,
 	C = 67,
-*/
-
+	D = 68,
+	E = 69,
+	F = 70,
+	G = 71,
+	H = 72,
+	I = 73,
+	J = 74,
+	K = 75,
+	L = 76,
+	M = 77,
+	N = 78,
+	O = 79,
+	P = 80,
+	Q = 81,
+	R = 82,
+	S = 83,
+	T = 84,
+	U = 85,
+	V = 86,
+	W = 87,
+	X = 88,
+	Y = 89,
+	Z = 90
 };
 
+uint keyCodeConvertToSmallCharacter(uint keycode);
 
 namespace experimental
 {

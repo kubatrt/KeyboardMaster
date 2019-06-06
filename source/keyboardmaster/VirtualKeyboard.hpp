@@ -10,7 +10,10 @@ namespace km
 {
 
 namespace fw = framework;
+typedef unsigned int KeyCodeType;
 
+namespace
+{
 constexpr float ROW_1ST = 4.f;
 constexpr float ROW_2ND = 55.f;
 constexpr float ROW_3RD = 107.f;
@@ -18,10 +21,19 @@ constexpr float ROW_4TH = 159.f;
 constexpr float ROW_5TH = 210.f;
 constexpr float OUT_OF_RANGE = 2000.0f;
 
+KeyCodeType convertBigToSmallCharacter(KeyCodeType keycode)
+{
+	if(keycode >= 65 && keycode <= 90)
+		return keycode + 32;
+
+	return keycode;
+}
+}
+
 // Represents VirtualKeyboard game object
 class VirtualKeyboard : fw::IGameComponent
 {
-	typedef unsigned int KeyCodeType;
+
 
 public:
     VirtualKeyboard() = delete;
@@ -75,8 +87,7 @@ public:
 
     void highlightLetter(KeyCodeType letterCode)
     {
-    	//letterCode - change big letter code to lower
-        auto search = maskPositions_.find(letterCode);
+        auto search = maskPositions_.find(convertBigToSmallCharacter(letterCode));
         if (search != maskPositions_.end())
         {
             sf::Vector2f pos = search->second;
