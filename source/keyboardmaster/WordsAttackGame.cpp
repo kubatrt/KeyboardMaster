@@ -22,13 +22,13 @@ WordsAttackGame::WordsAttackGame(fw::GameBase& game)
     scoreTextUI_.setCharacterSize(24);
     scoreTextUI_.setFillColor(sf::Color::Cyan);
     scoreTextUI_.setPosition({game.getWindow().getSize().x - 200.f, 50.f});
-    scoreTextUI_.setString("Score:");
+    scoreTextUI_.setString(L"Punkty:");
     scoreTextUI_.setFont(fw::ResourceHolder::get().fonts.get("arial"));
 
     livesTextUI_.setCharacterSize(24);
     livesTextUI_.setFillColor(sf::Color::Red);
     livesTextUI_.setPosition({ game.getWindow().getSize().x - 200.f, 100.f });
-    livesTextUI_.setString("Lives:");
+    livesTextUI_.setString(L"Życia:");
     livesTextUI_.setFont(fw::ResourceHolder::get().fonts.get("arial"));
 
     gameOverTextUI_.setCharacterSize(48);
@@ -157,8 +157,8 @@ void WordsAttackGame::update(sf::Time deltaTime)
     }
 
     typingTextUI_.setString(typedWord_);
-    scoreTextUI_.setString("Punkty: " + std::to_string(score_));
-    livesTextUI_.setString("Życia: " + std::to_string(lives));
+    scoreTextUI_.setString(L"Punkty: " + std::to_wstring(score_));
+    livesTextUI_.setString(L"Życia: " + std::to_wstring(lives));
 }
 
 void WordsAttackGame::draw(sf::RenderTarget& renderer)
