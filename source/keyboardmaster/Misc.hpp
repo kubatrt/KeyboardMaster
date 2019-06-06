@@ -74,9 +74,26 @@ enum KeyCode : uint
 	X = 88,
 	Y = 89,
 	Z = 90
+
+	// Ź = 377
+	// ź = 378
+	// Ź = 379
+	// ż = 380
+	// Ą = 260
+	// ą = 261
+	// Ć = 262
+	// ć = 263
+	// Ę = 280
+	// ę = 281
+	// Ł = 321
+	// ł = 322
+	// Ó = 211
+	// ó = 243
+	// Ń = 323
+	// ń = 324
 };
 
-uint keyCodeConvertToSmallCharacter(uint keycode);
+
 
 namespace experimental
 {

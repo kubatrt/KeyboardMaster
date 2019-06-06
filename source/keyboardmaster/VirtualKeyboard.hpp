@@ -28,6 +28,47 @@ KeyCodeType convertBigToSmallCharacter(KeyCodeType keycode)
 
 	return keycode;
 }
+
+KeyCodeType convertPolishCharacter(KeyCodeType keycode)
+{
+	switch(keycode)
+	{
+	case 380:
+	case 379:
+	case 378:
+	case 377:
+		keycode = KeyCode::z;
+		break;
+	case 260:
+	case 261:
+		keycode = KeyCode::a;
+		break;
+	case 262:
+	case 263:
+		keycode = KeyCode::c;
+		break;
+	case 280:
+	case 281:
+		keycode = KeyCode::e;
+		break;
+	case 321:
+	case 322:
+		keycode = KeyCode::l;
+		break;
+	case 211:
+	case 243:
+		keycode = KeyCode::o;
+		break;
+	case 323:
+	case 324:
+		keycode = KeyCode::n;
+		break;
+	default:
+		break;
+	}
+	return keycode;
+}
+
 }
 
 // Represents VirtualKeyboard game object
@@ -74,6 +115,7 @@ public:
         maskPositions_[KeyCode::n] = sf::Vector2f(395, ROW_4TH);
         maskPositions_[KeyCode::m] = sf::Vector2f(447, ROW_4TH);
         maskPositions_[KeyCode::EOL] = sf::Vector2f(683, ROW_3RD);      // when EOL press "Enter"
+        maskPositions_[KeyCode::Enter] = sf::Vector2f(683, ROW_3RD);      // when EOL press "Enter"
         maskPositions_[KeyCode::Space] = sf::Vector2f(238, ROW_5TH);
 
         layoutTexture_ = fw::ResourceHolder::get().textures.get("kbl_48");
@@ -85,12 +127,31 @@ public:
         maskSprite_.setColor(sf::Color(255, 255, 255, 100));
     }
 
-    void highlightLetter(KeyCodeType letterCode)
+    void scalingKeyMask(KeyCodeType keycode)
     {
-        auto search = maskPositions_.find(convertBigToSmallCharacter(letterCode));
+    	if(keycode == KeyCode::EOL || keycode == KeyCode::Enter)
+    	{
+    		maskSprite_.setScale(1.81f, 1.f);
+    	}
+    	else if(keycode == KeyCode::Space)
+		{
+			maskSprite_.setScale(5.36f, 1.f);
+		}
+    	else
+    	{
+    		maskSprite_.setScale(1.f, 1.f);
+    	}
+    }
+
+    void highlightLetter(KeyCodeType characterCode)
+    {
+    	characterCode = convertPolishCharacter(characterCode);
+    	characterCode = convertBigToSmallCharacter(characterCode);
+        auto search = maskPositions_.find(characterCode);
         if (search != maskPositions_.end())
         {
             sf::Vector2f pos = search->second;
+            scalingKeyMask(search->first);
             maskSprite_.setPosition(pos.x, pos.y + layoutSprite_.getPosition().y);
         }
         else
