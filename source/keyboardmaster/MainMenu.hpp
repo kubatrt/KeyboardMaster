@@ -4,7 +4,7 @@
 #include "frameworkLib/StateBase.hpp"
 #include "frameworkLib/GUI/StackMenu.hpp"
 #include "frameworkLib/Util/Animation.hpp"
-#include "Metronome.hpp"
+#include "Scheduler.hpp"
 
 namespace km
 {
@@ -24,8 +24,7 @@ private:
     sf::Sprite backgroundSprite_;
     sf::Text informationText_;
     fw::gui::StackMenu menu_;
-    //Metronome metronome_; // TODO: move from here
-    //fw::Animation animation_; TODO: test animation
+    //fw::Animation animation_; TODO: TEST animation
 };
 
 }

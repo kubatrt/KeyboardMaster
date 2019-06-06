@@ -6,7 +6,7 @@
 namespace km
 {
 
-// Simple event scheduler, TODO: WIP
+// Simple event scheduler
 class Scheduler
 {
 public:
@@ -16,6 +16,7 @@ public:
         , done_(false)
         , started_(false)
     {
+    	LOG_DEBUG("Scheduler CTOR tresh:" << treshold.asSeconds() );
     }
 
     bool isStarted() const { return started_; }
@@ -26,6 +27,7 @@ public:
         started_ = true;
         done_ = false;
         timer_.restart();
+        LOG_DEBUG("Scheduler start");
     }
 
     void update()
@@ -35,8 +37,10 @@ public:
 
         if (timer_.getElapsedTime() >= treshold_)
         {
+        	LOG_DEBUG("Scheduler callback()");
             done_ = true;
             callback_();
+
         }
     }
 

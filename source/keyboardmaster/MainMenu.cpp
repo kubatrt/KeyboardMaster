@@ -19,7 +19,7 @@ namespace km
 namespace
 {
 constexpr uint GalleryGameRows = 3;
-constexpr uint GalleryGameColumns = 2;
+constexpr uint GalleryGameColumns = 4;
 
 }
 
@@ -34,7 +34,8 @@ MainMenu::MainMenu(fw::GameBase& game)
 	informationText_.setFillColor(sf::Color::White);
 	informationText_.setPosition(20, 660);
 	informationText_.setCharacterSize(18);
-	informationText_.setString(L"F1 - włącz metronom\nF12 - pełny ekran");
+	informationText_.setString(L"F1 - włącz metronom\nF12 - pełny ekran\nESC - powrót\\wyjście");
+
 
     auto buttonCourse = std::make_unique<fw::gui::Button>();
     buttonCourse->setText(L"Idź do kursu");
@@ -58,7 +59,6 @@ MainMenu::MainMenu(fw::GameBase& game)
         game_.pushState<GalleryGame>(game_, GalleryGameRows, GalleryGameColumns,
         		pictureFiles[randomPicture]);
     });
-
 
     auto buttonWriting = std::make_unique<fw::gui::Button>();
     buttonWriting->setText(L"Praktyka pisania");
