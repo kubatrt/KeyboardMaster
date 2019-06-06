@@ -21,8 +21,10 @@ public:
     void draw(sf::RenderTarget& renderer) override;
 
 private:
+    sf::Sprite backgroundSprite_;
+    sf::Text informationText_;
     fw::gui::StackMenu menu_;
-    Metronome metronome_;	// TODO: test metronome
+    //Metronome metronome_; // TODO: move from here
     //fw::Animation animation_; TODO: test animation
 };
 

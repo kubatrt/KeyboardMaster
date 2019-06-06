@@ -16,12 +16,13 @@ WritingGame::WritingGame(fw::GameBase& game, std::string dictionaryFile) // @sup
 {
     timer_.restart();
     mainFont_ = fw::ResourceHolder::get().fonts.get("CourierNew");
+    backgroundSpriteUI_.setTexture(fw::ResourceHolder::get().textures.get("deep-blue-space"));
 
     debugTextUI_.setFont(mainFont_);
     debugTextUI_.setCharacterSize(16);
     debugTextUI_.setFillColor(sf::Color::Red);
     debugTextUI_.setStyle(sf::Text::Bold);
-    debugTextUI_.setPosition(780, 500);
+    debugTextUI_.setPosition(780, 600);
     
     // Create lines of text for this course
     for (uint i = 0; i < dictionary_.getLines().size(); ++i)
@@ -154,13 +155,15 @@ void WritingGame::update(sf::Time deltaTime)
 
 void WritingGame::draw(sf::RenderTarget& renderer)
 {
-    renderer.draw(debugTextUI_);
+	renderer.draw(backgroundSpriteUI_);
 
     for (sf::Text text : courseTextUI_)
         renderer.draw(text);
 
     for (sf::Text text : courseInputTextUI_)
         renderer.draw(text);
+
+    renderer.draw(debugTextUI_);
 }
 
 }

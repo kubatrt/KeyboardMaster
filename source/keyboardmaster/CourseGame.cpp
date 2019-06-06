@@ -5,12 +5,16 @@ namespace km
 
 namespace
 {
-constexpr int gameAreaWidth = 1024;
-constexpr int gameAreaHeight = 640;
-constexpr int courseAreaWidth = 1024;
-constexpr int courseAreaHeight = 400;
-constexpr int fontSize = 18;
-constexpr int textLineVerticalOffset = 2;
+constexpr uint gameAreaWidth = 1024;
+constexpr uint gameAreaHeight = 640;
+constexpr uint courseAreaWidth = 1024;
+constexpr uint courseAreaHeight = 400;
+constexpr uint fontSize = 18;
+constexpr uint textLineVerticalOffset = 2;
+
+sf::Vector2f nextLetterUI_position { 880, 520 };
+sf::Vector2f panelUI_position { 776, 500 };
+constexpr uint metronomeDefaultBpm = 80;
 }
 
 
@@ -23,24 +27,29 @@ CourseGame::CourseGame(fw::GameBase& game, std::string dictionaryFilePath)
     , vkb_(game.getWindow().getSize())
     , kb_()
     , gameOver_(false)
+	, metronome_(metronomeDefaultBpm)
 {
     timer_.restart();
     mainFont_ = fw::ResourceHolder::get().fonts.get("CourierNew");
     backgroundSpriteUI_.setTexture(fw::ResourceHolder::get().textures.get("deep-blue-space"));
 
+
     nextLetterTextUI_.setFont(mainFont_);
     nextLetterTextUI_.setString("");
-    nextLetterTextUI_.setCharacterSize(32);
-    nextLetterTextUI_.setFillColor(sf::Color::Yellow);
+    nextLetterTextUI_.setCharacterSize(48);
+    nextLetterTextUI_.setFillColor(sf::Color::Red);
     nextLetterTextUI_.setStyle(sf::Text::Bold);
-    nextLetterTextUI_.setPosition(980, 30);
+    nextLetterTextUI_.setPosition(880, 520);
+
+    panelUI_.setTexture(fw::ResourceHolder::get().textures.get("panel"));
+    panelUI_.setPosition(776, 500);
 
     debugTextUI_.setFont(mainFont_);
     debugTextUI_.setString("Debug:");
-    debugTextUI_.setCharacterSize(16);
-    debugTextUI_.setFillColor(sf::Color::Red);
+    debugTextUI_.setCharacterSize(14);
+    debugTextUI_.setFillColor(sf::Color::Black);
     debugTextUI_.setStyle(sf::Text::Bold);
-    debugTextUI_.setPosition(780, 500);
+    debugTextUI_.setPosition(800, 600);
 
     prepareTextFields();
 
@@ -52,8 +61,8 @@ CourseGame::CourseGame(fw::GameBase& game, std::string dictionaryFilePath)
 
 CourseGame::~CourseGame()
 {
-	LOG_DEBUG(L"CourseGame DTOR. Finish after: " << timer_.getElapsedTime().asSeconds())
-    LOG_INFO(L"Keys per minute KPM: " << kb_.getKPM() << ", words per minute (WPM): " << kb_.getWPM())
+	LOG_DEBUG(L"CourseGame DTOR. Finished time: " << timer_.getElapsedTime().asSeconds())
+    LOG_INFO(L"Keys per minute KPM: " << kb_.getKPM() << ", words per minute WPM: " << kb_.getWPM())
 }
 
 void CourseGame::prepareTextFields()
@@ -95,13 +104,14 @@ void CourseGame::handleEvents(sf::Event event)
 {
     switch (event.type)
     {
+    /*
     case sf::Event::Resized:
         break;
     case sf::Event::LostFocus:
         break;
     case sf::Event::GainedFocus:
         break;
-
+     */
     case sf::Event::KeyPressed:
         if (event.key.code == sf::Keyboard::Escape)
         {
@@ -111,6 +121,10 @@ void CourseGame::handleEvents(sf::Event event)
         {
             game_.toggleFullscreen();
         }
+        else if (event.key.code == sf::Keyboard::F1)
+		{
+			metronome_.toggle();
+		}
         else if (event.key.code == sf::Keyboard::Return)
         {
             if (gameOver_)
@@ -237,6 +251,7 @@ void CourseGame::update(sf::Time deltaTime)
     if (gameOver_)
         return;
 
+    metronome_.update(deltaTime);
     vkb_.update(deltaTime);
     kb_.update(deltaTime);
 
@@ -261,11 +276,13 @@ void CourseGame::update(sf::Time deltaTime)
 void CourseGame::draw(sf::RenderTarget& renderer)
 {
     renderer.draw(backgroundSpriteUI_);
+    renderer.draw(panelUI_);
     vkb_.draw(renderer);
 
+    // original text
     for (sf::Text text : courseTextUI_)
         renderer.draw(text);
-    
+    // text written by user
     for (sf::Text text : courseInputTextUI_)
         renderer.draw(text);
    

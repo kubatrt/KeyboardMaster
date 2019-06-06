@@ -43,6 +43,7 @@ private:
     sf::Time spawnInterval_;
 
     // GUI
+    sf::Sprite backgroundSpriteUI_;
     sf::RectangleShape horizontalLineUI_;
     sf::Text typingTextUI_;
     sf::Text scoreTextUI_;

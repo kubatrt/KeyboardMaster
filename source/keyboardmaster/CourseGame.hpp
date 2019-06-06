@@ -21,6 +21,7 @@
 #include "KeyboardTyper.hpp"
 #include "Misc.hpp"
 #include "SoundPlayer.hpp"
+#include "Metronome.hpp"
 
 namespace km
 {
@@ -55,11 +56,12 @@ private:
     std::vector<sf::Text> courseInputTextUI_;
 
     //std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-
+    sf::Sprite panelUI_;
     sf::Clock timer_;
     Dictionary dictionary_;
     VirtualKeyboard vkb_;
     KeyboardTyper kb_;
+    Metronome metronome_;
     bool gameOver_ = false;
 
     wchar_t nextLetter_;

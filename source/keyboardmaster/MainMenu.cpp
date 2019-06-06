@@ -26,9 +26,14 @@ constexpr uint GalleryGameColumns = 2;
 MainMenu::MainMenu(fw::GameBase& game)
     : StateBase(game)
     , menu_({ game.getWindow().getSize().x / 2.f, 90.f })
-	, metronome_(80)
 {
 	LOG_DEBUG("MainMenu CTOR");
+	backgroundSprite_.setTexture(fw::ResourceHolder::get().textures.get("deep-blue-space"));
+
+	informationText_.setFont(fw::ResourceHolder::get().fonts.get("CourierNew"));
+	informationText_.setFillColor(sf::Color::White);
+	informationText_.setPosition(20, 600);
+	informationText_.setString("F1 włącz metronom\nF12 - pełny ekran");
 
     auto buttonCourse = std::make_unique<fw::gui::Button>();
     buttonCourse->setText("Go to course");
@@ -87,8 +92,7 @@ void MainMenu::handleEvents(sf::Event e)
             game_.closeWindow();
         else if (e.key.code == sf::Keyboard::F12)
             game_.toggleFullscreen();
-        else if (e.key.code == sf::Keyboard::F1)
-            metronome_.toggle();
+
         break;
     default:
         break;
@@ -97,11 +101,12 @@ void MainMenu::handleEvents(sf::Event e)
 
 void MainMenu::update(sf::Time deltaTime)
 {
-	metronome_.update(deltaTime);
+
 }
 
 void MainMenu::draw(sf::RenderTarget& renderer)
 {
+	renderer.draw(backgroundSprite_);
     menu_.draw(renderer);
 }
 

@@ -32,6 +32,7 @@ private:
     KeyboardTyper kb_;
     bool gameOver_;
 
+    sf::Sprite backgroundSpriteUI_;
     sf::Text debugTextUI_;
     std::vector<sf::Text> courseTextUI_;
     std::vector<sf::Text> courseInputTextUI_;

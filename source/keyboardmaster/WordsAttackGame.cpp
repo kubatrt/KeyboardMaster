@@ -11,6 +11,8 @@ WordsAttackGame::WordsAttackGame(fw::GameBase& game)
     , dictionary_("data/words_01")
     , spawnInterval_(sf::seconds(1.f))
 {
+	backgroundSpriteUI_.setTexture(fw::ResourceHolder::get().textures.get("deep-blue-space"));
+
     typingTextUI_.setCharacterSize(24);
     typingTextUI_.setFillColor(sf::Color::Yellow);
     typingTextUI_.setPosition({50.f,(float)game.getWindow().getSize().y - 50 });
@@ -155,12 +157,13 @@ void WordsAttackGame::update(sf::Time deltaTime)
     }
 
     typingTextUI_.setString(typedWord_);
-    scoreTextUI_.setString("Score: " + std::to_string(score_));
-    livesTextUI_.setString("Lives: " + std::to_string(lives));
+    scoreTextUI_.setString("Punkty: " + std::to_string(score_));
+    livesTextUI_.setString("Życia: " + std::to_string(lives));
 }
 
 void WordsAttackGame::draw(sf::RenderTarget& renderer)
 {
+	renderer.draw(backgroundSpriteUI_);
     if(gameOver)
     {
         renderer.draw(gameOverTextUI_);

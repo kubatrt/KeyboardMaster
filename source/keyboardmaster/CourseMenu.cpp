@@ -42,6 +42,8 @@ CourseMenu::CourseMenu(fw::GameBase& game)
     , menuLeft_({ game.getWindow().getSize().x / 2.f - menuSidePositionOffset, menuTopPositionOffset })
     , menuRight_({ game.getWindow().getSize().x / 2.f + menuSidePositionOffset, menuTopPositionOffset })
 {
+	backgroundSprite_.setTexture(fw::ResourceHolder::get().textures.get("deep-blue-space"));
+
 	std::vector< std::unique_ptr<fw::gui::Button> > buttons;
 	buttons.reserve(courseLessonsFilesCount);
 
@@ -89,6 +91,7 @@ void CourseMenu::update(sf::Time deltaTime)
 
 void CourseMenu::draw(sf::RenderTarget& renderer)
 {
+	renderer.draw(backgroundSprite_);
     menuLeft_.draw(renderer);
     menuRight_.draw(renderer);
 }

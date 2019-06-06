@@ -7,9 +7,9 @@ namespace km
 
 using AssetName = std::string;
 
-enum KeyCode : unsigned int
+enum KeyCode : uint
 {
-    // UTF-8 unicode
+    // UTF-8 unicode, decimal values
     EOL = 0,
     Backspace = 8,
     Enter = 13,
@@ -48,6 +48,11 @@ enum KeyCode : unsigned int
     comma = 44,
     dot = 46,
     slash = 47
+	/*A = 65,
+	B = 66,
+	C = 67,
+*/
+
 };
 
 

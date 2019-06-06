@@ -20,6 +20,7 @@ public:
     void draw(sf::RenderTarget& renderer) override;
 
 private:
+    sf::Sprite backgroundSprite_;
     fw::gui::StackMenu menuLeft_;
     fw::gui::StackMenu menuRight_;
 };

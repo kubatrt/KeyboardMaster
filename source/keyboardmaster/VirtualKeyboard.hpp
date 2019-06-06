@@ -9,6 +9,8 @@
 namespace km
 {
 
+namespace fw = framework;
+
 constexpr float ROW_1ST = 4.f;
 constexpr float ROW_2ND = 55.f;
 constexpr float ROW_3RD = 107.f;
@@ -17,7 +19,7 @@ constexpr float ROW_5TH = 210.f;
 constexpr float OUT_OF_RANGE = 2000.0f;
 
 // Represents VirtualKeyboard game object
-class VirtualKeyboard : framework::IGameComponent
+class VirtualKeyboard : fw::IGameComponent
 {
 	typedef unsigned int KeyCodeType;
 
@@ -62,17 +64,18 @@ public:
         maskPositions_[KeyCode::EOL] = sf::Vector2f(683, ROW_3RD);      // when EOL press "Enter"
         maskPositions_[KeyCode::Space] = sf::Vector2f(238, ROW_5TH);
 
-        layoutTexture_ = framework::ResourceHolder::get().textures.get("kbl_48");
+        layoutTexture_ = fw::ResourceHolder::get().textures.get("kbl_48");
         layoutSprite_.setTexture(layoutTexture_);
-        layoutSprite_.setPosition(0.f, static_cast<float>(windowSize.y - layoutTexture_.getSize().y));
+        layoutSprite_.setPosition(0.f, static_cast<float>(windowSize.y - layoutTexture_.getSize().y));	// place at the bottom
 
-        maskTexture_ = framework::ResourceHolder::get().textures.get("mask");
+        maskTexture_ = fw::ResourceHolder::get().textures.get("mask");
         maskSprite_.setTexture(maskTexture_);
         maskSprite_.setColor(sf::Color(255, 255, 255, 100));
     }
 
     void highlightLetter(KeyCodeType letterCode)
     {
+    	//letterCode - change big letter code to lower
         auto search = maskPositions_.find(letterCode);
         if (search != maskPositions_.end())
         {
@@ -97,11 +100,11 @@ public:
     }
 
 private:
-    // <keyCode, Position> positions in relation to layout sprite
+    // Map <keyCode, Position> positions in relation to layout sprite
     std::map<KeyCodeType, sf::Vector2f> maskPositions_;
     sf::Texture layoutTexture_;
-    sf::Texture maskTexture_;
     sf::Sprite  layoutSprite_;
+    sf::Texture maskTexture_;
     sf::Sprite  maskSprite_;
 };
 
