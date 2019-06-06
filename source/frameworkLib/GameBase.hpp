@@ -90,6 +90,7 @@ public:
     {
         auto style = isFullscreen_ ? sf::Style::Fullscreen : sf::Style::Default;
         window_.create({windowWidth_, windowHeight_}, windowTitle_, style);
+        window_.setFramerateLimit(60);
     }
 
     void closeWindow()

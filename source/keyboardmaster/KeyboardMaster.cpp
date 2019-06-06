@@ -21,7 +21,7 @@ KeyboardMaster::KeyboardMaster()
 	LOG_DEBUG(WindotTitle << ": " << WindowWidth << "x" << WindowHeight);
     window_.setFramerateLimit(FramerateLimit);
 
-    addComponent<fw::FPSCounter>();
+    //addComponent<fw::FPSCounter>();
 
     // Start game from MainMenu
     pushState<MainMenu>(*this);

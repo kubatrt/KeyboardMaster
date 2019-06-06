@@ -24,6 +24,7 @@ class Button : public Widget
 
         void setFunction(Callback func);
         void setText(const std::string& str);
+        void setText (const std::wstring& str);
         void setTexture(const sf::Texture& tex);
         void handleEvent(sf::Event e, const sf::RenderWindow& window) override;
         void draw(sf::RenderTarget& renderer) override;

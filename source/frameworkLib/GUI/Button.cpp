@@ -42,6 +42,12 @@ void Button::setText (const std::string& str)
     updateText();
 }
 
+void Button::setText (const std::wstring& str)
+{
+    text_.setString(str);
+    updateText();
+}
+
 void Button::setTexture (const sf::Texture& tex)
 {
     button_.setTexture(&tex);

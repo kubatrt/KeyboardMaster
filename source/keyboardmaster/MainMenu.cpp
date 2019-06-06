@@ -32,25 +32,26 @@ MainMenu::MainMenu(fw::GameBase& game)
 
 	informationText_.setFont(fw::ResourceHolder::get().fonts.get("CourierNew"));
 	informationText_.setFillColor(sf::Color::White);
-	informationText_.setPosition(20, 600);
-	informationText_.setString("F1 włącz metronom\nF12 - pełny ekran");
+	informationText_.setPosition(20, 660);
+	informationText_.setCharacterSize(18);
+	informationText_.setString(L"F1 - włącz metronom\nF12 - pełny ekran");
 
     auto buttonCourse = std::make_unique<fw::gui::Button>();
-    buttonCourse->setText("Go to course");
+    buttonCourse->setText(L"Idź do kursu");
     buttonCourse->setFunction([&] ()
     {
         game_.pushState<CourseMenu>(game_);
     });
 
     auto buttonWordsAttack = std::make_unique<fw::gui::Button>();
-    buttonWordsAttack->setText("Words attack!");
+    buttonWordsAttack->setText(L"Atak słów!");
     buttonWordsAttack->setFunction([&] ()
     {
         game_.pushState<WordsAttackGame>(game_);
     });
 
     auto buttonGallery = std::make_unique<fw::gui::Button>();
-    buttonGallery->setText("Gallery");
+    buttonGallery->setText(L"Galeria");
     buttonGallery->setFunction([&] ()
     {
     	auto randomPicture = framework::RandomMachine::getRange<int>(0, pictureFilesCount - 1);
@@ -60,7 +61,7 @@ MainMenu::MainMenu(fw::GameBase& game)
 
 
     auto buttonWriting = std::make_unique<fw::gui::Button>();
-    buttonWriting->setText("Writing");
+    buttonWriting->setText(L"Praktyka pisania");
     buttonWriting->setFunction([&] ()
     {
         auto randomArticle = fw::RandomMachine::getRange<int>(0, articleFilesCount - 1);
@@ -68,7 +69,7 @@ MainMenu::MainMenu(fw::GameBase& game)
     });
 
     auto buttonQuit = std::make_unique<fw::gui::Button>();
-    buttonQuit->setText("Quit");
+    buttonQuit->setText(L"Wyjdź");
     buttonQuit->setFunction([&] ()
     {
         game_.closeWindow();
@@ -92,7 +93,6 @@ void MainMenu::handleEvents(sf::Event e)
             game_.closeWindow();
         else if (e.key.code == sf::Keyboard::F12)
             game_.toggleFullscreen();
-
         break;
     default:
         break;
@@ -107,6 +107,7 @@ void MainMenu::update(sf::Time deltaTime)
 void MainMenu::draw(sf::RenderTarget& renderer)
 {
 	renderer.draw(backgroundSprite_);
+	renderer.draw(informationText_);
     menu_.draw(renderer);
 }
 
