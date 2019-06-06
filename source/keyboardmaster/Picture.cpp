@@ -20,15 +20,15 @@ Picture::Picture(uint rows, uint cols, AssetName picture)
     elementsInCol_ = cols;
     elementsTotal_ = elementsInRow_ * elementsInCol_;
 
-    int picElemWidth = texture_.getSize().x / elementsInRow_;
-    int picElemHeight = texture_.getSize().y / elementsInCol_;
+    int picElemWidth = texture_.getSize().x / elementsInCol_;
+    int picElemHeight = texture_.getSize().y / elementsInRow_;
     size_.x = static_cast<float>(texture_.getSize().x);
     size_.y = static_cast<float>(texture_.getSize().y);
 
     uint index = 0;
-    for (uint y = 0; y < elementsInCol_; ++y)
+    for (uint y = 0; y < elementsInRow_; ++y)
     {
-        for (uint x = 0; x < elementsInRow_; ++x)
+        for (uint x = 0; x < elementsInCol_; ++x)
         {
             std::wstring word = dictionary_.getRandomWord();
             LOG_CRITICAL("Random word: " << word);
