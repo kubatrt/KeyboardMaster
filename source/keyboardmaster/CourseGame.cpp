@@ -176,9 +176,9 @@ void CourseGame::textEnteredEvent(wchar_t typedLetter)
             gameOver_ = true;
         }
     }
-    else // any other letter
+    else // any other character
     {
-        // if current letter is not last in current line?
+        // if current character is not last in current line?
         if (currentletterInLine_ < dictionary_.getLines()[currentLine_].size())
         {
             if (typedLetter == nextLetter_)
@@ -223,6 +223,7 @@ void CourseGame::textEnteredEvent(wchar_t typedLetter)
         
 
     nextLetter_ = dictionary_.getLines()[currentLine_][currentletterInLine_];
+    // nextLetterTextUI_
     if (static_cast<int>(nextLetter_) == 0 || static_cast<int>(nextLetter_) == KeyCode::Enter)
         nextLetterTextUI_.setString("NL");
     else if (static_cast<int>(nextLetter_) == KeyCode::Space)
