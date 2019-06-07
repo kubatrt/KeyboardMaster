@@ -25,13 +25,14 @@ public:
 
 private:
     Picture picture_;
-    //wchar_t typedLetter_;
+    sf::Clock timer_;
     std::wstring typedWord_;
     uint typedWords_= 0;
     bool gameOver_ = false;
 
     sf::RectangleShape	borderRectangle_;
     sf::Text gameOverTextUI_;
+    sf::Text timerTextUI_;
 };
 
 }

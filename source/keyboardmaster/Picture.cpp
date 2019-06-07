@@ -35,9 +35,9 @@ Picture::Picture(uint rows, uint cols, AssetName picture)
             int picElemPositionX = x * picElemWidth + pictureOffset;
             int picElemPositionY = y * picElemHeight + pictureOffset;
             // TODO: Check here shared_ptr, can be unique_ptr?
-            auto picElem = std::make_shared<PictureElement>(texture_, sf::IntRect(x * picElemWidth, y * picElemHeight, picElemWidth, picElemHeight),
+            auto picElem = std::make_unique<PictureElement>(texture_, sf::IntRect(x * picElemWidth, y * picElemHeight, picElemWidth, picElemHeight),
                   index, word, sf::Vector2f(static_cast<float>(picElemPositionX), static_cast<float>(picElemPositionY)));
-            elements_.push_back(picElem);
+            elements_.push_back(std::move(picElem));
             
             indexesLeft.push_back(index);
             index++;
@@ -89,7 +89,7 @@ void Picture::wordTyped(std::wstring typedWord)
 uint Picture::reveleadElementsCount()
 {
 	uint revealedElements = std::count_if(elements_.begin(), elements_.end(),
-	        [&](std::shared_ptr<PictureElement>& e){ return e->isRevealed(); });
+	        [&](auto& e){ return e->isRevealed(); });
 	return revealedElements;
 }
 

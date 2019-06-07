@@ -45,9 +45,7 @@ private:
     sf::Texture texture_;
     sf::Sprite sprite_;
     sf::Vector2u size_;
-
     bool visible_ = false;
-    //uint typedWords_ = 0;
     uint elementsInRow_;
     uint elementsInCol_;
     uint elementsTotal_;
@@ -55,7 +53,7 @@ private:
     uint activeIndex_;
     std::vector<int> indexesLeft;
 
-    std::vector<std::shared_ptr<PictureElement>> elements_;	// TODO: unique_ptr?
+    std::vector<std::unique_ptr<PictureElement>> elements_;
 };
 
 }

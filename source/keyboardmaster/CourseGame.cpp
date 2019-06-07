@@ -18,9 +18,6 @@ constexpr uint metronomeDefaultBpm = 80;
 }
 
 
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
 CourseGame::CourseGame(fw::GameBase& game, std::string dictionaryFilePath)
     : StateBase(game)
     , dictionary_(dictionaryFilePath)
