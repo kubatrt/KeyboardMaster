@@ -3,8 +3,9 @@
 namespace framework
 {
 
-struct NonMovable
+class NonMovable
 {
+public:
     NonMovable() = default;
     NonMovable& operator = (NonMovable&&) = delete;
     NonMovable(NonMovable&&) = delete;

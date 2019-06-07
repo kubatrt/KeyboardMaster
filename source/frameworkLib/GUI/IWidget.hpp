@@ -11,6 +11,7 @@ namespace gui
 struct IWidget
 {
 	virtual ~IWidget() = default;
+
     virtual void handleEvent(sf::Event e, const sf::RenderWindow& window) = 0;
     virtual void draw(sf::RenderTarget& renderer) = 0;
 
