@@ -39,7 +39,7 @@ AssetName courseLessonsFiles[] = {
 
 CourseMenu::CourseMenu(fw::GameBase& game)
     : StateBase(game)
-    , menuLeft_({ game.getWindow().getSize().x / 2.f - menuSidePositionOffset, menuTopPositionOffset })
+    , menuLeft_( { game.getWindow().getSize().x / 2.f - menuSidePositionOffset, menuTopPositionOffset })
     , menuRight_({ game.getWindow().getSize().x / 2.f + menuSidePositionOffset, menuTopPositionOffset })
 {
 	backgroundSprite_.setTexture(fw::ResourceHolder::get().textures.get("deep-blue-space"));

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <string>
 #include <vector>
 #include <map>
 #include <locale>
@@ -12,7 +13,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
-
+#include "frameworkLib/GUI/Button.hpp"
 #include "frameworkLib/StateBase.hpp"
 #include "frameworkLib/GameBase.hpp"
 #include "frameworkLib/Utilities.hpp"
@@ -22,6 +23,7 @@
 #include "Misc.hpp"
 #include "SoundPlayer.hpp"
 #include "Metronome.hpp"
+#include "frameworkLib/GUI/StackMenu.hpp"
 
 namespace km
 {
@@ -41,7 +43,7 @@ public:
 
 private:
     void textEnteredEvent(wchar_t typedLetter);
-
+    std::wstring prepareStatusString();
     void newLine();
     void prepareTextFields();
     //uint inpenultimateLineNumber(); // index
@@ -50,7 +52,7 @@ private:
     sf::Font mainFont_;
     sf::Sprite backgroundSpriteUI_;
     sf::Text nextLetterTextUI_;
-    sf::Text debugTextUI_;
+    sf::Text statusTextUI_;
     sf::Text gameOverTextUI_;
     std::vector<sf::Text> courseTextUI_;
     std::vector<sf::Text> courseInputTextUI_;

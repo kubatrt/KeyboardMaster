@@ -14,12 +14,13 @@ AssetName audioFiles[] = {
 		"metro_beat"
 };
 
-constexpr uint articleFilesCount = 4;
+constexpr uint articleFilesCount = 5;
 AssetName articleFiles[] = {
 	"data/art_01.txt",
 	"data/art_02.txt",
 	"data/art_03.txt",
-	"data/art_04.txt"
+	"data/art_04.txt",
+	"data/art_05.txt"
 };
 
 /*AssetName wordsFiles[] = {

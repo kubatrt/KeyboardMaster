@@ -1,17 +1,19 @@
+#include <iomanip>
 #include "CourseGame.hpp"
+
 
 namespace km
 {
 
 namespace
 {
-constexpr uint gameAreaWidth = 1024;
-constexpr uint gameAreaHeight = 640;
-constexpr uint courseAreaWidth = 1024;
-constexpr uint courseAreaHeight = 400;
+//constexpr uint GameAreaWidth = 1024;
+//constexpr uint GameAreaHeight = 640;
+constexpr uint CourseAreaWidth = 1024;
+constexpr uint CourseAreaHeight = 400;
 constexpr uint fontSize = 18;
 constexpr uint textLineVerticalOffset = 2;
-
+constexpr uint metronomeStep = 10;
 sf::Vector2f nextLetterUI_position { 880, 520 };
 sf::Vector2f panelUI_position { 776, 500 };
 constexpr uint metronomeDefaultBpm = 80;
@@ -41,12 +43,12 @@ CourseGame::CourseGame(fw::GameBase& game, std::string dictionaryFilePath)
     panelUI_.setTexture(fw::ResourceHolder::get().textures.get("panel"));
     panelUI_.setPosition(776, 500);
 
-    debugTextUI_.setFont(mainFont_);
-    debugTextUI_.setString("Debug:");
-    debugTextUI_.setCharacterSize(14);
-    debugTextUI_.setFillColor(sf::Color::Black);
-    debugTextUI_.setStyle(sf::Text::Bold);
-    debugTextUI_.setPosition(800, 600);
+    statusTextUI_.setFont(mainFont_);
+    statusTextUI_.setString("Debug:");
+    statusTextUI_.setCharacterSize(14);
+    statusTextUI_.setFillColor(sf::Color::Black);
+    statusTextUI_.setStyle(sf::Text::Bold);
+    statusTextUI_.setPosition(800, 600);
 
     prepareTextFields();
 
@@ -121,6 +123,14 @@ void CourseGame::handleEvents(sf::Event event)
         else if (event.key.code == sf::Keyboard::F1)
 		{
 			metronome_.toggle();
+		}
+        else if (event.key.code == sf::Keyboard::F2)
+		{
+			metronome_.setBPM(metronome_.getBPM() - metronomeStep);
+		}
+        else if (event.key.code == sf::Keyboard::F3)
+		{
+        	metronome_.setBPM(metronome_.getBPM() + metronomeStep);
 		}
         else if (event.key.code == sf::Keyboard::Return)
         {
@@ -242,6 +252,19 @@ uint CourseGame::currentLineLength()
     return dictionary_.getLines()[currentLine_].size(); // - 1
 }*/
 
+std::wstring CourseGame::prepareStatusString()
+{
+	std::wstringstream wss;
+	wss << L"Czas: " << timer_.getElapsedTime().asSeconds()
+		<< L"\nLitera: " << currentletterInLine_ << L" Linia: " << currentLine_
+		<< L"\nCorrect: " << kb_.getCorrectLetters() << L" Pomyłek: " << kb_.getMistakes()
+		<< L"\nPominiętych: " << kb_.getOmittedLetters() // << L" TypedKeys: " << kb_.getTypedKeys()
+		<< L"\nKlawisze na minute: " << kb_.getKPM()
+		<< L"\nPoprawność: " << kb_.correctnessPercentage(dictionary_.getLettersCount())
+		<< L"\nMetronom: " << metronome_.getBPM();
+
+	return wss.str();
+}
 
 
 void CourseGame::update(sf::Time deltaTime)
@@ -253,15 +276,8 @@ void CourseGame::update(sf::Time deltaTime)
     vkb_.update(deltaTime);
     kb_.update(deltaTime);
 
-    // Debug string
-    std::wstringstream wss;
-    wss << L"Time: " << timer_.getElapsedTime().asSeconds()
-        << L"\nLetter: " << currentletterInLine_ << L" Line: " << currentLine_
-        << L"\nCorrect: " << kb_.getCorrectLetters() << L" Miss: " << kb_.getMistakes()
-        << L"\nOmitt: " << kb_.getOmittedLetters() << L" TypedKeys: " << kb_.getTypedKeys()
-        << L"\nKPM: " << kb_.getKPM()
-        << L"\nCorrectness: " << kb_.correctnessPercentage(dictionary_.getLettersCount());
-    debugTextUI_.setString(wss.str());
+    std::wstring status = prepareStatusString();
+    statusTextUI_.setString(status);
 
     if (static_cast<int>(nextLetter_) == 0 || static_cast<int>(nextLetter_) == KeyCode::Enter)
         nextLetterTextUI_.setString("NL");
@@ -285,7 +301,7 @@ void CourseGame::draw(sf::RenderTarget& renderer)
         renderer.draw(text);
    
     renderer.draw(nextLetterTextUI_);
-    renderer.draw(debugTextUI_);
+    renderer.draw(statusTextUI_);
 }
 
 }

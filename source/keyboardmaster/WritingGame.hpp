@@ -24,6 +24,7 @@ public:
     void draw(sf::RenderTarget& renderer) override;
 
 private:
+    std::wstring prepareStatusString();
     void textEnteredEvent(wchar_t typedLetter);
     void newLine();
 
@@ -35,7 +36,7 @@ private:
     bool gameOver_;
 
     sf::Sprite backgroundSpriteUI_;
-    sf::Text debugTextUI_;
+    sf::Text statusTextUI_;
     std::vector<sf::Text> courseTextUI_;
     std::vector<sf::Text> courseInputTextUI_;
 

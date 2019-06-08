@@ -5,8 +5,9 @@ namespace km
 
 namespace
 {
-constexpr int fontSize = 16;
-constexpr int textLineVerticalOffset = 2;
+constexpr uint FontSize = 16;
+constexpr uint TextLineVerticalOffset = 2;
+constexpr uint MetronomeStep = 10;
 }
 
 WritingGame::WritingGame(fw::GameBase& game, std::string dictionaryFile) // @suppress("Class members should be properly initialized")
@@ -21,11 +22,11 @@ WritingGame::WritingGame(fw::GameBase& game, std::string dictionaryFile) // @sup
     backgroundSpriteUI_.setTexture(fw::ResourceHolder::get().textures.get("deep-blue-space"));
     backgroundSpriteUI_.setColor(sf::Color(200.f, 200.f, 200.f));
 
-    debugTextUI_.setFont(mainFont_);
-    debugTextUI_.setCharacterSize(fontSize);
-    debugTextUI_.setFillColor(sf::Color::Red);
-    debugTextUI_.setStyle(sf::Text::Bold);
-    debugTextUI_.setPosition(780, 640);
+    statusTextUI_.setFont(mainFont_);
+    statusTextUI_.setCharacterSize(FontSize);
+    statusTextUI_.setFillColor(sf::Color::Red);
+    statusTextUI_.setStyle(sf::Text::Bold);
+    statusTextUI_.setPosition(780, 640);
     
     // Create lines of text for this course
     for (uint i = 0; i < dictionary_.getLines().size(); ++i)
@@ -33,10 +34,10 @@ WritingGame::WritingGame(fw::GameBase& game, std::string dictionaryFile) // @sup
         sf::Text textField;
         textField.setFont(mainFont_);
         textField.setString(dictionary_.getLines()[i]);   // must be 'L'
-        textField.setCharacterSize(fontSize);
+        textField.setCharacterSize(FontSize);
         textField.setFillColor(sf::Color::White);
         textField.setStyle(sf::Text::Bold);
-        textField.setPosition(4.f, static_cast<float>(i * (fontSize * 2.f) + textLineVerticalOffset));
+        textField.setPosition(4.f, static_cast<float>(i * (FontSize * 2.f) + TextLineVerticalOffset));
         courseTextUI_.push_back(textField);
     }
     // Do the same for user input text, but empty
@@ -44,10 +45,10 @@ WritingGame::WritingGame(fw::GameBase& game, std::string dictionaryFile) // @sup
     {
         sf::Text textField;
         textField.setFont(mainFont_);
-        textField.setCharacterSize(fontSize);
+        textField.setCharacterSize(FontSize);
         textField.setFillColor(sf::Color::Cyan);
         textField.setStyle(sf::Text::Bold);
-        textField.setPosition(4.f, static_cast<float>(i * (fontSize * 2.f) + textLineVerticalOffset + fontSize));
+        textField.setPosition(4.f, static_cast<float>(i * (FontSize * 2.f) + TextLineVerticalOffset + FontSize));
         courseInputTextUI_.push_back(textField);
     }
 
@@ -72,6 +73,14 @@ void WritingGame::handleEvents(sf::Event event)
 		{
         	metronome_.toggle();
 		}
+        else if (event.key.code == sf::Keyboard::F2)
+		{
+			metronome_.setBPM(metronome_.getBPM() - MetronomeStep);
+		}
+        else if (event.key.code == sf::Keyboard::F3)
+		{
+        	metronome_.setBPM(metronome_.getBPM() + MetronomeStep);
+		}
         else if (event.key.code == sf::Keyboard::Return)
         {
             if(gameOver_)
@@ -86,6 +95,21 @@ void WritingGame::handleEvents(sf::Event event)
         break;
     }
 }
+
+std::wstring WritingGame::prepareStatusString()
+{
+	std::wstringstream wss;
+	wss << L"Czas: " << timer_.getElapsedTime().asSeconds()
+		<< L"\nLitera: " << currentletterInLine_ << L" Linia: " << currentLine_
+		<< L"\nCorrect: " << kb_.getCorrectLetters() << L" Pomyłek: " << kb_.getMistakes()
+		<< L"\nPominiętych: " << kb_.getOmittedLetters() // << L" TypedKeys: " << kb_.getTypedKeys()
+		<< L"\nKlawisze na minute: " << kb_.getKPM()
+		<< L"\nPoprawność: " << kb_.correctnessPercentage(dictionary_.getLettersCount())
+		<< L"\nMetronom: " << metronome_.getBPM();
+
+	return wss.str();
+}
+
 
 void WritingGame::newLine()
 {
@@ -165,14 +189,8 @@ void WritingGame::update(sf::Time deltaTime)
     metronome_.update(deltaTime);
     kb_.update(deltaTime);
 
-    std::wstringstream wss;
-    wss << L"Time: " << timer_.getElapsedTime().asSeconds()
-        << L"\nLetter: " << currentletterInLine_ << L" Line: " << currentLine_
-        << L"\nCorrect: " << kb_.getCorrectLetters() << L" Miss: " << kb_.getMistakes()
-        << L"\nOmitt: " << kb_.getOmittedLetters() << L" TypedKeys: " << kb_.getTypedKeys()
-        << L"\nKPM: " << kb_.getKPM()
-        << L"\nCorrectness: " << kb_.correctnessPercentage(dictionary_.getLettersCount());
-    debugTextUI_.setString(wss.str());
+    std::wstring status = prepareStatusString();
+    statusTextUI_.setString(status);
     
 }
 
@@ -186,7 +204,7 @@ void WritingGame::draw(sf::RenderTarget& renderer)
     for (sf::Text text : courseInputTextUI_)
         renderer.draw(text);
 
-    renderer.draw(debugTextUI_);
+    renderer.draw(statusTextUI_);
 }
 
 }
