@@ -1,6 +1,7 @@
 #include <algorithm>
 #include "Picture.hpp"
 #include "frameworkLib/Utilities.hpp"
+#include "SoundPlayer.hpp"
 
 namespace km
 {
@@ -63,27 +64,43 @@ void Picture::initialize()
     }
 }
 
-void Picture::wordTyped(std::wstring typedWord)
+void Picture::nextPictureElement()
 {
-    LOG_DEBUG("wordTyped, activeIndex_: " << activeIndex_);
+	 if (indexesLeft.size() > 0)
+	    {
+	        activeIndex_ = indexesLeft.at(framework::RandomMachine::getRange<int>(0, indexesLeft.size() - 1));
+	        indexesLeft.erase(std::remove(indexesLeft.begin(), indexesLeft.end(), activeIndex_));
+	        elements_.at(activeIndex_)->setActive();
+	    }
+}
+
+bool Picture::wordTyped(std::wstring typedWord)
+{
+    LOG_DEBUG("wordTyped activeIndex_: " << activeIndex_);
+    bool result = false;
 
     if (elements_.at(activeIndex_)->getWord() == typedWord)
     {
         elements_.at(activeIndex_)->reveal();
+        SoundPlayer::get().play("reveal");
+        result = true;
     }
     else
     {
         elements_.at(activeIndex_)->miss();
+        SoundPlayer::get().play("mistake");
+        result = false;
     }
 
-    if (indexesLeft.size() > 0)
-    {
-        activeIndex_ = indexesLeft.at(framework::RandomMachine::getRange<int>(0, indexesLeft.size() - 1));
-        indexesLeft.erase(std::remove(indexesLeft.begin(), indexesLeft.end(), activeIndex_));
-        elements_.at(activeIndex_)->setActive();
-    }
+    nextPictureElement();
 
-    LOG_DEBUG("activeIndex_ new: " << activeIndex_ << " indexesLeft: " << indexesLeft.size());
+    LOG_DEBUG("wordTyped activeIndex_ new: " << activeIndex_ << " indexesLeft: " << indexesLeft.size());
+    return result;
+}
+
+bool Picture::isAnyActiveElement()
+{
+	return std::any_of(elements_.begin(), elements_.end(), [&](auto& e) { return e->isActive();});
 }
 
 uint Picture::reveleadElementsCount()
@@ -104,6 +121,13 @@ void Picture::update(sf::Time deltaTime)
     for (auto &element : elements_)
     {
         element->update(deltaTime);
+    }
+
+    if(elements_.at(activeIndex_)->isMissed())	// missed beacause of time elapsed
+    {
+    	LOG_DEBUG("Missed element! " << activeIndex_);
+    	SoundPlayer::get().play("mistake");
+    	nextPictureElement();
     }
 }
 

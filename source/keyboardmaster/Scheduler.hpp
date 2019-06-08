@@ -10,7 +10,7 @@ namespace km
 class Scheduler
 {
 public:
-    Scheduler(sf::Time treshold, std::function<void()> callback)
+    Scheduler(sf::Time treshold, std::function<void()> callback = nullptr)
         : treshold_(treshold)
         , callback_(callback)
         , done_(false)
@@ -18,6 +18,8 @@ public:
     {
     	LOG_DEBUG("Scheduler CTOR tresh:" << treshold.asSeconds() );
     }
+
+    void setCallback(std::function<void()> callback) { callback_ = callback; }
 
     bool isStarted() const { return started_; }
     bool isDone() const { return done_; }
@@ -37,10 +39,9 @@ public:
 
         if (timer_.getElapsedTime() >= treshold_)
         {
-        	LOG_DEBUG("Scheduler callback()");
+        	LOG_DEBUG("Scheduler callback() " << timer_.getElapsedTime().asSeconds());
             done_ = true;
             callback_();
-
         }
     }
 

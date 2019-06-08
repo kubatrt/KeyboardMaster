@@ -25,20 +25,23 @@ public:
     void update(sf::Time deltaTime);
     void draw(sf::RenderTarget& renderer);
 
-    void wordTyped(std::wstring word);
+    bool wordTyped(std::wstring word);
     bool isComplete();
 
     bool getVisible() const { return visible_; }
     void setVisible(bool visible) { visible_ = visible; }
     uint elementsCount() const { return elements_.size(); }
     uint reveleadElementsCount();
+    bool noIndexesLeft() { return indexesLeft.size() == 0; }
     sf::Vector2u getSize() const { return texture_.getSize(); }
+    bool isAnyActiveElement();
 
     // TODO: is needed?
     // getCorectness()
     // getTotalTime()
 
 private:
+    void nextPictureElement();
     void initialize();
 
     Dictionary dictionary_;

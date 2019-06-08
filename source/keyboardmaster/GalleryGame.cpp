@@ -1,5 +1,7 @@
 #include "GalleryGame.hpp"
+#include "SoundPlayer.hpp"
 #include "frameworkLib/ResourceManager/ResourceHolder.hpp"
+
 
 namespace km
 {
@@ -103,7 +105,7 @@ void GalleryGame::update(sf::Time deltaTime)
         gameOverTextUI_.setString(ss.str());
 
     }
-    else if(typedWords_ >= picture_.elementsCount())
+    else if(typedWords_ >= picture_.elementsCount() || (picture_.noIndexesLeft() && !picture_.isAnyActiveElement()) )
     {
     	gameOver_ = true;
     	//picture_.setVisible(true);

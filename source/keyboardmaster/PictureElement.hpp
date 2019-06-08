@@ -5,7 +5,7 @@
 #include "frameworkLib/Utilities.hpp"
 #include "frameworkLib/ResourceManager/ResourceHolder.hpp"
 #include "Misc.hpp"
-//#include "Scheduler.hpp"
+#include "Scheduler.hpp"
 
 namespace km
 {
@@ -20,18 +20,20 @@ class PictureElement
 public:
 	PictureElement(sf::Texture& texture, sf::IntRect textureSectionRect,
 			int index, std::wstring word, sf::Vector2f pos );
-	PictureElement(const PictureElement& pe);
+	PictureElement(const PictureElement& pe) = delete;
 	~PictureElement();
 
 	size_t getWordLength() { return word_.length(); }
+	std::wstring getWord() { return word_; }
 	int getIndex() const { return index_; }
 	bool isRevealed() const { return revealed_; }
+	bool isMissed() const { return missed_; }
 	bool isActive() const { return active_; }
-	void setActive() { active_ = true; }
-	std::wstring getWord() { return word_; }
+	void setActive() { active_ = true; 	scheduler_.start(); }
 
 	void reveal();
 	void miss();
+
 	void update(sf::Time deltaTime);
 	void draw(sf::RenderTarget& renderer);
 
@@ -42,12 +44,10 @@ private:
     bool active_;	// is it current active element? Can by only one at time
     bool revealed_;	// is picture revealed as a whole?
     bool missed_;	// is it was missed?
+
     int index_;
     wchar_t nextLetter_;
-    //sf::Clock timer_;
-    //Scheduler scheduler_;
-
-    //float lifeTime = 3.f;	// how long it will stay uncovered? TODO: not here?
+    Scheduler scheduler_;
 };
 
 }

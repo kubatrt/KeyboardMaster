@@ -23,6 +23,7 @@ public:
     void enterWord(std::wstring word);
 
 private:
+    void addScore(int wordLength);
     void spawnWordBlock();
     void destroyWord();
 
