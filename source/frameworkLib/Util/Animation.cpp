@@ -1,41 +1,86 @@
 #include "Animation.hpp"
+#include "../ResourceManager/ResourceHolder.hpp"
 
 namespace framework
 {
 
-
-
-namespace experimental
+Animator::Animator(sf::Sprite& sprite)
+	: sprite_(sprite)
+	, currentTime_()
+	, currentAnimation_(nullptr)
 {
-Animation::Animation(unsigned frameSize)
-    : FRAME_SIZE(frameSize)
-{
+
 }
 
-void Animation::addFrame(unsigned index, sf::Time delay)
+Animator::Animation& Animator::createAnimation(const std::string& name, const std::string& textureName, sf::Time duration, bool loop)
 {
-    sf::IntRect bounds;
-    bounds.top = 0;
-    bounds.height = FRAME_SIZE;
-    bounds.width = FRAME_SIZE;
-    bounds.left = index * FRAME_SIZE;
+	animations_.push_back( Animator::Animation(name, textureName, duration, loop));
 
-    frames_.emplace_back(bounds, delay);
+	if(currentAnimation_ == nullptr)
+		switchAnimation(&animations_.back());
+
+	return animations_.back();
+}
+
+void Animator::switchAnimation(Animator::Animation* animation)
+{
+	if(animation != nullptr)
+	{
+		sprite_.setTexture(ResourceHolder::get().textures.get(animation->textureName_));
+	}
+	currentAnimation_ = animation;
+	currentTime_ = sf::Time::Zero;
+}
+
+bool Animator::switchAnimation(const std::string& name)
+{
+	auto animation = findAnimation(name);
+	if(animation != nullptr)
+	{
+		switchAnimation(animation);
+		return true;
+	}
+	return false;
+}
+
+Animator::Animation* Animator::findAnimation(const std::string& name)
+{
+	for(auto it = animations_.begin(); it != animations_.end(); ++it)
+	{
+		if(it->name_ == name)
+			return &(*it);
+	}
+
+	return nullptr;
+}
+
+std::string Animator::getCurrentAnimationName() const
+{
+	if(currentAnimation_ != nullptr)
+		return currentAnimation_->name_;
+
+	// if no animation is playing, return empty string
+	return "";
+}
+
+void Animator::update(sf::Time deltaTime)
+{
+	if(currentAnimation_ == nullptr)
+		return;
+
+	currentTime_ += deltaTime;
+
+	float scaledTime = (currentTime_.asSeconds() / currentAnimation_->duration_.asSeconds());
+	int numFrames = currentAnimation_->frames_.size();
+	int currentFrame = static_cast<int>(scaledTime * numFrames);
+
+	if(currentAnimation_->looping_)
+		currentFrame %= numFrames;
+	else if(currentFrame >= numFrames)
+		currentFrame = numFrames - 1;
+
+	sprite_.setTextureRect(currentAnimation_->frames_[currentFrame]);
 }
 
 
-const sf::IntRect& Animation::getFrame()
-{
-    if (timer_.getElapsedTime() >= frames_[currentFrame_].delay)
-    {
-        timer_.restart();
-        currentFrame_++;
-        if (currentFrame_ == frames_.size())
-            currentFrame_ = 0;
-    }
-
-    return frames_[currentFrame_].bounds;
-}
-
-}   // experimental
 }   // framework

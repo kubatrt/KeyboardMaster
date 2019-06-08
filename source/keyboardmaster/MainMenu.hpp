@@ -25,7 +25,11 @@ private:
     sf::Sprite backgroundSprite_;
     sf::Text informationText_;
     fw::gui::StackMenu menu_;
-    exp::Animation animation_;
+
+    sf::Vector2i spriteSize_ {256, 256};
+    sf::Sprite sprite_;
+    fw::Animator animator_;
+
 };
 
 }

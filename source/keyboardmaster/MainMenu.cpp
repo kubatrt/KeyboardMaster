@@ -25,10 +25,15 @@ constexpr uint GalleryGameColumns = 4;
 MainMenu::MainMenu(fw::GameBase& game)
     : StateBase(game)
     , menu_({ game.getWindow().getSize().x / 2.f, 90.f })
-	, animation_(256)
+	, animator_(sprite_)
 {
 	LOG_DEBUG("MainMenu CTOR");
 	backgroundSprite_.setTexture(fw::ResourceHolder::get().textures.get("deep-blue-space"));
+
+	// TEST
+	auto& idleAnimation = animator_.createAnimation("Idle", "spritestrip", sf::seconds(.5f), true);
+	idleAnimation.addFrames(sf::Vector2i(0,0), spriteSize_, 6);
+
 
 	informationText_.setFont(fw::ResourceHolder::get().fonts.get("CourierNew"));
 	informationText_.setFillColor(sf::Color::White);
@@ -101,13 +106,14 @@ void MainMenu::handleEvents(sf::Event e)
 
 void MainMenu::update(sf::Time deltaTime)
 {
-
+	animator_.update(deltaTime);
 }
 
 void MainMenu::draw(sf::RenderTarget& renderer)
 {
 	renderer.draw(backgroundSprite_);
 	renderer.draw(informationText_);
+	renderer.draw(sprite_);
     menu_.draw(renderer);
 }
 
