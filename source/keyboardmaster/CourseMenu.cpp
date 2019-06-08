@@ -11,10 +11,10 @@ namespace
 {
 float menuSidePositionOffset = 200.f;
 float menuTopPositionOffset = 50.f;
-
+constexpr uint buttonsInColumn = 10;
 constexpr uint courseLessonsFilesCount = 20;
 AssetName courseLessonsFiles[] = {
-		"data/texts-pl-2.txt",
+		"data/course/course_01.txt",
 		"data/course/course_02.txt",
 		"data/course/course_03.txt",
 		"data/course/course_04.txt",
@@ -59,7 +59,7 @@ CourseMenu::CourseMenu(fw::GameBase& game)
 		});
 
 		// split buttons into two columns
-		if(i < 10)
+		if(i < buttonsInColumn)
 			menuLeft_.addWidget(std::move(button));
 		else
 			menuRight_.addWidget(std::move(button));

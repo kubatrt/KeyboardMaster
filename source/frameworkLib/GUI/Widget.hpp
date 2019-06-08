@@ -37,7 +37,7 @@ public:
     }
 
     // FIXME: Quick hack selection
-    static unsigned int selectionIdndexCounter;
+    static unsigned int selectionIndexCounter;
     static unsigned int currentSelectionIndex;
 
 protected:

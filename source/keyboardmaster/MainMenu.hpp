@@ -10,6 +10,7 @@ namespace km
 {
 
 namespace fw = framework;
+namespace exp = framework::experimental;
 
 class MainMenu : public fw::StateBase
 {
@@ -24,7 +25,7 @@ private:
     sf::Sprite backgroundSprite_;
     sf::Text informationText_;
     fw::gui::StackMenu menu_;
-    //fw::Animation animation_; TODO: TEST animation
+    exp::Animation animation_;
 };
 
 }

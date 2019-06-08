@@ -6,7 +6,7 @@ namespace framework
 namespace gui 
 {
 
-unsigned int Widget::selectionIdndexCounter = 0;
+unsigned int Widget::selectionIndexCounter = 0;
 unsigned int Widget::currentSelectionIndex = 1;
 
 sf::Vector2f itof(sf::Vector2i vec)
@@ -15,7 +15,7 @@ sf::Vector2f itof(sf::Vector2i vec)
 }
 
 Widget::Widget()
-	: selectionIndex_(++Widget::selectionIdndexCounter)
+	: selectionIndex_(++Widget::selectionIndexCounter)
 	, isSelected_(selectionIndex_ == Widget::currentSelectionIndex ? true : false)
 	, isActive_(true)
 {

@@ -20,12 +20,12 @@ namespace
 {
 constexpr uint GalleryGameRows = 3;
 constexpr uint GalleryGameColumns = 4;
-
 }
 
 MainMenu::MainMenu(fw::GameBase& game)
     : StateBase(game)
     , menu_({ game.getWindow().getSize().x / 2.f, 90.f })
+	, animation_(256)
 {
 	LOG_DEBUG("MainMenu CTOR");
 	backgroundSprite_.setTexture(fw::ResourceHolder::get().textures.get("deep-blue-space"));

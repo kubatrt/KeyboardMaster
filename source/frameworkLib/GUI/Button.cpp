@@ -8,8 +8,15 @@ namespace gui
 
 namespace buttonColor
 {
-const sf::Color normal{ 52, 150, 220 };
-const sf::Color clicked{ 52, 190, 220 };
+const sf::Color normal 	{ 52, 150, 220 };
+const sf::Color clicked	{ 52, 190, 220 };
+}
+
+namespace buttonSize
+{
+const sf::Vector2u Thin { 256, 32 };
+const sf::Vector2u Wide { 256, 64 };
+const sf::Vector2u Small { 128, 64 };
 }
 
 Button::Button(ButtonSize s)
