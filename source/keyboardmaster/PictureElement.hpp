@@ -18,14 +18,18 @@ class Picture;
 class PictureElement
 {
 public:
-	PictureElement(sf::Texture& texture, sf::IntRect textureSectionRect,
-			int index, std::wstring word, sf::Vector2f pos );
+	PictureElement(
+			sf::Texture& texture,
+			sf::IntRect textureSectionRect,
+			sf::Vector2f position,
+			uint index,
+			std::wstring word);
 	PictureElement(const PictureElement& pe) = delete;
 	~PictureElement();
 
 	size_t getWordLength() { return word_.length(); }
 	std::wstring getWord() { return word_; }
-	int getIndex() const { return index_; }
+	uint getIndex() const { return index_; }
 	bool isRevealed() const { return revealed_; }
 	bool isMissed() const { return missed_; }
 	bool isActive() const { return active_; }
@@ -45,7 +49,7 @@ private:
     bool revealed_;	// is picture revealed as a whole?
     bool missed_;	// is it was missed?
 
-    int index_;
+    const uint index_;
     wchar_t nextLetter_;
     Scheduler scheduler_;
 };

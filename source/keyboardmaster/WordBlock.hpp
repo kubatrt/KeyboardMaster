@@ -33,7 +33,6 @@ public:
     void draw(sf::RenderTarget& renderer);
 
 private:
-//  wchar_t nextLetter_;
     sf::RectangleShape shape_;
     sf::Text wordText_;
     sf::Vector2f velocity_;

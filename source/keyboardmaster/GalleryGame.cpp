@@ -13,10 +13,9 @@ sf::Color borderColor = sf::Color::Red;
 }
 
 
-GalleryGame::GalleryGame(fw::GameBase& game, uint rows, uint cols, AssetName picture)
+GalleryGame::GalleryGame(fw::GameBase& game, uint rows, uint cols, AssetName picture, AssetName wordsFile)
     : StateBase(game)
-    , picture_(rows, cols, picture)
-
+    , picture_(rows, cols, picture, wordsFile)
 {
     gameOverTextUI_.setCharacterSize(48);
     gameOverTextUI_.setFillColor(fontColor);
@@ -45,7 +44,6 @@ void GalleryGame::handleEvents(sf::Event e)
     case sf::Event::KeyPressed:
         if (e.key.code == sf::Keyboard::Escape)
         {
-        	// TODO: "are you sure?" window
             game_.popState();
         }
         else if (e.key.code == sf::Keyboard::Return)
@@ -76,7 +74,6 @@ void GalleryGame::textEnteredEvent(wchar_t typedLetter)
 }
 
 void GalleryGame::enterWord()
-
 {
     typedWords_++;
     picture_.wordTyped(typedWord_);
@@ -100,8 +97,9 @@ void GalleryGame::update(sf::Time deltaTime)
 
         picture_.setVisible(true);
         std::stringstream ss; 
-        ss << "WYGRANA! : " << std::to_string(picture_.reveleadElementsCount()) << " / "
-            << std::to_string(picture_.elementsCount()) << " CZAS: " << static_cast<int>(timer_.getElapsedTime().asSeconds());
+        ss 	<< "WYGRANA! : " << std::to_string(picture_.reveleadElementsCount()) << " / "
+            << std::to_string(picture_.elementsCount())
+        	<< " CZAS: " << static_cast<int>(timer_.getElapsedTime().asSeconds());
         gameOverTextUI_.setString(ss.str());
 
     }
@@ -110,8 +108,9 @@ void GalleryGame::update(sf::Time deltaTime)
     	gameOver_ = true;
     	//picture_.setVisible(true);
     	std::stringstream ss;
-		ss << "PRZEGRANA! : " << std::to_string(picture_.reveleadElementsCount()) << " / "
-			<< std::to_string(picture_.elementsCount()) << " CZAS: " << static_cast<int>(timer_.getElapsedTime().asSeconds());
+		ss 	<< "PRZEGRANA! : " << std::to_string(picture_.reveleadElementsCount()) << " / "
+			<< std::to_string(picture_.elementsCount())
+			<< " CZAS: " << static_cast<int>(timer_.getElapsedTime().asSeconds());
 		gameOverTextUI_.setString(ss.str());
     }
 }
@@ -123,7 +122,8 @@ void GalleryGame::draw(sf::RenderTarget& renderer)
 
     if(gameOver_)
         renderer.draw(gameOverTextUI_);
-    renderer.draw(timerTextUI_);
+    else
+    	renderer.draw(timerTextUI_);
 }
 
 }

@@ -6,15 +6,12 @@
 namespace km
 {
 
-// FIXME: width, height are not used
-Picture::Picture(uint rows, uint cols, AssetName picture)
-    : dictionary_("data/words_01")
+Picture::Picture(uint rows, uint cols, AssetName picture, AssetName wordsFile)
+    : dictionary_(wordsFile)
 {
-    float pictureOffset = 0.f;
-    // Randomize image
-
     texture_ = framework::ResourceHolder::get().textures.get(picture);
     sprite_.setTexture(texture_);
+    float pictureOffset = 0.f;
     sprite_.setPosition(sf::Vector2f(pictureOffset, pictureOffset));
 
     elementsInRow_ = rows;
@@ -35,9 +32,11 @@ Picture::Picture(uint rows, uint cols, AssetName picture)
             LOG_CRITICAL("Random word: " << word);
             int picElemPositionX = x * picElemWidth + pictureOffset;
             int picElemPositionY = y * picElemHeight + pictureOffset;
-            // TODO: Check here shared_ptr, can be unique_ptr?
-            auto picElem = std::make_unique<PictureElement>(texture_, sf::IntRect(x * picElemWidth, y * picElemHeight, picElemWidth, picElemHeight),
-                  index, word, sf::Vector2f(static_cast<float>(picElemPositionX), static_cast<float>(picElemPositionY)));
+
+            auto picElem = std::make_unique<PictureElement>(texture_,
+            		sf::IntRect(x * picElemWidth, y * picElemHeight, picElemWidth, picElemHeight),
+					sf::Vector2f(static_cast<float>(picElemPositionX), static_cast<float>(picElemPositionY)),
+					index, word);
             elements_.push_back(std::move(picElem));
             
             indexesLeft.push_back(index);
@@ -47,7 +46,6 @@ Picture::Picture(uint rows, uint cols, AssetName picture)
 
     LOG_DEBUG("Picture CTOR " << picture.c_str() << " " << rows << "x" << cols);
     LOG_DEBUG("Picture elements count: " << elements_.size());
-
     initialize();
 }
 
@@ -57,28 +55,24 @@ void Picture::initialize()
     indexesLeft.erase(std::remove(indexesLeft.begin(), indexesLeft.end(), activeIndex_));
     elements_.at(activeIndex_)->setActive();
 
-    LOG_DEBUG("indexesLeft count: " << indexesLeft.size());
-    for(auto index : indexesLeft)
-    {
-    	LOG_DEBUG("indexesLeft " << index);
-    }
+    LOG_DEBUG("initialize() indexesLeft count: " << indexesLeft.size());
 }
 
 void Picture::nextPictureElement()
 {
-	 if (indexesLeft.size() > 0)
-	    {
-	        activeIndex_ = indexesLeft.at(framework::RandomMachine::getRange<int>(0, indexesLeft.size() - 1));
-	        indexesLeft.erase(std::remove(indexesLeft.begin(), indexesLeft.end(), activeIndex_));
-	        elements_.at(activeIndex_)->setActive();
-	    }
+	if (indexesLeft.size() > 0)
+	{
+		activeIndex_ = indexesLeft.at(framework::RandomMachine::getRange<int>(0, indexesLeft.size() - 1));
+		indexesLeft.erase(std::remove(indexesLeft.begin(), indexesLeft.end(), activeIndex_));
+		elements_.at(activeIndex_)->setActive();
+	}
+	LOG_DEBUG("nextPictureElement activeIndex_: " << activeIndex_ << " indexesLeft: " << indexesLeft.size());
 }
 
 bool Picture::wordTyped(std::wstring typedWord)
 {
-    LOG_DEBUG("wordTyped activeIndex_: " << activeIndex_);
+    LOG_DEBUG("wordTyped() activeIndex_: " << activeIndex_);
     bool result = false;
-
     if (elements_.at(activeIndex_)->getWord() == typedWord)
     {
         elements_.at(activeIndex_)->reveal();
@@ -91,10 +85,7 @@ bool Picture::wordTyped(std::wstring typedWord)
         SoundPlayer::get().play("mistake");
         result = false;
     }
-
     nextPictureElement();
-
-    LOG_DEBUG("wordTyped activeIndex_ new: " << activeIndex_ << " indexesLeft: " << indexesLeft.size());
     return result;
 }
 
@@ -123,9 +114,9 @@ void Picture::update(sf::Time deltaTime)
         element->update(deltaTime);
     }
 
-    if(elements_.at(activeIndex_)->isMissed())	// missed beacause of time elapsed
+    if(elements_.at(activeIndex_)->isMissed())
     {
-    	LOG_DEBUG("Missed element! " << activeIndex_);
+    	// missed beacause of elapsed time
     	SoundPlayer::get().play("mistake");
     	nextPictureElement();
     }

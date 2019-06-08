@@ -14,7 +14,8 @@ namespace fw = framework;
 class GalleryGame : public fw::StateBase
 {
 public:
-    GalleryGame(fw::GameBase& game, uint rows, uint cols, AssetName picture);
+    GalleryGame(fw::GameBase& game, uint rows, uint cols,
+    		AssetName picture, AssetName wordsFile);
 
     void handleEvents(sf::Event e) override;
     void update(sf::Time deltaTime) override;

@@ -57,7 +57,7 @@ MainMenu::MainMenu(fw::GameBase& game)
     {
     	auto randomPicture = framework::RandomMachine::getRange<int>(0, pictureFilesCount - 1);
         game_.pushState<GalleryGame>(game_, GalleryGameRows, GalleryGameColumns,
-        		pictureFiles[randomPicture]);
+        		pictureFiles[randomPicture], "data/words_01");
     });
 
     auto buttonWriting = std::make_unique<fw::gui::Button>();

@@ -19,7 +19,7 @@ namespace fw = framework;
 class Picture
 {
 public:
-    Picture(uint rows, uint cols, AssetName picture);
+    Picture(uint rows, uint cols, AssetName picture, AssetName wordsFile);
     ~Picture() = default;
 
     void update(sf::Time deltaTime);
@@ -35,10 +35,6 @@ public:
     bool noIndexesLeft() { return indexesLeft.size() == 0; }
     sf::Vector2u getSize() const { return texture_.getSize(); }
     bool isAnyActiveElement();
-
-    // TODO: is needed?
-    // getCorectness()
-    // getTotalTime()
 
 private:
     void nextPictureElement();

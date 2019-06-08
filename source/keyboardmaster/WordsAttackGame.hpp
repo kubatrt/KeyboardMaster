@@ -25,7 +25,6 @@ public:
 private:
     void addScore(int wordLength);
     void spawnWordBlock();
-    void destroyWord();
 
     std::vector<std::unique_ptr<WordBlock>> wordBlocks_;
     Dictionary dictionary_;
@@ -50,7 +49,6 @@ private:
     sf::Text scoreTextUI_;
     sf::Text livesTextUI_;
     sf::Text gameOverTextUI_;
-    //std::wstring    typingText_;
 };
 
 }
