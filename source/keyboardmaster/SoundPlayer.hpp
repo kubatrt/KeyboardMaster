@@ -4,12 +4,13 @@
 #include <string>
 #include <SFML/Audio.hpp>
 #include "frameworkLib/ResourceManager/ResourceHolder.hpp"
-
+#include "frameworkLib/Util/Singleton.hpp"
 
 namespace km
 {
 
 namespace fw = framework;
+
 
 class SoundPlayer
 {

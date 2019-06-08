@@ -3,6 +3,7 @@
 namespace framework
 {
 
+
 template <typename T>
 class Singleton
 {
@@ -28,7 +29,7 @@ public:
 
 
 template<typename T>
-typename T* Singleton<T>::instance_ = nullptr;
+T* Singleton<T>::instance_ = nullptr;
 
 template<typename T>
 T* Singleton<T>::getInstance()

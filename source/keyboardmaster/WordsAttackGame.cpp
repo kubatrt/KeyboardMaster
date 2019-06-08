@@ -1,10 +1,19 @@
-#include "WordsAttackGame.hpp"
 #include <memory>
+#include <array>
+#include "WordsAttackGame.hpp"
 #include "frameworkLib/Util/Observer.hpp"
 #include "frameworkLib/Util/Random.hpp"
 
 namespace km
 {
+
+namespace
+{
+std::array<float, 9> SpawnHorizontalPositions = { 0.f, 100.f, 200.f, 300.f, 400.f, 500.f, 600.f, 700.f, 800.f };
+std::array<float, 3> VelocityTable = { 1.f, 1.5f, 2.f };
+constexpr float MaxVerticalVelocity = 2.f;
+constexpr float MinVerticalVelocity = 1.f;
+}
 
 WordsAttackGame::WordsAttackGame(fw::GameBase& game)
     : StateBase(game)
@@ -53,13 +62,25 @@ void WordsAttackGame::spawnWordBlock()
     int wordLength = fw::RandomMachine::getRange(dictionary_.getShortestWord(), dictionary_.getLongestWord());
     std::wstring word = dictionary_.getRandomWord(wordLength);
 
-    sf::Vector2f velocity(0, 1.f);
-    static int spawnPoints[] = { 200, 400, 600, 800 };
+    // function scaleBetween(unscaledNum, minAllowed, maxAllowed, min, max) {
 
-    int spawnHorizontalPos = game_.getWindow().getSize().x / 2;
-    int spawnHorizontalRanomPos = spawnPoints[fw::RandomMachine::getRange(0,3)];
-    // TODO: Check twice shared_ptr
-    wordBlocks_.push_back( std::make_shared<WordBlock>(spawnHorizontalRanomPos, word, velocity));
+    auto longest = dictionary_.getLongestWord();
+    auto shortest = dictionary_.getShortestWord();
+    float verticalVelocity = 1.f;
+
+    // TODO: so ugly, use range transformation for this!
+    if(word.length() < 4)
+    	verticalVelocity = VelocityTable[2];
+    else if(word.length() >= 4 && word.length() <= 7)
+    	verticalVelocity = VelocityTable[1];
+    else
+    	verticalVelocity = VelocityTable[0];
+
+    // Randomize it a bit more, from 0 to 800 with 20 step
+    //float randomHorizontalPosition = SpawnHorizontalPositions[fw::RandomMachine::getRange(0, static_cast<int>(SpawnHorizontalPositions.size()))];
+    float randomHorizontalPosition = static_cast<float>(fw::RandomMachine::getRange(1, 10) / 10.f) * 800.f;
+
+    wordBlocks_.push_back(std::make_unique<WordBlock>(randomHorizontalPosition, word, verticalVelocity));
 }
 
 void WordsAttackGame::handleEvents(sf::Event e)

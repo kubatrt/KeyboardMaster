@@ -38,7 +38,8 @@ class Animation
         {
             Frame(const sf::IntRect& bnds, sf::Time dlay)
                 : bounds(bnds)
-                , delay(dlay) {}
+                , delay(dlay)
+            {}
 
             sf::IntRect bounds;
             sf::Time delay;

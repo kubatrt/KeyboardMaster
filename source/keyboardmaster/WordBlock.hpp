@@ -17,7 +17,7 @@ constexpr uint CHAR_HEIGHT = 24;
 class WordBlock
 {
 public:
-    WordBlock(int x, std::wstring word, sf::Vector2f velocity);
+    WordBlock(float x, std::wstring word, float velocityY);
     WordBlock(const WordBlock&);
     WordBlock& operator=(const WordBlock&);
     ~WordBlock();

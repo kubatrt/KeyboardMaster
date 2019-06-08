@@ -26,7 +26,7 @@ private:
     void spawnWordBlock();
     void destroyWord();
 
-    std::vector<std::shared_ptr<WordBlock>> wordBlocks_;
+    std::vector<std::unique_ptr<WordBlock>> wordBlocks_;
     Dictionary dictionary_;
 
     wchar_t typedLetter_;

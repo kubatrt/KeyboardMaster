@@ -6,6 +6,12 @@ namespace framework
 constexpr float PI = 3.14159265f;
 constexpr float MIN_PI = 3.14f;
 
+// TODO: test
+template <typename T>
+T scaleBetween(T unscaledNum, T minAllowed, T maxAllowed, T min, T max)
+{
+	return (maxAllowed - minAllowed) * (unscaledNum - min) / (max - min) + minAllowed;
+}
 
 template <typename T>
 T toRadians(T degrees)
@@ -18,6 +24,7 @@ T toDegrees(T radians)
 {
     return (radians * 180) / PI;
 }
+
 
 struct Point
 {
