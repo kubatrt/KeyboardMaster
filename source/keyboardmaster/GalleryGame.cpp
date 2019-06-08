@@ -38,7 +38,6 @@ GalleryGame::GalleryGame(fw::GameBase& game, uint rows, uint cols, AssetName pic
 void GalleryGame::handleEvents(sf::Event e)
 {
     // handle events
-
     switch (e.type)
     {
     case sf::Event::KeyPressed:
@@ -85,6 +84,9 @@ void GalleryGame::enterWord()
 
 void GalleryGame::update(sf::Time deltaTime)
 {
+	if(gameOver_)
+		return;
+
     picture_.update(deltaTime);
     timerTextUI_.setString(std::to_string(
     		static_cast<int>(timer_.getElapsedTime().asSeconds())));
@@ -96,8 +98,8 @@ void GalleryGame::update(sf::Time deltaTime)
 
         picture_.setVisible(true);
         std::stringstream ss; 
-        ss << "WIN! : " << std::to_string(picture_.reveleadElementsCount()) << " / "
-            << std::to_string(picture_.elementsCount());
+        ss << "WYGRANA! : " << std::to_string(picture_.reveleadElementsCount()) << " / "
+            << std::to_string(picture_.elementsCount()) << " CZAS: " << static_cast<int>(timer_.getElapsedTime().asSeconds());
         gameOverTextUI_.setString(ss.str());
 
     }
@@ -106,8 +108,8 @@ void GalleryGame::update(sf::Time deltaTime)
     	gameOver_ = true;
     	//picture_.setVisible(true);
     	std::stringstream ss;
-		ss << "LOST! : " << std::to_string(picture_.reveleadElementsCount()) << " / "
-			<< std::to_string(picture_.elementsCount());
+		ss << "PRZEGRANA! : " << std::to_string(picture_.reveleadElementsCount()) << " / "
+			<< std::to_string(picture_.elementsCount()) << " CZAS: " << static_cast<int>(timer_.getElapsedTime().asSeconds());
 		gameOverTextUI_.setString(ss.str());
     }
 }
