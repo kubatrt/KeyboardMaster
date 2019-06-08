@@ -14,7 +14,6 @@ namespace km
  * BPM - beats per minute
  * 	Example: 80 beats per 60 seconds
  *  tick interval = 60 / 80 = 0,75 s
- *
 */
 
 class Metronome
@@ -32,7 +31,7 @@ public:
     void update(sf::Time deltaTime);
 
 private:
-    sf::Clock timer_;
+    sf::Clock timer_;	// not required?
     sf::Time elapsedTime_;
     const unsigned TickSeparator_ = 4;
     unsigned int bpm_;

@@ -15,7 +15,7 @@ public:
 		std::string name_;
 		std::string textureName_;
 		std::vector<sf::IntRect> frames_;
-		sf::Time    duration_;
+		sf::Time duration_;
 		bool looping_;
 
 		Animation(const std::string& name, const std::string& textureName,
@@ -40,19 +40,17 @@ public:
 	};
 
 	Animator(sf::Sprite& sprite);
-
-	Animator::Animation& createAnimation(const std::string& name, const std::string& textureName, sf::Time duration, bool loop = false);
+	Animator::Animation& createAnimation(const std::string& name,
+			const std::string& textureName, sf::Time duration, bool loop = false);
+	bool switchAnimation(const std::string& name);
+	std::string getCurrentAnimationName() const;
 
 	void update(sf::Time deltaTime);
 
-	bool switchAnimation(const std::string& name);
-
-	std::string getCurrentAnimationName() const;
 
 private:
 	// Return animation with given name, nullptr if not found
 	Animator::Animation* findAnimation(const std::string& name);
-
 	void switchAnimation(Animator::Animation* animation);
 
 	sf::Sprite& sprite_;

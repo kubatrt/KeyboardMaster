@@ -47,7 +47,7 @@ public:
 
 private:
     sf::Time treshold_;
-    sf::Clock timer_;
+    sf::Clock timer_; // not required?
     std::function<void()> callback_;
     bool done_;
     bool started_;

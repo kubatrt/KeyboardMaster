@@ -13,6 +13,7 @@ namespace
 std::array<float, 9> SpawnHorizontalPositions = { 0.f, 100.f, 200.f, 300.f, 400.f, 500.f, 600.f, 700.f, 800.f };
 constexpr float MaxSpawnHorizontalPosition = 800.f;
 std::array<float, 3> VelocityTable = { 1.f, 1.5f, 2.f };
+
 constexpr float MaxVerticalVelocity = 2.f;
 constexpr float MinVerticalVelocity = 1.f;
 constexpr int ScoreMultiplier = 10;
@@ -33,16 +34,21 @@ WordsAttackGame::WordsAttackGame(fw::GameBase& game)
     typingTextUI_.setString("typingText");
     typingTextUI_.setFont(fw::ResourceHolder::get().fonts.get("arial"));
 
+
+    timerTextUI_.setCharacterSize(24);
+    timerTextUI_.setFillColor(sf::Color::Cyan);
+    timerTextUI_.setPosition({game.getWindow().getSize().x - 200.f, 10.f});
+    timerTextUI_.setFont(fw::ResourceHolder::get().fonts.get("arial"));
+
+
     scoreTextUI_.setCharacterSize(24);
-    scoreTextUI_.setFillColor(sf::Color::Cyan);
+    scoreTextUI_.setFillColor(sf::Color::Yellow);
     scoreTextUI_.setPosition({game.getWindow().getSize().x - 200.f, 50.f});
-    scoreTextUI_.setString(L"Punkty:");
     scoreTextUI_.setFont(fw::ResourceHolder::get().fonts.get("arial"));
 
     livesTextUI_.setCharacterSize(24);
     livesTextUI_.setFillColor(sf::Color::Red);
-    livesTextUI_.setPosition({ game.getWindow().getSize().x - 200.f, 100.f });
-    livesTextUI_.setString(L"Życia:");
+    livesTextUI_.setPosition({ game.getWindow().getSize().x - 200.f, 90.f });
     livesTextUI_.setFont(fw::ResourceHolder::get().fonts.get("arial"));
 
     gameOverTextUI_.setCharacterSize(48);
@@ -157,6 +163,11 @@ void WordsAttackGame::enterWord(std::wstring word)
 
 void WordsAttackGame::update(sf::Time deltaTime)
 {
+	if(gameOver)
+		return;
+
+	gameTime_ += deltaTime;
+
     if(lives == 0)
         gameOver = true;
 
@@ -181,6 +192,7 @@ void WordsAttackGame::update(sf::Time deltaTime)
     }
 
     typingTextUI_.setString(typedWord_);
+    timerTextUI_.setString(L"Czas: " + std::to_wstring(gameTime_.asSeconds()));
     scoreTextUI_.setString(L"Punkty: " + std::to_wstring(score_));
     livesTextUI_.setString(L"Życia: " + std::to_wstring(lives));
 }
@@ -200,6 +212,8 @@ void WordsAttackGame::draw(sf::RenderTarget& renderer)
         }
         renderer.draw(typingTextUI_);
     }
+
+    renderer.draw(timerTextUI_);
     renderer.draw(scoreTextUI_);
     renderer.draw(livesTextUI_);
     renderer.draw(horizontalLineUI_);

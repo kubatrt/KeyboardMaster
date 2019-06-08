@@ -86,10 +86,12 @@ void GalleryGame::update(sf::Time deltaTime)
 	if(gameOver_)
 		return;
 
+	gameTime_ += deltaTime;
     picture_.update(deltaTime);
     timerTextUI_.setString(std::to_string(
-    		static_cast<int>(timer_.getElapsedTime().asSeconds())));
+    		static_cast<int>(gameTime_.asSeconds())));
 
+    // better handling...
     // GameOver
     if (picture_.isComplete())
     {
@@ -99,7 +101,7 @@ void GalleryGame::update(sf::Time deltaTime)
         std::stringstream ss; 
         ss 	<< "WYGRANA! : " << std::to_string(picture_.reveleadElementsCount()) << " / "
             << std::to_string(picture_.elementsCount())
-        	<< " CZAS: " << static_cast<int>(timer_.getElapsedTime().asSeconds());
+        	<< " CZAS: " << static_cast<int>(gameTime_.asSeconds());
         gameOverTextUI_.setString(ss.str());
 
     }
@@ -110,7 +112,7 @@ void GalleryGame::update(sf::Time deltaTime)
     	std::stringstream ss;
 		ss 	<< "PRZEGRANA! : " << std::to_string(picture_.reveleadElementsCount()) << " / "
 			<< std::to_string(picture_.elementsCount())
-			<< " CZAS: " << static_cast<int>(timer_.getElapsedTime().asSeconds());
+			<< " CZAS: " << static_cast<int>(gameTime_.asSeconds());
 		gameOverTextUI_.setString(ss.str());
     }
 }

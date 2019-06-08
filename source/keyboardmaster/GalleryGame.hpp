@@ -26,7 +26,7 @@ public:
 
 private:
     Picture picture_;
-    sf::Clock timer_;
+    sf::Time gameTime_;
     std::wstring typedWord_;
     uint typedWords_= 0;
     bool gameOver_ = false;

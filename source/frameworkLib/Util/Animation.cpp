@@ -14,8 +14,9 @@ Animator::Animator(sf::Sprite& sprite)
 
 Animator::Animation& Animator::createAnimation(const std::string& name, const std::string& textureName, sf::Time duration, bool loop)
 {
-	animations_.push_back( Animator::Animation(name, textureName, duration, loop));
+	animations_.push_back(Animator::Animation(name, textureName, duration, loop));
 
+	// set default
 	if(currentAnimation_ == nullptr)
 		switchAnimation(&animations_.back());
 
@@ -34,6 +35,9 @@ void Animator::switchAnimation(Animator::Animation* animation)
 
 bool Animator::switchAnimation(const std::string& name)
 {
+	if(currentAnimation_->name_ == name)
+		return false;
+
 	auto animation = findAnimation(name);
 	if(animation != nullptr)
 	{
@@ -81,6 +85,5 @@ void Animator::update(sf::Time deltaTime)
 
 	sprite_.setTextureRect(currentAnimation_->frames_[currentFrame]);
 }
-
 
 }   // framework

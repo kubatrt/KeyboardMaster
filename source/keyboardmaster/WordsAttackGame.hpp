@@ -41,6 +41,7 @@ private:
     
     sf::Clock spawnClock_;
     sf::Time spawnInterval_;
+    sf::Time gameTime_;
 
     // GUI
     sf::Sprite backgroundSpriteUI_;
@@ -48,6 +49,7 @@ private:
     sf::Text typingTextUI_;
     sf::Text scoreTextUI_;
     sf::Text livesTextUI_;
+    sf::Text timerTextUI_;
     sf::Text gameOverTextUI_;
 };
 
