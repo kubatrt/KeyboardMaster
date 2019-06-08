@@ -46,6 +46,7 @@ private:
     std::wstring prepareStatusString();
     void newLine();
     void prepareTextFields();
+    void setNextLetter();
     //uint inpenultimateLineNumber(); // index
     //uint currentLineLength();
 
@@ -58,7 +59,7 @@ private:
     std::vector<sf::Text> courseInputTextUI_;
 
     //std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-    sf::Sprite panelUI_;
+    sf::Sprite panelRectUI_;
     sf::Clock timer_;
     Dictionary dictionary_;
     VirtualKeyboard vkb_;

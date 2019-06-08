@@ -40,8 +40,8 @@ CourseGame::CourseGame(fw::GameBase& game, std::string dictionaryFilePath)
     nextLetterTextUI_.setStyle(sf::Text::Bold);
     nextLetterTextUI_.setPosition(880, 520);
 
-    panelUI_.setTexture(fw::ResourceHolder::get().textures.get("panel"));
-    panelUI_.setPosition(776, 500);
+    panelRectUI_.setTexture(fw::ResourceHolder::get().textures.get("panel"));
+    panelRectUI_.setPosition(776, 500);
 
     statusTextUI_.setFont(mainFont_);
     statusTextUI_.setString("Debug:");
@@ -89,14 +89,6 @@ void CourseGame::prepareTextFields()
         textField.setPosition(4.f, static_cast<float>(i * (fontSize * 2.f) + textLineVerticalOffset + fontSize));
         courseInputTextUI_.push_back(textField);
     }
-}
-
-void CourseGame::newLine()
-{
-    typingTextLine_.clear();
-    currentLine_++;
-    currentletterInLine_ = 0;
-    SoundPlayer::getInstance()->play("newline");
 }
 
 void CourseGame::handleEvents(sf::Event event)
@@ -149,8 +141,6 @@ void CourseGame::handleEvents(sf::Event event)
     }
 }
 
-
-
 void CourseGame::textEnteredEvent(wchar_t typedLetter)
 {
     if(gameOver_) 
@@ -158,28 +148,26 @@ void CourseGame::textEnteredEvent(wchar_t typedLetter)
 
     kb_.textEnteredEvent(typedLetter, typedLetter == nextLetter_, currentletterInLine_);
 
+
     if (static_cast<int>(typedLetter) == KeyCode::Backspace)
     {
         if (currentletterInLine_ > 0)
         {
             currentletterInLine_--;
             typingTextLine_.pop_back();
-            LOG_DEBUG("BACKSPACE");
         }
     }
     else if (static_cast<int>(typedLetter) == KeyCode::Enter)
     {
         if (currentLine_ < dictionary_.getLines().size() - 1) // can we go down?
         {
-            int omittedLetters = dictionary_.getLines()[currentLine_].size() - currentletterInLine_;
-            kb_.omit(omittedLetters);
+            kb_.omit(dictionary_.getLines()[currentLine_].size() - currentletterInLine_);
             newLine();
             SoundPlayer::getInstance()->play("newline");
-            LOG_DEBUG("NEWLINE OMIT");
         }
         else
         {
-            LOG_DEBUG("(END 1) that was last line");
+            LOG_CRITICAL("(END 1) that was last line");
             gameOver_ = true;
         }
     }
@@ -200,15 +188,15 @@ void CourseGame::textEnteredEvent(wchar_t typedLetter)
             typingTextLine_.push_back(typedLetter);
             currentletterInLine_++;
 
-            LOG_INFO("typedLetter: " << static_cast<int>(typedLetter));
-            LOG_INFO("nextLetter: " << static_cast<int>(nextLetter_));
+            LOG_DEBUG("typedLetter: " << static_cast<int>(typedLetter));
+            LOG_DEBUG("nextLetter: " << static_cast<int>(nextLetter_));
         }
         else
         {
             // and its last line
             if (currentLine_ == dictionary_.getLines().size() - 1)
             {
-                LOG_INFO("(END 2) that was last letter in line");
+            	LOG_CRITICAL("(END 2) that was last letter in line");
                 gameOver_ = true;
             }
             else
@@ -229,42 +217,47 @@ void CourseGame::textEnteredEvent(wchar_t typedLetter)
     }
         
 
+    setNextLetter();
+
+    courseInputTextUI_[currentLine_].setString(typingTextLine_);
+    vkb_.highlightLetter(static_cast<int>(nextLetter_));
+}
+
+void CourseGame::newLine()
+{
+    typingTextLine_.clear();
+    currentLine_++;
+    currentletterInLine_ = 0;
+    SoundPlayer::getInstance()->play("newline");
+}
+
+
+void CourseGame::setNextLetter()
+{
     nextLetter_ = dictionary_.getLines()[currentLine_][currentletterInLine_];
-    // nextLetterTextUI_
     if (static_cast<int>(nextLetter_) == 0 || static_cast<int>(nextLetter_) == KeyCode::Enter)
         nextLetterTextUI_.setString("NL");
     else if (static_cast<int>(nextLetter_) == KeyCode::Space)
         nextLetterTextUI_.setString("_");
     else
         nextLetterTextUI_.setString(nextLetter_);
-
-    courseInputTextUI_[currentLine_].setString(typingTextLine_);
-    vkb_.highlightLetter(static_cast<int>(nextLetter_));
 }
-
-/*uint CourseGame::inpenultimateLineNumber()
-{ 
-    return dictionary_.getLines().size() - 1; 
-};
-
-uint CourseGame::currentLineLength()
-{
-    return dictionary_.getLines()[currentLine_].size(); // - 1
-}*/
 
 std::wstring CourseGame::prepareStatusString()
 {
 	std::wstringstream wss;
-	wss << L"Czas: " << timer_.getElapsedTime().asSeconds()
+	wss << L"Czas: " << static_cast<int>(timer_.getElapsedTime().asSeconds())
 		<< L"\nLitera: " << currentletterInLine_ << L" Linia: " << currentLine_
-		<< L"\nCorrect: " << kb_.getCorrectLetters() << L" Pomyłek: " << kb_.getMistakes()
-		<< L"\nPominiętych: " << kb_.getOmittedLetters() // << L" TypedKeys: " << kb_.getTypedKeys()
+		<< L"\nPoprawne: " << kb_.getCorrectLetters() << L" Pomyłek: " << kb_.getMistakes()
+		<< L"\nPominiętych: " << kb_.getOmittedLetters()
 		<< L"\nKlawisze na minute: " << kb_.getKPM()
+		<< L"\nWyrazy na minute: " << kb_.getWPM()
 		<< L"\nPoprawność: " << kb_.correctnessPercentage(dictionary_.getLettersCount())
 		<< L"\nMetronom: " << metronome_.getBPM();
 
 	return wss.str();
 }
+
 
 
 void CourseGame::update(sf::Time deltaTime)
@@ -290,7 +283,7 @@ void CourseGame::update(sf::Time deltaTime)
 void CourseGame::draw(sf::RenderTarget& renderer)
 {
     renderer.draw(backgroundSpriteUI_);
-    renderer.draw(panelUI_);
+    renderer.draw(panelRectUI_);
     vkb_.draw(renderer);
 
     // original text

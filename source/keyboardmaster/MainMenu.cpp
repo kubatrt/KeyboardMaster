@@ -20,6 +20,7 @@ namespace
 {
 constexpr uint GalleryGameRows = 3;
 constexpr uint GalleryGameColumns = 4;
+constexpr wchar_t HelpMessageString[] = L"F1 - włącz\\wyłącz metronom F2 - wolniej F3 - szybciej \nF12 - pełny ekran\nESC - powrót\\wyjście";
 }
 
 MainMenu::MainMenu(fw::GameBase& game)
@@ -39,7 +40,7 @@ MainMenu::MainMenu(fw::GameBase& game)
 	informationText_.setFillColor(sf::Color::White);
 	informationText_.setPosition(20, 660);
 	informationText_.setCharacterSize(18);
-	informationText_.setString(L"F1 - włącz metronom F2 - wolniej F3 - szybciej \nF12 - pełny ekran\nESC - powrót\\wyjście");
+	informationText_.setString(HelpMessageString);
 
 
     auto buttonCourse = std::make_unique<fw::gui::Button>();
@@ -70,7 +71,7 @@ MainMenu::MainMenu(fw::GameBase& game)
     buttonWriting->setFunction([&] ()
     {
         auto randomArticle = fw::RandomMachine::getRange<int>(0, articleFilesCount - 1);
-        game_.pushState<WritingGame>(game_, articleFiles[randomArticle]);
+        game_.pushState<WritingGame>(game_, /*articleFiles[randomArticle]*/ "data/art_02.txt");
     });
 
     auto buttonQuit = std::make_unique<fw::gui::Button>();

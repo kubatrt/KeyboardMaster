@@ -27,8 +27,9 @@ private:
     std::wstring prepareStatusString();
     void textEnteredEvent(wchar_t typedLetter);
     void newLine();
+    void setNextLetter();
 
-    sf::Clock timer_;
+    sf::Time gameTime_;
     sf::Font mainFont_;
     Dictionary dictionary_;
     KeyboardTyper kb_;
@@ -36,7 +37,9 @@ private:
     bool gameOver_;
 
     sf::Sprite backgroundSpriteUI_;
+    sf::RectangleShape panelRectUI_;
     sf::Text statusTextUI_;
+    sf::Text nextLetterTextUI_;
     std::vector<sf::Text> courseTextUI_;
     std::vector<sf::Text> courseInputTextUI_;
 
