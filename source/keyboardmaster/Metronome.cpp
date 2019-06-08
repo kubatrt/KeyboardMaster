@@ -47,11 +47,11 @@ void Metronome::update(sf::Time deltaTime)
 		tick_++;
 		if(tick_ % TickSeparator_)
 		{
-			SoundPlayer::get().play("metro_beat");
+			SoundPlayer::getInstance()->play("metro_beat");
 		}
 		else
 		{
-			SoundPlayer::get().play("metro_bar");
+			SoundPlayer::getInstance()->play("metro_bar");
 			tick_ = 0;
 		}
 	}

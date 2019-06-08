@@ -139,7 +139,7 @@ void WritingGame::textEnteredEvent(wchar_t typedLetter)
         {
             kb_.omit(dictionary_.getLines()[currentLine_].size() - currentletterInLine_);
             newLine();
-            SoundPlayer::get().play("newline");
+            SoundPlayer::getInstance()->play("newline");
         }
         else
         {
@@ -153,11 +153,11 @@ void WritingGame::textEnteredEvent(wchar_t typedLetter)
         {
             if (typedLetter == nextLetter_)
             {
-            	SoundPlayer::get().play("keytype");
+            	SoundPlayer::getInstance()->play("keytype");
             }
             else
             {
-            	SoundPlayer::get().play("mistake");
+            	SoundPlayer::getInstance()->play("mistake");
             }
 
             typingTextLine_.push_back(typedLetter);
@@ -172,7 +172,7 @@ void WritingGame::textEnteredEvent(wchar_t typedLetter)
             }
             else
             {
-            	SoundPlayer::get().play("mistake");
+            	SoundPlayer::getInstance()->play("mistake");
                 newLine();
             }
         }

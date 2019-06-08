@@ -76,13 +76,13 @@ bool Picture::wordTyped(std::wstring typedWord)
     if (elements_.at(activeIndex_)->getWord() == typedWord)
     {
         elements_.at(activeIndex_)->reveal();
-        SoundPlayer::get().play("reveal");
+        SoundPlayer::getInstance()->play("reveal");
         result = true;
     }
     else
     {
         elements_.at(activeIndex_)->miss();
-        SoundPlayer::get().play("mistake");
+        SoundPlayer::getInstance()->play("mistake");
         result = false;
     }
     nextPictureElement();
@@ -117,7 +117,7 @@ void Picture::update(sf::Time deltaTime)
     if(elements_.at(activeIndex_)->isMissed())
     {
     	// missed beacause of elapsed time
-    	SoundPlayer::get().play("mistake");
+    	SoundPlayer::getInstance()->play("mistake");
     	nextPictureElement();
     }
 }

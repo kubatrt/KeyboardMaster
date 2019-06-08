@@ -12,7 +12,7 @@ namespace km
 namespace fw = framework;
 
 
-class SoundPlayer
+class SoundPlayer : public fw::Singleton<SoundPlayer>
 {
 public:
 	~SoundPlayer() = default;
@@ -20,13 +20,6 @@ public:
 	SoundPlayer(fw::ResourceHolder&&) = delete;
 	SoundPlayer& operator=(const SoundPlayer&) = delete;
 	SoundPlayer& operator=(SoundPlayer&&) = delete;
-
-	static SoundPlayer& get()
-	{
-	    static SoundPlayer instance;
-	    return instance;
-	}
-
 
 	void play(const std::string sound)
 	{
@@ -38,7 +31,6 @@ public:
 
 	}
 
-private:
 	SoundPlayer()
 	{
 	    sounds_["keytype"] 		= fw::ResourceHolder::get().sounds.get("keytype");
@@ -53,6 +45,7 @@ private:
 	    sounds_["reveal"] 		= fw::ResourceHolder::get().sounds.get("reveal");
 	}
 
+private:
 	std::map<std::string, sf::SoundBuffer> sounds_;
 	sf::Sound sound_;
 };

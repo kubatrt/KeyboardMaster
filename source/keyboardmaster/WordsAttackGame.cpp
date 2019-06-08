@@ -138,7 +138,7 @@ void WordsAttackGame::textEnteredEvent(wchar_t letter)
 void WordsAttackGame::addScore(int wordLength)
 {
 	score_ += ScoreMultiplier * wordLength;
-	SoundPlayer::get().play("pop");
+	SoundPlayer::getInstance()->play("pop");
 }
 
 void WordsAttackGame::enterWord(std::wstring word)

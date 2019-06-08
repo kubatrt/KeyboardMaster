@@ -96,7 +96,7 @@ void CourseGame::newLine()
     typingTextLine_.clear();
     currentLine_++;
     currentletterInLine_ = 0;
-    SoundPlayer::get().play("newline");
+    SoundPlayer::getInstance()->play("newline");
 }
 
 void CourseGame::handleEvents(sf::Event event)
@@ -174,7 +174,7 @@ void CourseGame::textEnteredEvent(wchar_t typedLetter)
             int omittedLetters = dictionary_.getLines()[currentLine_].size() - currentletterInLine_;
             kb_.omit(omittedLetters);
             newLine();
-            SoundPlayer::get().play("newline");
+            SoundPlayer::getInstance()->play("newline");
             LOG_DEBUG("NEWLINE OMIT");
         }
         else
@@ -190,11 +190,11 @@ void CourseGame::textEnteredEvent(wchar_t typedLetter)
         {
             if (typedLetter == nextLetter_)
             {
-            	SoundPlayer::get().play("keytype");
+            	SoundPlayer::getInstance()->play("keytype");
             }
             else
             {
-            	SoundPlayer::get().play("mistake");
+            	SoundPlayer::getInstance()->play("mistake");
             }
 
             typingTextLine_.push_back(typedLetter);
@@ -213,7 +213,7 @@ void CourseGame::textEnteredEvent(wchar_t typedLetter)
             }
             else
             {
-            	SoundPlayer::get().play("mistake");
+            	SoundPlayer::getInstance()->play("mistake");
                 newLine();
                 // that was last letter, go to new line this means that was last letter in 
                 // last line in course and it's incorrect, but dont count mistake
