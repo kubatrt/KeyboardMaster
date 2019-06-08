@@ -71,7 +71,7 @@ MainMenu::MainMenu(fw::GameBase& game)
     buttonWriting->setFunction([&] ()
     {
         auto randomArticle = fw::RandomMachine::getRange<int>(0, articleFilesCount - 1);
-        game_.pushState<WritingGame>(game_, /*articleFiles[randomArticle]*/ "data/art_02.txt");
+        game_.pushState<WritingGame>(game_, articleFiles[randomArticle]);
     });
 
     auto buttonQuit = std::make_unique<fw::gui::Button>();
@@ -114,7 +114,7 @@ void MainMenu::draw(sf::RenderTarget& renderer)
 {
 	renderer.draw(backgroundSprite_);
 	renderer.draw(informationText_);
-	renderer.draw(sprite_);
+	//renderer.draw(sprite_);
     menu_.draw(renderer);
 }
 
