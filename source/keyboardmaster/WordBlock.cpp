@@ -27,6 +27,11 @@ WordBlock::WordBlock(float x, std::wstring word, float velocityY)
     , velocity_(sf::Vector2f(0, velocityY))
     , isAlive_(true)
 {
+	meteorSprite_.setTexture(framework::ResourceHolder::get().textures.get("meteorBrown"));
+	meteorSprite_.setOrigin(0,0);
+	meteorSprite_.setPosition(x, 0);
+
+	wordText_.setOrigin(0,0);
     wordText_.setFont(framework::ResourceHolder::get().fonts.get("arial"));
     wordText_.setString(word);
     wordText_.setCharacterSize(CHAR_FONT_SIZE);
@@ -42,6 +47,7 @@ WordBlock::WordBlock(float x, std::wstring word, float velocityY)
     shape_.setPosition(x, 0.f);
     shape_.setFillColor(shapeColor);
     shape_.setSize(shapeSize);
+
 	LOG_DEBUG("WordBlock CTOR: " << word << " pos: " << x << " vel: " << velocityY);
 }
 
@@ -61,12 +67,14 @@ WordBlock::~WordBlock()
 void WordBlock::update(sf::Time deltaTime)
 {
     shape_.move(velocity_);
+    meteorSprite_.move(velocity_);
     wordText_.move(velocity_);
 }
 
 void WordBlock::draw(sf::RenderTarget& renderer)
 {
-    renderer.draw(shape_);
+    //renderer.draw(shape_);
+	renderer.draw(meteorSprite_);
     renderer.draw(wordText_);
 }
 

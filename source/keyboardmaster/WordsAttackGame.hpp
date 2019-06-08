@@ -5,6 +5,7 @@
 #include "WordBlock.hpp"
 #include "Dictionary.hpp"
 #include "Scheduler.hpp"
+#include "SpaceShip.hpp"
 
 namespace km
 {
@@ -27,6 +28,7 @@ private:
     void addScore(int wordLength);
     void spawnWordBlock();
 
+    SpaceShip spaceship_;
     std::vector<std::unique_ptr<WordBlock>> wordBlocks_;
     Dictionary dictionary_;
 

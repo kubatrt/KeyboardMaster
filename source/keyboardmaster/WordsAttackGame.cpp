@@ -31,6 +31,7 @@ WordsAttackGame::WordsAttackGame(fw::GameBase& game, const AssetName dictionaryF
     , spawnInterval_(sf::seconds(SpawnInterval))
 	, spawnScheduler_(sf::seconds(SpawnInterval))
 	, spawnDecrementScheduler_(sf::seconds(IntervalDecrementTreshold))
+	, spaceship_()
 {
 	backgroundSpriteUI_.setTexture(fw::ResourceHolder::get().textures.get("deep-blue-space"));
 
@@ -173,6 +174,7 @@ void WordsAttackGame::enterWord(std::wstring word)
     {
         if (wb->getWord() == word)
         {
+        	spaceship_.setTargetX(wb->getPosition().x);
             wb->setAlive(false);
             addScore(wb->getWordLength());
             break;
@@ -183,11 +185,16 @@ void WordsAttackGame::enterWord(std::wstring word)
 
 void WordsAttackGame::update(sf::Time deltaTime)
 {
+	spaceship_.update(deltaTime);
+
 	if(gameOver)
 		return;
 
     if(lives == 0)
+    {
         gameOver = true;
+        spaceship_.kill();
+    }
 
 	gameTime_ += deltaTime;
 	spawnScheduler_.update();
@@ -228,6 +235,7 @@ void WordsAttackGame::draw(sf::RenderTarget& renderer)
         }
         renderer.draw(typingTextUI_);
     }
+   	spaceship_.draw(renderer);
 
     renderer.draw(timerTextUI_);
     renderer.draw(scoreTextUI_);
