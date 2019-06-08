@@ -47,6 +47,10 @@ private:
 	    sounds_["bell"] 		= fw::ResourceHolder::get().sounds.get("bell");
 	    sounds_["metro_bar"] 	= fw::ResourceHolder::get().sounds.get("metro_bar");
 	    sounds_["metro_beat"] 	= fw::ResourceHolder::get().sounds.get("metro_beat");
+	    sounds_["bang"] 		= fw::ResourceHolder::get().sounds.get("bang");
+	    sounds_["pop"] 			= fw::ResourceHolder::get().sounds.get("pop");
+	    sounds_["tap"] 			= fw::ResourceHolder::get().sounds.get("tap");
+	    sounds_["reveal"] 		= fw::ResourceHolder::get().sounds.get("reveal");
 	}
 
 	std::map<std::string, sf::SoundBuffer> sounds_;
