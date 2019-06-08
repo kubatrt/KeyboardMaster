@@ -19,15 +19,26 @@ public:
     	LOG_DEBUG("Scheduler CTOR tresh:" << treshold.asSeconds() );
     }
 
-    void setCallback(std::function<void()> callback) { callback_ = callback; }
-
+    Scheduler& setCallback(std::function<void()> callback) { callback_ = callback; return *this; }
+    void setTreshold(const sf::Time treshold) { treshold_ = treshold; }
     bool isStarted() const { return started_; }
     bool isDone() const { return done_; }
+
+    void reset()
+    {
+    	started_= false;
+    	done_ = false;
+    }
+
+    void restart()
+    {
+    	reset();
+    	start();
+    }
 
     void start()
     {
         started_ = true;
-        done_ = false;
         timer_.restart();
         LOG_DEBUG("Scheduler start");
     }

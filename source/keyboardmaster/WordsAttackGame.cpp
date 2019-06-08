@@ -10,28 +10,34 @@ namespace km
 
 namespace
 {
-std::array<float, 9> SpawnHorizontalPositions = { 0.f, 100.f, 200.f, 300.f, 400.f, 500.f, 600.f, 700.f, 800.f };
+//std::array<float, 9> SpawnHorizontalPositions = { 0.f, 100.f, 200.f, 300.f, 400.f, 500.f, 600.f, 700.f, 800.f };
 constexpr float MaxSpawnHorizontalPosition = 800.f;
-std::array<float, 3> VelocityTable = { 1.f, 1.5f, 2.f };
+std::array<float, 3> VelocityTable = { 1.5f, 1.75f, 2.f };
 
 constexpr float MaxVerticalVelocity = 2.f;
 constexpr float MinVerticalVelocity = 1.f;
 constexpr int ScoreMultiplier = 10;
+
+constexpr float MinSpawnInterval = 0.5f;
 constexpr float SpawnInterval = 0.8f;
+constexpr float IntervalDecrementStep = 0.05f;
+constexpr float IntervalDecrementTreshold = 5.0f; //	change every 5 seconds
 //constexpr float MinSpawnInterval = 0.5f;
 }
 
-WordsAttackGame::WordsAttackGame(fw::GameBase& game)
+WordsAttackGame::WordsAttackGame(fw::GameBase& game, const AssetName dictionaryFile)
     : StateBase(game)
-    , dictionary_("data/words_01")
+    , dictionary_(dictionaryFile)
     , spawnInterval_(sf::seconds(SpawnInterval))
+	, spawnScheduler_(sf::seconds(SpawnInterval))
+	, spawnDecrementScheduler_(sf::seconds(IntervalDecrementTreshold))
 {
 	backgroundSpriteUI_.setTexture(fw::ResourceHolder::get().textures.get("deep-blue-space"));
 
     typingTextUI_.setCharacterSize(24);
     typingTextUI_.setFillColor(sf::Color::Yellow);
     typingTextUI_.setPosition({50.f,(float)game.getWindow().getSize().y - 50 });
-    typingTextUI_.setString("typingText");
+    typingTextUI_.setString("");
     typingTextUI_.setFont(fw::ResourceHolder::get().fonts.get("arial"));
 
 
@@ -54,21 +60,35 @@ WordsAttackGame::WordsAttackGame(fw::GameBase& game)
     gameOverTextUI_.setCharacterSize(48);
     gameOverTextUI_.setFillColor(sf::Color::Magenta);
     gameOverTextUI_.setPosition({ game.getWindow().getSize().x /2.f - 150.f, game.getWindow().getSize().y / 2.f - 50.f});
-    gameOverTextUI_.setString("Game Over");
+    gameOverTextUI_.setString("Koniec!");
     gameOverTextUI_.setFont(fw::ResourceHolder::get().fonts.get("arial"));
 
     horizontalLineUI_.setSize(sf::Vector2f(1024, 2));
     horizontalLineUI_.setPosition({0, (float)game.getWindow().getSize().y - 20});
 
-    spawnWordBlock();
+    spawnScheduler_.setCallback(
+    	[&]() {
+    	spawnWordBlock();
+    	spawnScheduler_.restart();
+    });
+    spawnScheduler_.start();
+
+    spawnDecrementScheduler_.setCallback(
+    	[&]() {
+    	spawnInterval_ -= sf::seconds(IntervalDecrementStep);
+    	spawnScheduler_.setTreshold(spawnInterval_);
+    	spawnDecrementScheduler_.restart();
+    	LOG_DEBUG(">>> Increse speed: " << spawnInterval_.asSeconds());
+    });
+    spawnDecrementScheduler_.start();
+
+    spawnWordBlock();	// spawn first
 }
 
 void WordsAttackGame::spawnWordBlock()
 {
     if((wordBlocks_.size() >= maxWordsInGame) || gameOver)
         return;
-
-    spawnClock_.restart();
 
     int wordLength = fw::RandomMachine::getRange(dictionary_.getShortestWord(), dictionary_.getLongestWord());
     std::wstring word = dictionary_.getRandomWord(wordLength);
@@ -80,7 +100,7 @@ void WordsAttackGame::spawnWordBlock()
     // TODO: so ugly, use range transformation for this!
     if(word.length() < 4)
     	verticalVelocity = VelocityTable[2];
-    else if(word.length() >= 4 && word.length() <= 7)
+    else if(word.length() >= 4 && word.length() <= 5)
     	verticalVelocity = VelocityTable[1];
     else
     	verticalVelocity = VelocityTable[0];
@@ -166,33 +186,29 @@ void WordsAttackGame::update(sf::Time deltaTime)
 	if(gameOver)
 		return;
 
-	gameTime_ += deltaTime;
-
     if(lives == 0)
         gameOver = true;
 
-    if (spawnClock_.getElapsedTime() >= spawnInterval_)
-    {
-        spawnClock_.restart();
-        spawnWordBlock();
-    }
+	gameTime_ += deltaTime;
+	spawnScheduler_.update();
+	spawnDecrementScheduler_.update();
 
+    // Remove marked blocks
     wordBlocks_.erase(std::remove_if(std::begin(wordBlocks_), std::end(wordBlocks_),
         [] (const auto& block) { return !block->isAlive(); }), std::end(wordBlocks_));
 
-    for (auto &wb : wordBlocks_)
+    for (auto &wordBlock : wordBlocks_)
     {
-        if(wb->getShape().getGlobalBounds().intersects(horizontalLineUI_.getGlobalBounds()))
+        if(wordBlock->getShape().getGlobalBounds().intersects(horizontalLineUI_.getGlobalBounds()))
         {
-            wb->setAlive(false);
+            wordBlock->setAlive(false);
             lives--;
         }
-
-        wb->update(deltaTime);
+        wordBlock->update(deltaTime);
     }
 
     typingTextUI_.setString(typedWord_);
-    timerTextUI_.setString(L"Czas: " + std::to_wstring(gameTime_.asSeconds()));
+    timerTextUI_.setString(L"Czas: " + std::to_wstring(static_cast<int>(gameTime_.asSeconds())) );
     scoreTextUI_.setString(L"Punkty: " + std::to_wstring(score_));
     livesTextUI_.setString(L"Życia: " + std::to_wstring(lives));
 }

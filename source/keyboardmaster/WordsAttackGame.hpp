@@ -4,6 +4,7 @@
 #include "frameworkLib/StateBase.hpp"
 #include "WordBlock.hpp"
 #include "Dictionary.hpp"
+#include "Scheduler.hpp"
 
 namespace km
 {
@@ -13,7 +14,7 @@ namespace fw = framework;
 class WordsAttackGame : public fw::StateBase
 {
 public:
-    WordsAttackGame(fw::GameBase& game);
+    WordsAttackGame(fw::GameBase& game, const AssetName dictionaryFile);
 
     void handleEvents(sf::Event e) override;
     void update(sf::Time deltaTime) override;
@@ -34,11 +35,14 @@ private:
 
     int score_ = 0;
     int lives = 3;
-    bool gameOver = false;
-    int missedWords = 0;
     int maxWordsInGame = 10;
+
+    int missedWords = 0;
     int wordsInGame = 0;
+    bool gameOver = false;
     
+    Scheduler spawnScheduler_;
+    Scheduler spawnDecrementScheduler_;
     sf::Clock spawnClock_;
     sf::Time spawnInterval_;
     sf::Time gameTime_;

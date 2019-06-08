@@ -39,7 +39,7 @@ MainMenu::MainMenu(fw::GameBase& game)
 	informationText_.setFillColor(sf::Color::White);
 	informationText_.setPosition(20, 660);
 	informationText_.setCharacterSize(18);
-	informationText_.setString(L"F1 - włącz metronom\nF12 - pełny ekran\nESC - powrót\\wyjście");
+	informationText_.setString(L"F1 - włącz metronom F2 - wolniej F3 - szybciej \nF12 - pełny ekran\nESC - powrót\\wyjście");
 
 
     auto buttonCourse = std::make_unique<fw::gui::Button>();
@@ -53,7 +53,7 @@ MainMenu::MainMenu(fw::GameBase& game)
     buttonWordsAttack->setText(L"Atak słów!");
     buttonWordsAttack->setFunction([&] ()
     {
-        game_.pushState<WordsAttackGame>(game_);
+        game_.pushState<WordsAttackGame>(game_, "data/words_01");
     });
 
     auto buttonGallery = std::make_unique<fw::gui::Button>();
