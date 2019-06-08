@@ -38,7 +38,6 @@ GalleryGame::GalleryGame(fw::GameBase& game, uint rows, uint cols, AssetName pic
 
 void GalleryGame::handleEvents(sf::Event e)
 {
-    // handle events
     switch (e.type)
     {
     case sf::Event::KeyPressed:
@@ -91,8 +90,7 @@ void GalleryGame::update(sf::Time deltaTime)
     timerTextUI_.setString(std::to_string(
     		static_cast<int>(gameTime_.asSeconds())));
 
-    // better handling...
-    // GameOver
+    // GameOver	// TODO: better handling...
     if (picture_.isComplete())
     {
         gameOver_ = true;
@@ -110,7 +108,7 @@ void GalleryGame::update(sf::Time deltaTime)
     	gameOver_ = true;
     	//picture_.setVisible(true);
     	std::stringstream ss;
-		ss 	<< "PRZEGRANA! : " << std::to_string(picture_.reveleadElementsCount()) << " / "
+		ss 	<< "KONIEC! : " << std::to_string(picture_.reveleadElementsCount()) << " / "
 			<< std::to_string(picture_.elementsCount())
 			<< " CZAS: " << static_cast<int>(gameTime_.asSeconds());
 		gameOverTextUI_.setString(ss.str());

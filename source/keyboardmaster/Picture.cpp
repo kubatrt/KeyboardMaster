@@ -114,9 +114,9 @@ void Picture::update(sf::Time deltaTime)
         element->update(deltaTime);
     }
 
+    // missed beacause of elapsed time
     if(elements_.at(activeIndex_)->isMissed())
     {
-    	// missed beacause of elapsed time
     	SoundPlayer::getInstance()->play("mistake");
     	nextPictureElement();
     }

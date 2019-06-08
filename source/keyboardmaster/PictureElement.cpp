@@ -6,7 +6,7 @@ namespace km
 
 namespace
 {
-constexpr float ExpirationTimeFactor = 1.5f;
+constexpr float ExpirationTimeFactor = 1.3f;
 constexpr int FontSize = 22;
 }
 
