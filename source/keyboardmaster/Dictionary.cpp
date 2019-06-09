@@ -4,25 +4,18 @@
 namespace km
 {
 
-namespace
-{
-constexpr unsigned DEFAULT_SHORTEST_WORD = 3;
-constexpr unsigned DEFAULT_LONGEST_WORD = 8;
-}
-
 Dictionary::Dictionary(FilePath filePath)
-    : shortestWord_(DEFAULT_SHORTEST_WORD)
-    , longestWord_(DEFAULT_LONGEST_WORD)
+    : shortestWord_(0)
+    , longestWord_(0)
     , lettersCount_(0)
     , wordsCount_(0)
 {
     loadFromFile(filePath);
 
-    LOG_INFO(
-    		"DICTIONARY CTOR: " << filePath.c_str() << std::endl
-			<< "letters count: " << lettersCount_ << std::endl
-			<< "longest word: " << longestWord_ << std::endl
-			<< "shortest word: " << shortestWord_)
+    LOG_INFO("DICTIONARY CTOR: " << filePath.c_str() << std::endl
+				<< "letters count: " << lettersCount_ << std::endl
+				<< "longest word: " << longestWord_ << std::endl
+				<< "shortest word: " << shortestWord_)
 }
 
 void Dictionary::loadFromFile(FilePath filePath)
@@ -67,16 +60,22 @@ std::wstring Dictionary::debugAllWordsString()
 
 std::wstring Dictionary::getRandomWord()
 {
-    return wordsAll_.at( fw::RandomMachine::getRange<size_t>(0, wordsAll_.size() - 1) );
+    return wordsAll_.at( fw::RandomMachine::getRange<size_t>(0, wordsAll_.size()-1) );
 }
 
 std::wstring Dictionary::getRandomWord(int length)
 {
-    if(length == getLongestWord())
-        length--;
-    return wordsByLength_[length].at(
+    if(length > getLongestWord())
+        length = getLongestWord();
+    if(length < getShortestWord())
+    	length = getShortestWord();
+
+    // workaround, if no word with specified length, chose lower bound
+    if(wordsByLength_[length].size() == 0)
+    	length = *availableWordsLength_.lower_bound(length);
+
+	return wordsByLength_[length].at(
             fw::RandomMachine::getRange<size_t>(0, wordsByLength_[length].size() - 1));
-    
 }
 
 void Dictionary::prepareLines()
@@ -104,10 +103,27 @@ void Dictionary::prepareWords()
     {
         if (*it == ' ' || *it == '\n')
         {
-            if (buffer.length() > longestWord_)
-                longestWord_ = buffer.length();
-            if (buffer.length() != 0 && buffer.length() < shortestWord_)
-                shortestWord_ = buffer.length();
+        	auto bufferWordLength = buffer.length();
+        	availableWordsLength_.emplace(bufferWordLength);
+
+        	// initialize, assign the first word
+        	if(shortestWord_ == 0)
+        	{
+        		shortestWord_ = bufferWordLength;
+        	}
+        	if(longestWord_ == 0)
+        	{
+        		longestWord_ = bufferWordLength;
+        	}
+
+            if (bufferWordLength > longestWord_)
+            {
+                longestWord_ = bufferWordLength;
+            }
+            if (bufferWordLength < shortestWord_)
+            {
+                shortestWord_ = bufferWordLength;
+            }
 
             wordsCount_++;
             words_.insert(buffer);

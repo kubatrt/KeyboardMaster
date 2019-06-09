@@ -60,17 +60,12 @@ public:
 
 		if(isAlive_)
 		{
-			//if(shipSprite_.getPosition().x )
 			// Stop ship
 			unsigned distance = std::abs( shipSprite_.getPosition().x - targetX_);
 			if(distance < 10)
 			{
 				moving_ = false;
 			}
-
-			LOG_CRITICAL("abs: " << distance);
-			LOG_CRITICAL("position.x: " << shipSprite_.getPosition().x);
-			LOG_CRITICAL("targetX: " << targetX_);
 
 			if(moving_)
 				shipSprite_.move(velocity_);

@@ -52,6 +52,7 @@ private:
     unsigned int longestWord_;
     unsigned int shortestWord_;
 
+    std::set <unsigned int> availableWordsLength_;
     std::wstring textFromFile_; // whole text as an one string
     std::vector <std::wstring> lines_; // arrays of lines from file
     std::set <std::wstring> words_; // each readed from file
