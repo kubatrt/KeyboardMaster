@@ -1,2 +1,20 @@
-﻿To jest test.
-Który musi się udać.
+﻿Szukasz efektywnego sposobu na stworzenie nowego produktu? Chciałbyś wiedzieć,
+gdzie naprawdę jesteście w dowolnym momencie? Chciałbyś móc reagować na zmiany
+otoczenia, rynku czy oczekiwań klienta? Chciałbyś wykorzystać wiedzę, którą
+będziesz zdobywał w miarę rozwoju produktu? A może ilość niewiadomych i ryzyk
+jest tak duża, że ciężko zaplanować wszystkie aktywności? Jeżeli na choć jedno
+pytanie odpowiedziałeś tak, to Scrum jest prawdopodobnie tym, czego szukasz.
+Na początku służył do tworzenia produktów informatycznych, ale dzięki swojej
+prostocie i skuteczności zdobywa coraz większą popularność również poza IT,
+gdzie jest wykorzystywany do tworzenia nowych produktów i usług.
+Scrum to Zwinne (Agile) podejście do tworzenia nowego produktu. Produktem jest
+często oprogramowanie, ale może to być dowolna rzecz, która ma dla kogoś
+wartość. Na przykład kampania marketingowa, konferencja, video podcast albo
+samochód. Scrum opiera się na dostarczaniu produkt w małych przyrostach,
+co powoduje, że w dowolnym momencie wiemy gdzie jesteśmy i mamy działającą 
+wersję produktu. Scrum bazuje na pracy zespołu, który ma wszystkie niezbędne
+umiejętności i zasoby, żeby ten produkt dostarczyć. A jak nie ma, to chcemy,
+żeby je zdobył. Czyli najczęściej członkowie zespołu będą mieli różne,
+uzupełniające się kompetencje - na przykład analiza, programowanie i
+testowanie. Zespół nazywamy Deweloperskim, bo jest odpowiedzialny za
+dewelopowanie, czyli rozwój tego produktu.
