@@ -39,30 +39,36 @@ WordsAttackGame::WordsAttackGame(fw::GameBase& game, const AssetName dictionaryF
     typingTextUI_.setFillColor(sf::Color::Yellow);
     typingTextUI_.setPosition({50.f,(float)game.getWindow().getSize().y - 50 });
     typingTextUI_.setString("");
-    typingTextUI_.setFont(fw::ResourceHolder::get().fonts.get("arial"));
+    typingTextUI_.setStyle(sf::Text::Bold);
+    typingTextUI_.setFont(fw::ResourceHolder::get().fonts.get("CourierNew"));
 
 
     timerTextUI_.setCharacterSize(24);
     timerTextUI_.setFillColor(sf::Color::Cyan);
-    timerTextUI_.setPosition({game.getWindow().getSize().x - 200.f, 10.f});
-    timerTextUI_.setFont(fw::ResourceHolder::get().fonts.get("arial"));
+    timerTextUI_.setStyle(sf::Text::Bold);
+    timerTextUI_.setPosition({game.getWindow().getSize().x - 200.f, 510.f});
+    timerTextUI_.setFont(fw::ResourceHolder::get().fonts.get("CourierNew"));
 
 
     scoreTextUI_.setCharacterSize(24);
     scoreTextUI_.setFillColor(sf::Color::Yellow);
-    scoreTextUI_.setPosition({game.getWindow().getSize().x - 200.f, 50.f});
-    scoreTextUI_.setFont(fw::ResourceHolder::get().fonts.get("arial"));
+    scoreTextUI_.setStyle(sf::Text::Bold);
+    scoreTextUI_.setPosition({game.getWindow().getSize().x - 200.f, 550.f});
+    scoreTextUI_.setFont(fw::ResourceHolder::get().fonts.get("CourierNew"));
 
     livesTextUI_.setCharacterSize(24);
     livesTextUI_.setFillColor(sf::Color::Red);
-    livesTextUI_.setPosition({ game.getWindow().getSize().x - 200.f, 90.f });
-    livesTextUI_.setFont(fw::ResourceHolder::get().fonts.get("arial"));
+    livesTextUI_.setStyle(sf::Text::Bold);
+    livesTextUI_.setPosition({ game.getWindow().getSize().x - 200.f, 590.f });
+    livesTextUI_.setFont(fw::ResourceHolder::get().fonts.get("CourierNew"));
 
     gameOverTextUI_.setCharacterSize(48);
     gameOverTextUI_.setFillColor(sf::Color::Magenta);
-    gameOverTextUI_.setPosition({ game.getWindow().getSize().x /2.f - 150.f, game.getWindow().getSize().y / 2.f - 50.f});
+    gameOverTextUI_.setPosition(
+    		{ game.getWindow().getSize().x /2.f - gameOverTextUI_.getGlobalBounds().width / 2.f ,
+    		game.getWindow().getSize().y / 2.f - gameOverTextUI_.getGlobalBounds().height / 2.f});
     gameOverTextUI_.setString("Koniec!");
-    gameOverTextUI_.setFont(fw::ResourceHolder::get().fonts.get("arial"));
+    gameOverTextUI_.setFont(fw::ResourceHolder::get().fonts.get("CourierNew"));
 
     horizontalLineUI_.setSize(sf::Vector2f(1024, 2));
     horizontalLineUI_.setPosition({0, (float)game.getWindow().getSize().y - 20});
@@ -223,6 +229,8 @@ void WordsAttackGame::update(sf::Time deltaTime)
 void WordsAttackGame::draw(sf::RenderTarget& renderer)
 {
 	renderer.draw(backgroundSpriteUI_);
+	spaceship_.draw(renderer);
+
     if(gameOver)
     {
         renderer.draw(gameOverTextUI_);
@@ -235,7 +243,7 @@ void WordsAttackGame::draw(sf::RenderTarget& renderer)
         }
         renderer.draw(typingTextUI_);
     }
-   	spaceship_.draw(renderer);
+
 
     renderer.draw(timerTextUI_);
     renderer.draw(scoreTextUI_);

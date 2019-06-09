@@ -22,6 +22,11 @@ sf::Color WordsLengthToColorTable[10] = {
 
 }
 
+/* Center texts
+ * In SFML text_width would be text.getGlobalBounds().width. Essentially Thomas Matthews' formula would be
+ * text.setPositon( sf::Vector2f(position.x / 2 - text.getGlobalBounds().width / 2, position.y));
+ */
+
 WordBlock::WordBlock(float x, std::wstring word, float velocityY)
     : word_(word)
     , velocity_(sf::Vector2f(0, velocityY))
@@ -31,13 +36,15 @@ WordBlock::WordBlock(float x, std::wstring word, float velocityY)
 	meteorSprite_.setOrigin(0,0);
 	meteorSprite_.setPosition(x, 0);
 
-	wordText_.setOrigin(0,0);
+	sf::Vector2f spriteMid = {meteorSprite_.getLocalBounds().width / 2.f, meteorSprite_.getGlobalBounds().height / 2.f};
+	wordText_.setOrigin(spriteMid.x, 0);
+	wordText_.setPosition(x + spriteMid.x, spriteMid.y / 2.f);
     wordText_.setFont(framework::ResourceHolder::get().fonts.get("arial"));
     wordText_.setString(word);
     wordText_.setCharacterSize(CHAR_FONT_SIZE);
     wordText_.setFillColor(sf::Color::White);
     wordText_.setStyle(sf::Text::Bold);
-    wordText_.setPosition(static_cast<float>(x), 0.f);
+
 
     auto shapeSize = sf::Vector2f(
     		static_cast<float>(word.length() * CHAR_WIDTH + 2),
