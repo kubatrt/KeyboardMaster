@@ -45,7 +45,7 @@ public:
             Resource fail;
             fail.loadFromFile(folder_ + "_fail_" + extension_);
             resources_.insert(std::make_pair(name, fail));
-            LOG_INFO("FAIL to load resource: " << getFullname(name).c_str());
+            LOG_CRITICAL("FAIL to load resource: " << getFullname(name).c_str());
         }
         else
         {

@@ -23,17 +23,18 @@ public:
 
 	void play(const std::string sound)
 	{
-	    if (sounds_.count(sound))
-	    {
-	        sound_.setBuffer(sounds_[sound]);
-	        sound_.play();
-	    }
+		if (!sounds_.count(sound))
+		{
+			sounds_[sound] = fw::ResourceHolder::get().sounds.get(sound);
+		}
+		sound_.setBuffer(sounds_[sound]);
+		sound_.play();
 
 	}
 
 	SoundPlayer()
 	{
-	    sounds_["keytype"] 		= fw::ResourceHolder::get().sounds.get("keytype");
+	    /*sounds_["keytype"] 		= fw::ResourceHolder::get().sounds.get("keytype");
 	    sounds_["mistake"] 		= fw::ResourceHolder::get().sounds.get("mistake");
 	    sounds_["newline"] 		= fw::ResourceHolder::get().sounds.get("newline");
 	    sounds_["bell"] 		= fw::ResourceHolder::get().sounds.get("bell");
@@ -42,7 +43,7 @@ public:
 	    sounds_["bang"] 		= fw::ResourceHolder::get().sounds.get("bang");
 	    sounds_["pop"] 			= fw::ResourceHolder::get().sounds.get("pop");
 	    sounds_["tap"] 			= fw::ResourceHolder::get().sounds.get("tap");
-	    sounds_["reveal"] 		= fw::ResourceHolder::get().sounds.get("reveal");
+	    sounds_["reveal"] 		= fw::ResourceHolder::get().sounds.get("reveal");*/
 	}
 
 private:
