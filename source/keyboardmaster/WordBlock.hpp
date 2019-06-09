@@ -22,6 +22,7 @@ public:
     WordBlock& operator=(const WordBlock&);
     ~WordBlock();
 
+    const sf::Vector2f getPosition() { return meteorSprite_.getPosition(); }
     sf::RectangleShape getShape() const { return shape_; }
     void setAlive(bool alive) { isAlive_ = alive; }
     bool isAlive() const { return isAlive_; }
@@ -33,6 +34,7 @@ public:
     void draw(sf::RenderTarget& renderer);
 
 private:
+    sf::Sprite meteorSprite_;
     sf::RectangleShape shape_;
     sf::Text wordText_;
     sf::Vector2f velocity_;
