@@ -8,7 +8,7 @@
 // (3) info
 // (2) debug
 // (1) critical
-#define LOG_LEVEL 1
+#define LOG_LEVEL 3
 
 #define LOG_CRITICAL(msg) if(LOG_LEVEL >= 1) std::wcerr << " (DEBUG): " << msg << std::endl;
 #define LOG_DEBUG(msg) if(LOG_LEVEL >= 2) std::wcerr << " (DEBUG): " << msg << std::endl;

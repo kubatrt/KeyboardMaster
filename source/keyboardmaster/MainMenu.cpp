@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <memory>
+#include <iterator>
 
 #include "MainMenu.hpp"
 #include "CourseGame.hpp"
@@ -54,24 +55,26 @@ MainMenu::MainMenu(fw::GameBase& game)
     buttonWordsAttack->setText(L"Atak słów!");
     buttonWordsAttack->setFunction([&] ()
     {
-        game_.pushState<WordsAttackGame>(game_, "data/words_01");
+    	auto randomWordsSet = framework::RandomMachine::getRange<int>(0, std::size(assets::wordsFiles)-1);
+        game_.pushState<WordsAttackGame>(game_, assets::wordsFiles[randomWordsSet]);
     });
 
     auto buttonGallery = std::make_unique<fw::gui::Button>();
     buttonGallery->setText(L"Galeria");
     buttonGallery->setFunction([&] ()
     {
-    	auto randomPicture = framework::RandomMachine::getRange<int>(0, pictureFilesCount - 1);
+    	auto randomPicture = framework::RandomMachine::getRange<int>(0, std::size(assets::pictureFiles)-1);
+    	auto randomWordsSet = framework::RandomMachine::getRange<int>(0, std::size(assets::wordsFiles)-1);
         game_.pushState<GalleryGame>(game_, GalleryGameRows, GalleryGameColumns,
-        		pictureFiles[randomPicture], "data/words_01");
+        		assets::pictureFiles[randomPicture], assets::wordsFiles[randomWordsSet]);
     });
 
     auto buttonWriting = std::make_unique<fw::gui::Button>();
     buttonWriting->setText(L"Praktyka pisania");
     buttonWriting->setFunction([&] ()
     {
-        auto randomArticle = fw::RandomMachine::getRange<int>(0, articleFilesCount - 1);
-        game_.pushState<WritingGame>(game_, articleFiles[randomArticle]);
+        auto randomArticle = fw::RandomMachine::getRange<int>(0, std::size(assets::articleFiles)-1);
+        game_.pushState<WritingGame>(game_, assets::articleFiles[randomArticle]);
     });
 
     auto buttonQuit = std::make_unique<fw::gui::Button>();
