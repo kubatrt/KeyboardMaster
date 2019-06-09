@@ -12,17 +12,16 @@ namespace
 {
 //std::array<float, 9> SpawnHorizontalPositions = { 0.f, 100.f, 200.f, 300.f, 400.f, 500.f, 600.f, 700.f, 800.f };
 constexpr float MaxSpawnHorizontalPosition = 800.f;
-std::array<float, 3> VelocityTable = { 1.5f, 1.75f, 2.f };
+std::array<float, 3> VelocityTable = { 1.5f, 2.f, 2.5f };
 
 constexpr float MaxVerticalVelocity = 2.f;
 constexpr float MinVerticalVelocity = 1.f;
 constexpr int ScoreMultiplier = 10;
 
 constexpr float MinSpawnInterval = 0.5f;
-constexpr float SpawnInterval = 0.8f;
-constexpr float IntervalDecrementStep = 0.05f;
-constexpr float IntervalDecrementTreshold = 5.0f; //	change every 5 seconds
-//constexpr float MinSpawnInterval = 0.5f;
+constexpr float SpawnInterval = 1.f;
+constexpr float IntervalDecrementTreshold = 5.0f; // change every 5 seconds
+constexpr float IntervalDecrementStep = 0.05f;	// by step
 }
 
 WordsAttackGame::WordsAttackGame(fw::GameBase& game, const AssetName dictionaryFile)
@@ -62,10 +61,12 @@ WordsAttackGame::WordsAttackGame(fw::GameBase& game, const AssetName dictionaryF
     livesTextUI_.setPosition({ game.getWindow().getSize().x - 200.f, 590.f });
     livesTextUI_.setFont(fw::ResourceHolder::get().fonts.get("CourierNew"));
 
+
     gameOverTextUI_.setCharacterSize(48);
-    gameOverTextUI_.setFillColor(sf::Color::Magenta);
+    gameOverTextUI_.setFillColor(sf::Color::White);
+    gameOverTextUI_.setStyle(sf::Text::Bold);
     gameOverTextUI_.setPosition(
-    		{ game.getWindow().getSize().x /2.f - gameOverTextUI_.getGlobalBounds().width / 2.f ,
+    		{ game.getWindow().getSize().x / 2.f - gameOverTextUI_.getGlobalBounds().width / 2.f,
     		game.getWindow().getSize().y / 2.f - gameOverTextUI_.getGlobalBounds().height / 2.f});
     gameOverTextUI_.setString("Koniec!");
     gameOverTextUI_.setFont(fw::ResourceHolder::get().fonts.get("CourierNew"));
@@ -112,8 +113,8 @@ void WordsAttackGame::spawnWordBlock()
     else
     	verticalVelocity = VelocityTable[0];
 
-    // Randomize it by 10 step,
-    float randomHorizontalPosition = static_cast<float>(fw::RandomMachine::getRange(1, 10) / 10.f) * MaxSpawnHorizontalPosition;
+    // Randomize it by 20 step,
+    float randomHorizontalPosition = static_cast<float>(fw::RandomMachine::getRange(1, 20) / 20.f) * MaxSpawnHorizontalPosition;
 
     wordBlocks_.push_back(std::make_unique<WordBlock>(randomHorizontalPosition, word, verticalVelocity));
 }

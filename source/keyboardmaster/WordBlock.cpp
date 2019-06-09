@@ -34,7 +34,7 @@ WordBlock::WordBlock(float x, std::wstring word, float velocityY)
 {
 	meteorSprite_.setTexture(framework::ResourceHolder::get().textures.get("meteorBrown"));
 	meteorSprite_.setOrigin(0,0);
-	meteorSprite_.setPosition(x, 0);
+	meteorSprite_.setPosition(x, 0);	// fall off from behind the screen
 
 	sf::Vector2f spriteMid = {meteorSprite_.getLocalBounds().width / 2.f, meteorSprite_.getGlobalBounds().height / 2.f};
 	wordText_.setOrigin(spriteMid.x, 0);
@@ -51,7 +51,7 @@ WordBlock::WordBlock(float x, std::wstring word, float velocityY)
 			static_cast<float>(CHAR_HEIGHT + 2));
     auto shapeColor = WordsLengthToColorTable[std::clamp(static_cast<int>(word.length() - 2), 0, 9)];
 
-    shape_.setPosition(x, 0.f);
+    shape_.setPosition(x, 0);
     shape_.setFillColor(shapeColor);
     shape_.setSize(shapeSize);
 
