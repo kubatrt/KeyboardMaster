@@ -43,6 +43,7 @@ public:
 	    sounds_["pop"] 			= fw::ResourceHolder::get().sounds.get("pop");
 	    sounds_["tap"] 			= fw::ResourceHolder::get().sounds.get("tap");
 	    sounds_["reveal"] 		= fw::ResourceHolder::get().sounds.get("reveal");
+	    sounds_["explosion"] 	= fw::ResourceHolder::get().sounds.get("explosion");
 	}
 
 private:
