@@ -117,7 +117,7 @@ void MainMenu::draw(sf::RenderTarget& renderer)
 {
 	renderer.draw(backgroundSprite_);
 	renderer.draw(informationText_);
-	renderer.draw(sprite_);
+	//renderer.draw(sprite_);
     menu_.draw(renderer);
 }
 

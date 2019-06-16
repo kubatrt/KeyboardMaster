@@ -175,8 +175,8 @@ void WritingGame::textEnteredEvent(wchar_t typedLetter)
 
     setNextLetter();
     courseInputTextUI_[currentLine_].setString(typingTextLine_);
-    LOG_DEBUG("Next letter: " << nextLetter_);
-    LOG_DEBUG("Typing: " << typingTextLine_);
+    //LOG_DEBUG("Next letter: " << nextLetter_);
+    //LOG_DEBUG("Typing: " << typingTextLine_);
 }
 
 void WritingGame::newLine()
