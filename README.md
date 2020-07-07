@@ -1,6 +1,7 @@
-# keyboardmaster
-SFML CMake C++ project
+# RTS game
 
-Artykuły:
-25 linii
-80 znaków w linii
+# 2D game framework developnet
+
+# keyboardmaster
+
+Jakub Burzyński 2020

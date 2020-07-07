@@ -1,20 +1,22 @@
-#pragma once 
+#ifndef FRAMEWORK_TOGGLEKEY_H
+#define FRAMEWORK_TOGGLEKEY_H
 
-#include <SFML/Graphics.hpp>
 
-namespace framework
-{
+namespace framework {
 
-class ToggleKey
-{
-public:
-	ToggleKey(sf::Keyboard::Key);
+class ToggleKey {
+  public:
+    ToggleKey(sf::Keyboard::Key key);
 
-	bool isKeyPressed();
+    bool isKeyPressed();
 
-private:
-	sf::Keyboard::Key m_key;
-	sf::Clock delayTimer_;
+
+  private:
+    sf::Keyboard::Key m_key;
+
+    sf::Clock delayTimer_;
+
 };
 
-}
+} // namespace framework
+#endif
